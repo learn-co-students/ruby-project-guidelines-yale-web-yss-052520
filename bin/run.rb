@@ -1,6 +1,5 @@
 require_relative '../config/environment'
 
-# commit test
-
+# test is the second test
 
 puts "HELLO WORLD"
