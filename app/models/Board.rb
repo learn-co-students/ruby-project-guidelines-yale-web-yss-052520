@@ -26,8 +26,14 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
         end
     end
 
+    # Looks through coordinates stored in all pieces and “arrange” them in self.contents
     def update
-        
+        # Note
+            # Need to replace the current position with a blank space in the move function or we will need to
+            # add a prev_x and prev_y component to pieces so that we know to remove the moved checker
+            # piece from its old position in the configuration string 
+
+
 
     end
 
