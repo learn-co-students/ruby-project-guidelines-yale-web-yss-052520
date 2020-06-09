@@ -6,7 +6,7 @@ def available_countries
 end
 
 def country_prompt
-    available_countries_names = available_countries.map {|country| country["Country"]}
+    available_countries_names = available_countries.map {|country| country["Country"]}.sort
     country_name = $prompt.select('Choose your country! Type to filter', available_countries_names, filter: true)
 
     country_slug = available_countries.find {|country| country["Country"] == country_name}["Slug"]
