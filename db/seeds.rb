@@ -1,7 +1,10 @@
+Player.destroy_all
+Board.destroy_all
+
 alex = Player.create(name: "Alex")
-bob = Player.new(name: "Bob")
-cat = Player.new(name: "Cat")
-dan = Player.new(name: "Dan")
+bob = Player.create(name: "Bob")
+cat = Player.create(name: "Cat")
+dan = Player.create(name: "Dan")
 
 config1 = [
     "⬜⬛⬜⬛⬜⬛⬜⬛",
