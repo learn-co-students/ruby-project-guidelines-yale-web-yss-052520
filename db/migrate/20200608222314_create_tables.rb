@@ -13,7 +13,7 @@ class CreateTables < ActiveRecord::Migration[6.0]
     create_table :boards do |t| # boards table
 
       # representing current board configuration
-      t.string :content
+      t.string :content, :default => $CHECKERBOARD_INITIAL
       # stores left player instance id
       t.integer :l_player_id
       # stores right player instance id
