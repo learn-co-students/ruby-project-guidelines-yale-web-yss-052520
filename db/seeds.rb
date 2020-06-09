@@ -14,6 +14,8 @@ official2 = Official.create(name: "Hannah", location: "Princeton, NJ", email: "e
 Email.create(message: "body", subject: "BLM", link: "link.com", user_id: user1.id, official_id: official1.id)
 Email.create(message: "body2", subject: "Police brtality", link: "link2.com", user_id: user2.id, official_id: official2.id)
 
+url = "https://www.googleapis.com/civicinfo/v2/representatives"
+data = HTTParty.get(url)
 
 binding.pry
 0
