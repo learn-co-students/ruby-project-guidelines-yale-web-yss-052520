@@ -19,12 +19,36 @@ class List < ActiveRecord::Base
     Entry.all.select{|e| e.list == self}
   end
 
-  def books
-    entries.map{|e| e.book}
+  def books #returns an array of instances of books in the list
+    entries.map{|e| e.book}.uniq
   end
 
   def sort_by_title
     self.books.sort_by(&:title)
+  end
+
+  def sort_by_author
+    self.books.sort_by {|book| book.author.last_name}
+  end
+
+  # def sort_by_with_nil(attr)
+  #   self.books.reject{|b| b.attr.nil?}.sort_by(&:attr) +
+  #   self.books.select{|c| c.attr.nil?}
+  # end
+
+  def sort_by_genre
+    self.books.reject{|b| b.genre.nil?}.sort_by(&:genre) +
+    self.books.select{|c| c.genre.nil?}
+  end
+
+  def sort_by_year
+    self.books.reject{|b| b.genre.nil?}.sort_by(&:year) +
+    self.books.select{|c| c.genre.nil?}
+  end
+
+  def sort_by_year_desc
+    self.books.reject{|b| b.genre.nil?}.sort_by(&:year).reverse! +
+    self.books.select{|c| c.genre.nil?}
   end
 
 
