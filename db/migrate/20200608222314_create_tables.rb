@@ -6,20 +6,20 @@ class CreateTables < ActiveRecord::Migration[6.0]
       # name as a string
       t.string :name
 
-      # number of wins as an integer
-      t.integer :win_count
+      # number of wins as an integer, defaults to 0 upon initialization
+      t.integer :win_count, :default => 0
     end
 
     create_table :boards do |t| # boards table
 
       # representing current board configuration
-      t.string :content 
-      # stores upper_player instance id
-      t.integer :upper_player_id
-      # stores lower_player instance id
-      t.integer :lower_player_id
-      # stores whose turn it is, “upper” or “lower”
-      t.string :player_turn
+      t.string :content
+      # stores left player instance id
+      t.integer :l_player_id
+      # stores right player instance id
+      t.integer :r_player_id
+      # stores whose turn it is, “l” or “r”, defaults to left upon initialization
+      t.string :player_turn, :default => "l"
       # if people are saving their games to come back to them, I thought addnig a timestamp would be helpful
       t.timestamps
 
