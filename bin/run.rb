@@ -1,15 +1,15 @@
 require_relative '../config/environment'
-require 'tty-prompt' 
+
 $prompt = TTY::Prompt.new
 
 def country_list
     country_url = "https://api.covid19api.com/countries"
     country_file = GetRequester.new(country_url).parse_json
-    countries = country_file.map{|element| element["slug"] }
+    countries = country_file.map{|element| element["Slug"] }
     p countries
 end
 
-p country_list
+Pry.start
 
 def country_prompt
 
