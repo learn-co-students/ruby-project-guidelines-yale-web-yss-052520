@@ -23,6 +23,10 @@ class List < ActiveRecord::Base
     entries.map{|e| e.book}
   end
 
+  def sort_by_title
+    self.books.sort_by(&:title)
+  end
+
 
  ######################################################################################################
   private
