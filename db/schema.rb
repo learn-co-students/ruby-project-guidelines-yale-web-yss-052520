@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_09_013707) do
+ActiveRecord::Schema.define(version: 2020_06_09_143429) do
 
   create_table "tasks", force: :cascade do |t|
-    t.string "type"
+    t.string "category"
     t.string "name"
     t.datetime "due_date"
     t.datetime "assigned_date"
