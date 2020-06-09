@@ -1,4 +1,5 @@
 require 'bundler'
+require 'require_all'
 require_all 'app/models'
 Bundler.require
 

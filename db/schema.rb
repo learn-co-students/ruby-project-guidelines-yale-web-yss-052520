@@ -10,20 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_08_222314) do
-
-  create_table "boards", force: :cascade do |t|
-    t.string "content"
-    t.integer "upper_player_id"
-    t.integer "lower_player_id"
-    t.string "player_turn"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "players", force: :cascade do |t|
-    t.string "name"
-    t.integer "win_count"
-  end
+ActiveRecord::Schema.define(version: 0) do
 
 end
