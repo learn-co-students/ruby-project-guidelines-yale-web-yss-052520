@@ -2,27 +2,30 @@ require_relative '../config/environment'
 
 $prompt = TTY::Prompt.new
 
+def generate_request
+    api_choice = $prompt.select("Global or national?", %w(global national))
+    locations = $prompt.select("Select a location.", )
+
+    # Request.new
+end
+
+# generate_request
+
+def country_prompt
+    countries =  country_list.map {|country| country["Country"]}
+    country_name = $prompt.select('Choose your country! Or press key to filter', countries, filter: true)
+    country_choice = country_list.find {|country| country["Country"] == country_name}["Slug"]
+    country_cases(country_choice)
+end
+
 def country_list
     country_url = "https://api.covid19api.com/countries"
     country_file = GetRequester.new(country_url).parse_json
-    countries = country_file.map{|element| element["Slug"] }
-    p countries
-end
-
-Pry.start
-
-def country_prompt
-
-    p "What is your country"
-    
-    countries =  %w(south-africa switzerland malaysia qatar denmark)
-    country_name = $prompt.select('Choose your country! Or press key to filter', countries, filter: true)
-    country_cases (country_name)
+    # countries = country_file.map{|element| element["Slug"] }
+    # binding.pry
 end
 
 def country_cases(country_name)
-
-
     # Sample url = https://api.covid19api.com/total/country/south-africa
     country_url = "https://api.covid19api.com/total/country/" + country_name
 
@@ -33,7 +36,7 @@ def country_cases(country_name)
   
 end
 
-
+country_prompt
 
 def state_cases 
     p "what is your state code"

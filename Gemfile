@@ -8,5 +8,4 @@ gem 'require_all'
 gem 'sqlite3'
 gem 'pry'
 gem 'tty-prompt'
-
-ge
+gem 'json'
