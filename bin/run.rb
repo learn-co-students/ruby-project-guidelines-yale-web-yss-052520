@@ -1,7 +1,8 @@
 require_relative '../config/environment'
 
 
-
+sidlist = List.find(1)
+arthurlist = List.find(2)
 
 
 binding.pry
