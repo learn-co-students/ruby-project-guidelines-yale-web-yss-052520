@@ -1,13 +1,4 @@
 require_relative '../config/environment'
-<<<<<<< HEAD
-$prompt = TTY::Prompt.new
-
-def country_list
-    country_url = "https://api.covid19api.com/countries"
-    country_file = GetRequester.new(country_url).parse_json
-    countries = country_file.map{|element| element["Slug"] }
-    p countries
-=======
 
 $prompt = TTY::Prompt.new
 
@@ -16,7 +7,6 @@ def generate_request
     locations = $prompt.select("Select a location.", )
 
     # Request.new
->>>>>>> fccded42e7fab5368fd2fffff5dd69db2777a975
 end
 
 # generate_request
@@ -40,13 +30,29 @@ def country_cases(country_name)
     country_url = "https://api.covid19api.com/total/country/" + country_name
 
     country_info = GetRequester.new(country_url).parse_json
-    country_info_latest = country_info.last
 
-    pp country_info_latest
-  
+    seed_data(country_info, country_name)
+
+end
+
+def seed_data(country_info, country_name)
+
+    Country.destroy_all
+    Day.destroy_all
+    Country.reset_pk_sequence
+    Day.reset_pk_sequence
+
+    country1 = Country.create(name: country_name)
+
+    country_info.each do |date_info|
+        Day.create(date: date_info["Date"], country_id: country1.id, confirmed_cases: date_info["Confirmed"], active_cases: date_info["Active"], death_cases: date_info["Deaths"], recovered_cases: date_info["Recovered"])
+    end
+
+
 end
 
 country_prompt
+
 
 def state_cases 
     p "what is your state code"
