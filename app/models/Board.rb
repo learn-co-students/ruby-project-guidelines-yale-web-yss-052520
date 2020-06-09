@@ -5,13 +5,29 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
     
     # Creates the pieces associatied with the current board configuration
     def load
-        grid = contents.split("\n")
+        grid = content.split("\n")
+         
+        # grid.length.times{|row|
+        #     # TODO: Test if we need to split again by empty characters 
+        #     grid[row] = grid[row].split("")
+        #     grid[row].length.times{|col|
+        #         p "(#{row},#{col})"
+        #     }
+        #     grid[row] = grid[row].join("")
+        # }
+ 
         grid.length.times{|row|
-            grid[row].length.times{|col|
-                if grid[row][col] == 🔴
-                    Piece.new(row, col, "right", 🔴)
-                else grid[row][col] == 🔵
-                    Piece.new(row, col, "left", 🔵)
+            # TODO: Test if we need to split again by empty characters 
+                grid[row] = grid[row].split("")
+                grid[row].length.times{|col|
+                if grid[row][col] == "🔴"
+                    Piece.new(row, col, "right", "🔴")
+                elsif grid[row][col] == "🔵"
+                    Piece.new(row, col, "left", "🔵")
+                end
+            }
+                grid[row] = grid[row].join("")
+        }
         self.display
     end
 
@@ -28,11 +44,30 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
 
     # Looks through coordinates stored in all pieces and “arrange” them in self.contents
     def update
-        # Note
+
+
+        # Note for v1 implementation 
             # Need to replace the current position with a blank space in the move function or we will need to
             # add a prev_x and prev_y component to pieces so that we know to remove the moved checker
             # piece from its old position in the configuration string 
 
+        # v2 implementation 
+        # new_board = [
+        #     "⬜⬛⬜⬛⬜⬛⬜⬛",
+        #     "⬛⬜⬛⬜⬛⬜⬛⬜",
+        #     "⬜⬛⬜⬛⬜⬛⬜⬛",
+        #     "⬛⬜⬛⬜⬛⬜⬛⬜",
+        #     "⬜⬛⬜⬛⬜⬛⬜⬛",
+        #     "⬛⬜⬛⬜⬛⬜⬛⬜",
+        #     "⬜⬛⬜⬛⬜⬛⬜⬛",
+        #     "⬛⬜⬛⬜⬛⬜⬛⬜"
+        # ]
+
+        # new_board = new_board.join("\n")
+
+        
+        # grid = .split("\n")
+         
 
 
     end

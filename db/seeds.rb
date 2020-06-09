@@ -49,5 +49,7 @@ b3 = Board.create(r_player: cat, l_player: alex, content: config3)
 
 b4 = Board.create(r_player: alex, l_player: cat)
 
+b3.load
+
 binding.pry
 0

@@ -2,17 +2,18 @@ class Piece #instances of this class are not stored in the database since they a
     
     # since this is not an ActiveRecord, we need to create attribute macros and initialize method ourselves
 
-    attr_reader :color # color is an inherent property of the piece and can't be changed
+    attr_reader :team, :symbol # color is an inherent property of the piece and can't be changed
     attr_accessor :x_pos, :y_pos # x and y position can be changed
 
     @@all = [] # stores all the living pieces on the active board
 
-    def initialize(color, x_pos, y_pos)
-        @color = color
+    def initialize( x_pos, y_pos, team, sybol)
         @x_pos = x_pos
         @y_pos = y_pos
+        @team = team
+        @symbol = symbol
 
-        @@all << all
+        @@all << self
     end
 
     # deletes all the active pieces if a board is saved or finished
