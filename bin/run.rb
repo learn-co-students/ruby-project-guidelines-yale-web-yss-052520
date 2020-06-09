@@ -28,24 +28,50 @@ def user_console
 
     country_prompt
 
-    queries = ['Add another country', 'Search by a date', 'Search by range of dates', 'Search by case type', 'Run search', 'Exit']
-    
-    selection = ''
-
-    until selection == 'Exit'
-        selection = $prompt.select('Select a query!', queries)
+    while selection = $prompt.select('Select a query!', ['Add another country', 'Next'])
 
         case selection
         when 'Add another country'
             country_prompt
-        when 'Run search'
-            puts Country.all
+        when 'Next'
+            break
+        end
+    end
+
+    result = []
+    while selection = $prompt.select('Select a query!', ['Search by a date', 'Search by range of dates', 'Next'])
+        case selection
+        when 'Search by a date'
+            puts "Input your date format: DD/MM"
+            date_array = gets.chomp.split('/')
+            puts "Your date is #{date_array[0]}/#{date_array[1]}/2020"
+            result = search_date(date_array)
+        when 'Next'
+            break
         else
             'work in progress'
         end
     end
+    
+    while selection = $prompt.select('Search by ...', ['active cases', 'confirmed cases', 'death_cases','all cases', 'exit'])
 
-    puts "Goodbye for now!"
+        case selection
+        when 'all cases'
+            pp result
+        when 'active cases'
+            pp result.map {|element| element["active_cases"]}
+        when 'exit'
+            break
+        else
+            'work in progress'
+        end
+    end
+end
+
+def search_date(date_array)
+    date = "2020-#{date_array[1]}-#{date_array[0]} 00:00:00 UTC"
+    # "Date": "2020-02-26 00:00:00 UTC"
+    Day.all.select{|element| element["date"] == date}
 end
 
 def run
