@@ -11,9 +11,18 @@ class CreateTables < ActiveRecord::Migration[6.0]
     end
 
     create_table :boards do |t| # boards table
+
+      # representing current board configuration
+      t.string :content 
+      # stores upper_player instance id
+      t.integer :upper_player_id
+      # stores lower_player instance id
+      t.integer :lower_player_id
+      # stores whose turn it is, “upper” or “lower”
+      t.string :player_turn
       # if people are saving their games to come back to them, I thought addnig a timestamp would be helpful
       t.timestamps
-      
+
     end
   end
 end
