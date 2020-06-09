@@ -15,6 +15,16 @@ class List < ActiveRecord::Base
     self.reload
   end
 
+  def entries
+    Entry.all.select{|e| e.list == self}
+  end
+
+  def books
+    entries.map{|e| e.book}
+  end
+
+
+ ######################################################################################################
   private
 
   def create_entry(book)
