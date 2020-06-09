@@ -8,4 +8,8 @@ gem 'require_all'
 gem 'sqlite3'
 gem 'pry'
 gem 'tty-prompt'
+<<<<<<< HEAD
 gem 'httparty'
+=======
+gem 'json'
+>>>>>>> fccded42e7fab5368fd2fffff5dd69db2777a975

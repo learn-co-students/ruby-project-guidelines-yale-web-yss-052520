@@ -21,6 +21,7 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (1.8.3)
       concurrent-ruby (~> 1.0)
+    json (2.1.0)
     method_source (1.0.0)
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
@@ -73,7 +74,11 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord (~> 5.2.1)
+<<<<<<< HEAD
   httparty
+=======
+  json
+>>>>>>> fccded42e7fab5368fd2fffff5dd69db2777a975
   pry
   rake
   require_all
