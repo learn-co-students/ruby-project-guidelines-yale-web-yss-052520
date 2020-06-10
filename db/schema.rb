@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_09_143429) do
+ActiveRecord::Schema.define(version: 2020_06_10_140524) do
 
   create_table "tasks", force: :cascade do |t|
     t.string "category"
@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 2020_06_09_143429) do
     t.string "name"
     t.string "college"
     t.integer "age"
+    t.string "username"
+    t.string "password"
   end
 
 end
