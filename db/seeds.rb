@@ -1,4 +1,4 @@
-User.destroy_all
+User.destroy_all 
 Official.destroy_all
 Email.destroy_all 
 User.reset_pk_sequence
