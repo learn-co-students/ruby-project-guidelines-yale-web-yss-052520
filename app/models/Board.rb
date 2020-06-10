@@ -8,8 +8,7 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
         grid = content.split("\n")
  
         grid.length.times{|row|
-            # TODO: Test if we need to split again by empty characters 
-                grid[row] = grid[row].split("")
+
                 grid[row].length.times{|col|
                 if grid[row][col] == "🔴"
                     Piece.new(row, col, "right", "🔴")
@@ -17,7 +16,6 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
                     Piece.new(row, col, "left", "🔵")
                 end
             }
-                grid[row] = grid[row].join("")
         }
         self.content = grid.join("\n")
 
