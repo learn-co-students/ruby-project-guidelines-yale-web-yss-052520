@@ -2,6 +2,12 @@ require_relative '../config/environment'
 require "tty-prompt"
 prompt = TTY::Prompt.new
 
+User.destroy_all 
+User.reset_pk_sequence
+
+class App 
+    attr_reader :user
+
 def start_with_name 
      puts "Hello! What is your name?"
      name = gets.chomp
@@ -9,8 +15,8 @@ def start_with_name
          puts "You have entered nothing. Please enter your name."
          name = gets.chomp
      end
-     User.find_or_create_by(name: name)
-     puts "Nice name, #{name}."
+     @user = User.find_or_create_by(name: name)
+     puts "Thank you for using our app, #{name}."
      question 
 end 
 
@@ -25,7 +31,7 @@ def question
         if new_answer.downcase == "yes" 
             puts "Okay. Goodbye."
         elsif new_answer.downcase == "no"
-            address
+            question
         else puts "Please answer with yes or no."
             question
         end 
@@ -38,19 +44,44 @@ end
 def address
     puts "Please enter your address so we can find officials near you."
     address = gets.chomp
-    #User.find_or_create_by(address: address) #need to find correct method
+    while address == ""
+         puts "You have entered nothing. Please enter your address."
+         address = gets.chomp
+     end
+     @user.address = address
+    puts "We are finding officials near you."
+    sleep(1.0)
+    puts "We will provide you with a link to an email with a pre-written meesage."
+    sleep(1.0)
     comment
 end 
 
 def comment 
-    puts "We are finding officials near you."
-    puts "We will provide you with a link to an email with a pre-written meesage."
     puts "Would you like to include your own comment in the email?"
     comment_choice = gets.chomp
-    if comment_choice.downcase == yes 
+    if comment_choice.downcase == "yes" 
         puts "What would you like to say in the email?"
         comment_answer = gets.chomp
-        #User.find_or_create_by(comment: comment)
+        @user.comment = comment_answer
+        link
+    elsif comment_choice.downcase == "no"
+        link 
+    else 
+        puts "Please answer with yes or no."
+        sleep(1.0)
+        comment
+    end 
 end 
 
-start_with_name
+def link 
+    puts "Here is a link to your email:"
+    #link here 
+end 
+
+end 
+
+app = App.new 
+app.start_with_name
+
+binding.pry
+0
