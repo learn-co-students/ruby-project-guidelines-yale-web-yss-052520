@@ -1,56 +1,117 @@
 require_relative '../config/environment'
-$prompt = TTY::Prompt.new
 
-def available_countries
-    GetRequester.new("https://api.covid19api.com/countries").parse_json
+def run
+    Seeder.clear
+    load_data
+    user_console
 end
 
+<<<<<<< HEAD
 def country_prompt
     available_countries_names = available_countries.map {|country| country["Country"]}.sort
     country_name = $prompt.select('Choose your country! Type to filter', available_countries_names, filter: true)
+=======
+def load_data
+    puts "Welcome to the COVID-19 Database!"
+    puts "To start, let's load a country's data."
+>>>>>>> zm-branch
 
-    country_slug = available_countries.find {|country| country["Country"] == country_name}["Slug"]
+    country_prompt
+    add_additional_countries
 
-    seed_database(country_slug)
-end
-
-def seed_database(country_slug)
-    # Sample url = https://api.covid19api.com/total/country/south-africa
-    country_url = "https://api.covid19api.com/total/country/" + country_slug
-
-    country_info = GetRequester.new(country_url).parse_json
-
-    Seeder.seed(country_info)
+    puts "All data loaded! Launching user console..."
 end
 
 def user_console
-    puts "Welcome to the COVID-19 Database!"
+    puts "You will now form a query."
 
-    country_prompt
+    result = date_prompt
+    case_prompt(result)
 
-    queries = ['Add another country', 'Search by a date', 'Search by range of dates', 'Search by case type', 'Run search', 'Exit']
-    
-    selection = ''
+    # display_results
+    # final_options
+        # Export
+            # Raw Data
+            # Formatted Data
+            # Graph
+        # Create new query
+        # Exit
+end
 
-    until selection == 'Exit'
-        selection = $prompt.select('Select a query!', queries)
+###
 
+def country_options
+    country_list_data = GetRequester.get_data(Request.countries_list)
+
+    country_list_data.each_with_object({}) do |name_info, hash|
+        hash[name_info["Country"]] = name_info["Slug"]
+    end
+end
+
+def country_prompt
+    country_slug = $prompt.select('Choose your country! Type to filter', country_options, filter: true)
+
+    puts "Loading data..."
+    seed_database(country_slug)
+    puts "Done!"
+end
+
+def add_additional_countries
+    while selection = $prompt.select("Would you load another country's data?", ['Add another country', 'Next'])
         case selection
         when 'Add another country'
             country_prompt
-        when 'Run search'
-            puts Country.all
+        when 'Next'
+            break
+        end
+    end
+end
+
+def date_prompt
+    result = []
+    selection = $prompt.select('Would you like to search by a date or a range of dates?', {'Date' => 0, 'Range of dates' => 1})
+
+    case selection
+    when 0
+        search_date = $prompt.ask("Provide a date (DD/MM):")
+
+        date_array = search_date.split('/')
+        puts "Your date is #{date_array[0]}/#{date_array[1]}/2020"
+        result = search_date(date_array)
+    when 1
+        puts "work in progess!"
+    end
+    result
+end
+
+def case_prompt(result)
+    while selection = $prompt.select('Search by ...', ['active cases', 'confirmed cases', 'death_cases','all cases', 'exit'])
+
+        case selection
+        when 'all cases'
+            pp result
+        when 'active cases'
+            pp result.map {|element| element["active_cases"]}
+        when 'exit'
+            break
         else
             'work in progress'
         end
     end
-
-    puts "Goodbye for now!"
 end
 
-def run
-    Seeder.clear
-    user_console
+###
+
+def seed_database(country_slug)
+    country_url = Request.country_url(country_slug)
+    country_data = GetRequester.get_data(country_url)
+    Seeder.seed(country_data)
+end
+
+def search_date(date_array)
+    date = "2020-#{date_array[1]}-#{date_array[0]} 00:00:00 UTC"
+    # "Date": "2020-02-26 00:00:00 UTC"
+    Day.all.select{|element| element["date"] == date}
 end
 
 run
