@@ -77,14 +77,13 @@ def new_password
     end
 end
 
-
-
 def menu
     @menu_choice = @prompt.select("What would you like to do today?", %w(
         view_priority_to_dos
         view_all_to_dos
         new_to_do
         old_to_dos
+        teams
     ))
 
     if @menu_choice == "view_priority_to_dos"
@@ -95,7 +94,35 @@ def menu
         new_to_do
     elsif @menu_choice == "old_to_dos"
         old_to_dos
+    elsif @menu_choice == "teams"
+        teams
     end
+end
+
+def teams
+    @teams_choice = @prompt.select("Teamwork makes the dreamwork. What do you want to do?", %w(
+        my_teams
+        join_team
+        create_team
+    ))
+
+    if @teams_choice == "my_teams"
+        my_teams
+    elsif @teams_choice == "join_team"
+        join_team
+    elsif @teams_choice == "create_team"
+        create_team
+    end
+end
+
+def my_teams
+    @current_team = @prompt.select("Choose the team you want to go to.", %w(team.all_names)) #methods that show all teams
+end
+
+def join_team
+end
+
+def create_team
 end
 
 def all_to_dos
@@ -162,12 +189,17 @@ start
             #chosen to_dos
                 #mark_complete
                 #unclaim to_do
-            #share to_do with team
-                #click on a todo and share it
+            #create a team to_do
+                
                             
             #leave team
         #join_a_team
         #create_a_team
+#gonna need a team.all_names
+#team.password
+#Team class
+#team and user joiner class (has_many has_many relationship)
+#Team_to_do class
 
 
 puts "HELLO WORLD"
