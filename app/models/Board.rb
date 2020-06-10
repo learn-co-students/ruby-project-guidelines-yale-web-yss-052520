@@ -6,9 +6,7 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
     # Creates the pieces associatied with the current board configuration
     def load
         grid = content.split("\n")
- 
         grid.length.times{|row|
-
                 grid[row].length.times{|col|
                 if grid[row][col] == "🔴"
                     Piece.new(row, col, "right", "🔴")
@@ -18,7 +16,6 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
             }
         }
         self.content = grid.join("\n")
-
         self.display
     end
 
@@ -38,31 +35,26 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
     # Looks through coordinates stored in all pieces and “arrange” them in self.contents
     def update
 
-
-        # Note for v1 implementation 
-            # Need to replace the current position with a blank space in the move function or we will need to
-            # add a prev_x and prev_y component to pieces so that we know to remove the moved checker
-            # piece from its old position in the configuration string 
-
-        # v2 implementation 
-        # new_board = [
-        #     "⬜⬛⬜⬛⬜⬛⬜⬛",
-        #     "⬛⬜⬛⬜⬛⬜⬛⬜",
-        #     "⬜⬛⬜⬛⬜⬛⬜⬛",
-        #     "⬛⬜⬛⬜⬛⬜⬛⬜",
-        #     "⬜⬛⬜⬛⬜⬛⬜⬛",
-        #     "⬛⬜⬛⬜⬛⬜⬛⬜",
-        #     "⬜⬛⬜⬛⬜⬛⬜⬛",
-        #     "⬛⬜⬛⬜⬛⬜⬛⬜"
-        # ]
-
-        # new_board = new_board.join("\n")
-
+        new_board = [
+            "⬜⬛⬜⬛⬜⬛⬜⬛",
+            "⬛⬜⬛⬜⬛⬜⬛⬜",
+            "⬜⬛⬜⬛⬜⬛⬜⬛",
+            "⬛⬜⬛⬜⬛⬜⬛⬜",
+            "⬜⬛⬜⬛⬜⬛⬜⬛",
+            "⬛⬜⬛⬜⬛⬜⬛⬜",
+            "⬜⬛⬜⬛⬜⬛⬜⬛",
+            "⬛⬜⬛⬜⬛⬜⬛⬜"]
         
-        # grid = .split("\n")
-         
-
-
+        # Updates every empty cell with piece symbol if a piece exists at that position
+        new_board.length.times{|row|
+            new_board[row].length.times{|col|
+                piece_at_curr_pos = Piece.all.find{|piece| piece.x_pos == col && piece.y_pos == row} 
+                p piece_at_curr_pos
+                new_board[row][col] = piece_at_curr_pos.symbol if(piece_at_curr_pos)
+            }
+        }
+        self.content = new_board.join("\n")
+        self.display
     end
 
 end
