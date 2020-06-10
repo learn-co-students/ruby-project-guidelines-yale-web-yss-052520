@@ -6,15 +6,6 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
     # Creates the pieces associatied with the current board configuration
     def load
         grid = content.split("\n")
-         
-        # grid.length.times{|row|
-        #     # TODO: Test if we need to split again by empty characters 
-        #     grid[row] = grid[row].split("")
-        #     grid[row].length.times{|col|
-        #         p "(#{row},#{col})"
-        #     }
-        #     grid[row] = grid[row].join("")
-        # }
  
         grid.length.times{|row|
             # TODO: Test if we need to split again by empty characters 
@@ -28,13 +19,14 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
             }
                 grid[row] = grid[row].join("")
         }
+        content = grid.join("\n")
         self.display
     end
 
     # Prints out the current configuration of this board's content
     def display        
         # TODO: Find Gem to clear the CLI screen
-        p self.content
+        pp self.content
         if(self.player_turn == 'l')
             p "It is #{Player.find(self.l_player_id)}'s turn!'"
         else

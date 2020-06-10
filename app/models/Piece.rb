@@ -21,6 +21,10 @@ class Piece #instances of this class are not stored in the database since they a
         @@all = []
     end
 
+    def self.all
+        @@all
+    end
+
     # calculates all the regular moves (directly adjacent diagonals)
     def regular_moves
 
