@@ -71,9 +71,10 @@ def comment
 end 
 
 def link 
-    User.create(name: @name, address: @user_address, comment: @user_comment)
     puts "Here is a link to your email:"
     #link here 
+    User.create(name: @name, address: @user_address, comment: @user_comment)
+
 end 
 
 end 
