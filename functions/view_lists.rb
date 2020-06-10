@@ -1,3 +1,4 @@
+require_relative '../config/environment'
 
 def view_lists
     system("clear")
@@ -6,7 +7,7 @@ def view_lists
     sleep(0.5)
 
 
-    # puts entries
+    # puts List.entries
 
 end
 
