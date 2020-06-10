@@ -15,7 +15,7 @@ class Player < ActiveRecord::Base # instances of this class are stored in the pl
             player = Player.new(name)
             puts "Welcome #{player.name} to Digital Checkers"
         end
-        player_temp
+        player
     end
     
 end
