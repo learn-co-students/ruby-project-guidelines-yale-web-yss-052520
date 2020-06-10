@@ -27,6 +27,7 @@ if game # there is an existing game
             break
         elsif $prompt.yes?("Are you sure? Your saved game will be overwritten")
             puts "Creating new game..."
+            game.destroy
             game = Board.create(l_player: player_1, r_player: player_2)
             break
         end
