@@ -58,7 +58,7 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
     end
 
     # Pseudo code for #move, #regular_moves and #jump_moves
-    def move(old coordinates of piece, new coordinates of piece)
+    # def move(old coordinates of piece, new coordinates of piece)
         # Reg_moves = regular_moves(old coordinates)
         # Jump_moves = jump_moves(old_x, old_y)
         # if( new coordinates are in possible reg_moves)
@@ -70,7 +70,7 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
             # Piece_moved.x_pos = new_x
             # Piece_moved.x_pos = new_y
             # Piece.delete(Piece.all.find(x_pos == (old_x + new_x) / 2  && y_pos == (old_y + new_y) / 2)
-    end
+    # end
 
 
     # def regular_moves(old_x, old_y)
