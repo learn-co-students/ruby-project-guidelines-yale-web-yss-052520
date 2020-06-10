@@ -14,6 +14,7 @@ def log_in_section
     if @user_type == "returning_user"
         @current_user = @prompt.select("Which user are you?", User.all)
         p "Welcome back #{@current_user.name}."
+        menu
 
     elsif @user_type == "new_user"
         p "What is your name?"
@@ -47,7 +48,7 @@ def menu
     end
 end
 
-def view_all_to_dos
+def all_to_dos
     choices = []
     choices.push(@current_user.todos).flatten
     choices.push("back_to_menu")
