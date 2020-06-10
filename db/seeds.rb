@@ -4,8 +4,8 @@ User.destroy_all
 Task.destroy_all
 ToDo.destroy_all
 
-enrique = User.create(name: "Enrique Valencia", college: "Trumbull", age: 19)
-justin = User.create(name: "Justin James", college: "Davenport", age: 21)
+enrique = User.create(name: "Enrique Valencia", username: "ev275", password: "donkey", college: "Trumbull", age: 19)
+justin = User.create(name: "Justin James", username: "justin1234", password: "rocket", college: "Davenport", age: 21)
 
 
 # we could think about raising an error if assigned date is after due date
