@@ -9,11 +9,12 @@ class Request
         @case_type = args[:case_type]
     end
 
-    def generate_url(country_slug, start_date, end_date)
+    def self.country_url(country_slug)
+        # Sample url = https://api.covid19api.com/total/country/south-africa
         'https://api.covid19api.com/country/' + country_slug
     end
+
+    def self.countries_list
+        "https://api.covid19api.com/countries"
+    end
 end
-
-#DateTime.new(year, month, day, hour, min, seconds, offset)
-
-# input start_date: MM/DD
