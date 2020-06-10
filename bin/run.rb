@@ -39,7 +39,7 @@ def menu
     if @menu_choice == "view_priority_to_dos"
         priority_to_dos    
     elsif @menu_choice == "view_all_to_dos"
-        all_to_dos
+        view_all_to_dos 
     elsif @menu_choice == "new_to_do"
         new_to_do
     elsif @menu_choice == "old_to_dos"
@@ -48,14 +48,15 @@ def menu
 end
 
 def view_all_to_dos
-    choices = []
-    choices.push(@current_user.todos).flatten
+    choices = @current_user.all_incomplete_tasks
     choices.push("back_to_menu")
     selected_choice = @prompt.select("Your to_dos", choices)
-    if selectedd_choice == "back_to_menu"
+    if selected_choice == "back_to_menu"
         menu
     end
 end
+
+
 start
 
 

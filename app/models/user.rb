@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
 
     def update_priorities
         to_dos.each do |to_do|
-            if to_do.task.due_date == Date.today || to_do.task.due_date == Date.today.next #|| #to_do.task.due_date <=> Date.today = -1
+            if to_do.task.due_date == Date.today || to_do.task.due_date == Date.today.next #|| to_do.task.due_date - Date.today < 0
                 to_do.mark_priority
             end
         end
