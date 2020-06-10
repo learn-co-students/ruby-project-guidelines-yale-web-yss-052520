@@ -1,3 +1,5 @@
+# Gets data from API
+
 class GetRequester
     def initialize(url)
         @url = url
