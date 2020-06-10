@@ -49,14 +49,15 @@ class Game
     end
 
     def self.player
-        puts
-        name = @@prompt.ask("What is your name?")
-        @@player = Player.create(name: name, bag_count: 0, location_id: 1)
+        puts 
+        select_player_name = @@prompt.ask("What is your name?")
+        @@player = Player.create(name: select_player_name, bag_count: 0, location_id: 1)
+        Game.clear_term
+        Game.next_screen
     end
 
     def self.help_menu 
     # display help menu screen
-    self.clear_term
     puts "HELP MENU"
 
         h_menu = @@prompt.select(' ', 'Game Info', 'Key Functions', 'Main Menu')
@@ -65,12 +66,37 @@ class Game
         when "Game Info"
             ICommand.game_info
         when "Key Functions"
-            ICommand.display_key_funcs
+            ICommand.use_and_display
         when "Main Menu"
             Game.main_menu
         end
         #add back function
     end
+
+    def self.intro
+    Game.slow_puts("asdfadf \nasdfads \nasdfad")
+    end
+
+    def self.next_screen
+        puts "Title"
+        Game.intro
+        sleep(5)
+        Game.clear_term
+        ICommand.display_key_funcs
+        sleep(2)
+        Game.gameplay_screen
+    end
+
+    def self.slow_puts(string)
+        string.each_char {|char| sleep(0.05); print char}
+        print "\n"
+   end
+
+   def self.gameplay_screen
+    Game.clear_term
+    ICommand.location_display
+    ICommand.key_funcs
+  end
 
 
 end

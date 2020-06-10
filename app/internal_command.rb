@@ -52,6 +52,7 @@ class ICommand
 
 
     def self.display_key_funcs
+        
         puts "Key Functions"
         puts "Up -- North"
         puts "Down -- South"
@@ -64,15 +65,16 @@ class ICommand
         puts "Q -- Quit"
 
         puts "1 -- Back" #sketchy, but works
-        # self.key_funcs(1)
+    end
+
+    def self.use_and_display
+        self.display_key_funcs
+        self.key_funcs
     end
 
     def self.game_info
-        puts <<-PARAGRAPH
-            asdfadf
-            asdfads
-            asdfad
-        PARAGRAPH
+        Game.intro
+        self.key_funcs
         #need back function
     end
 
@@ -82,10 +84,28 @@ class ICommand
         error_message = "You've reached the edge of the map, turn back, or go a different direction!"
 
         if direction == "north"
-            #move north
+            Player.locations.north_location ? (Player.location_id = Player.locations.north_location) : (puts error_message)
         elsif direction == "south"
+            Player.locations.south_location ? (Player.location_id = Player.locations.south_location) : (puts error_message)
         elsif direction == "east"
+            Player.locations.east_location ? (Player.location_id = Player.locations.east_location) : (puts error_message)
         elsif direction == "west"
+            Player.locations.west_location ? (Player.location_id = Player.locations.west_location) : (puts error_message)
         end
     end
+
+    def self.location_display
+        north = Location.all.find_by(id: Player.locations.north_location)
+        south = Location.all.find_by(id: Player.locations.south_location)
+        east = Location.all.find_by(id: Player.locations.east_location)
+        west = Location.all.find_by(id: Player.locations.west_location)
+
+        puts "North of here, is #{north.name}"
+        puts "South of here, is #{south.name}"
+        puts "East of here, is #{east.name}"
+        puts "West of here, is #{west.name}"
+
+    end
+
+
 end

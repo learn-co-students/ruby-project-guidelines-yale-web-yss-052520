@@ -1,5 +1,5 @@
 require_relative '../config/environment'
+ActiveRecord::Base.logger = nil 
+Game.start
 
-# test is the fourth test
 
-puts "HELLO WORLD"
