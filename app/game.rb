@@ -10,19 +10,25 @@ class Game
     end
 
     def self.main_menu
-        select = @@prompt.select('','New Game', 'Exit')
+        self.clear_term
+        puts "MAIN MENU"
 
-        #case select
-        #when "New Game"
-         #   Game.new_game
-        #when "Exit"
-         #   Game.exit_game
-        #end
-        if select == 'New Game'
-            Game.new_game
-        else select == 'Exit'
-            Game.exit_game
+        select = @@prompt.select('','New Game', 'Help', 'Exit')
+
+        case select
+        when "New Game"
+           Game.new_game 
+        when "Help"
+            Game.help_menu
+        when "Exit"
+           Game.exit_game
         end
+    
+        # if select == 'New Game'
+        #     Game.new_game
+        # else select == 'Exit'
+        #     Game.exit_game
+        # end
         #draws the choices for the menu
     end 
 
@@ -48,7 +54,23 @@ class Game
         @@player = Player.create(name: name, bag_count: 0, location_id: 1)
     end
 
+    def self.help_menu 
+    # display help menu screen
+    self.clear_term
+    puts "HELP MENU"
 
+        h_menu = @@prompt.select(' ', 'Game Info', 'Key Functions', 'Main Menu')
+
+        case h_menu
+        when "Game Info"
+            ICommand.game_info
+        when "Key Functions"
+            ICommand.display_key_funcs
+        when "Main Menu"
+            Game.main_menu
+        end
+        #add back function
+    end
 
 
 end

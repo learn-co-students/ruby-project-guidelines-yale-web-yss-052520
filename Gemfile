@@ -8,3 +8,5 @@ gem "pry"
 gem "require_all"
 gem "rake"
 gem 'tty-prompt'
+
+gem 'remedy', git: 'https://github.com/acook/remedy'

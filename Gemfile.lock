@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/acook/remedy
+  revision: 5591257c7cc49b71324b32357183ffb87b733082
+  specs:
+    remedy (0.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -68,6 +74,7 @@ DEPENDENCIES
   activerecord (~> 5.2)
   pry
   rake
+  remedy!
   require_all
   sinatra-activerecord
   sqlite3

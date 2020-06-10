@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_09_163810) do
+ActiveRecord::Schema.define(version: 2020_06_10_134920) do
 
   create_table "items", force: :cascade do |t|
     t.string "description"
@@ -21,6 +21,10 @@ ActiveRecord::Schema.define(version: 2020_06_09_163810) do
   create_table "locations", force: :cascade do |t|
     t.string "name"
     t.integer "npc_id"
+    t.integer "north_location"
+    t.integer "south_location"
+    t.integer "east_location"
+    t.integer "west_location"
   end
 
   create_table "npcs", force: :cascade do |t|
