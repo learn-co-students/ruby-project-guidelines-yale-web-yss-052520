@@ -33,16 +33,6 @@ def user_console
     end
 end
 
-def query_prompt
-    Query.destroy_all
-    query = Query.new
-
-    date_prompt
-    case_prompt
-
-    query.print
-end
-
 def country_options
     country_list_data = GetRequester.get_data(Request.countries_list)
 
@@ -68,6 +58,16 @@ def add_additional_countries_prompt
             break
         end
     end
+end
+
+def query_prompt
+    Query.destroy_all
+    query = Query.new
+
+    date_prompt
+    case_prompt
+
+    query.print
 end
 
 def date_prompt
