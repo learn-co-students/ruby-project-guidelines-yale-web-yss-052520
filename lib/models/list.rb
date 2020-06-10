@@ -55,6 +55,10 @@ class List < ActiveRecord::Base
     self.books.sort_by(&:read)
   end
 
+  def sort_by_id
+    self.books.sort_by(&:id)
+  end
+
   def mark_all_as_read
     self.books.each do |b| 
       b.update(read: true)

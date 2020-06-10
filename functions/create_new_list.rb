@@ -17,8 +17,8 @@ def create_new_list
 
         confirm = $prompt.yes?('Create list?', convert: :boolean)
         if confirm == true
+            List.create(name: title, description: description)
             puts "List created!"
-            # new_list = List.create(name: title, description: description)
         end
 
 
