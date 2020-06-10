@@ -3,7 +3,7 @@ class List < ActiveRecord::Base
   has_many :entries
   has_many :books, through: :entries
 
-  
+
   def add_book_to_list(title:, authorname:, year: nil, genre: nil)
     author = find_or_create_author_by_full_name(authorname)
     if Book.where(title: title, author_id: author.id).first
