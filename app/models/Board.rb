@@ -57,4 +57,48 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
         self.display
     end
 
+    # Pseudo code for #move, #regular_moves and #jump_moves
+    def move(old coordinates of piece, new coordinates of piece)
+        # Reg_moves = regular_moves(old coordinates)
+        # Jump_moves = jump_moves(old_x, old_y)
+        # if( new coordinates are in possible reg_moves)
+            # Piece_moved = piece.find(old coordinates)
+            # Piece_moved.x_pos = new_x
+            # Piece_moved.x_pos = new_y
+        # elsif (new coordinates are in possible jump_moves)
+            # Piece_moved = piece.find(old coordinates)
+            # Piece_moved.x_pos = new_x
+            # Piece_moved.x_pos = new_y
+            # Piece.delete(Piece.all.find(x_pos == (old_x + new_x) / 2  && y_pos == (old_y + new_y) / 2)
+    end
+
+
+    # def regular_moves(old_x, old_y)
+        # possible_moves = []
+        # If player_turn = left
+            # possible_moves.push([old_x + 1, old_y + 1])
+            # possible_moves.push([old_x - 1, old_y + 1])
+        # If player_turn = right
+            # possible_moves.push([old_x + 1, old_y - 1])
+            # possible_moves.push([old_x - 1, old_y - 1])
+        # Return possible_moves
+    # end
+
+
+    # jump_moves(old_x, old_y)
+        # possible_moves = []
+        # If player_turn = left
+            # If Piece.all.find( team = right && xpos ==[old_x + 1 && ypos == old_y + 1)
+                # possible_moves.push([old_x + 2, old_y + 2])
+            # If Piece.all.find( team = right && xpos == old_x - 1 && ypos == old_y + 1])
+                # possible_moves.push([old_x - 2, old_y + 2])	
+        # If player_turn = right
+            # If Piece.all.find( team = left && xpos ==[old_x + 1 && ypos == old_y - 1)
+                # possible_moves.push([old_x + 2, old_y  - 2])
+            # If Piece.all.find( team = left && xpos == old_x - 1 && ypos == old_y - 1])
+                # possible_moves.push([old_x - 2, old_y - 2])	
+        # Return regular_moves
+    # end
+
+
 end
