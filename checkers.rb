@@ -3,7 +3,7 @@ require_relative 'config/environment'
 require "tty-prompt"
 
 $prompt = TTY::Prompt.new
-
+puts "-------------|"
 puts "CLI CHECKERS"
 
 # finds/creates and greets player 1
@@ -27,7 +27,7 @@ if game # there is an existing game
             break
         elsif $prompt.yes?("Are you sure? Your saved game will be overwritten")
             puts "Creating new game..."
-            game.destroy
+            game.destroy # overwrites existing game
             game = Board.create(l_player: player_1, r_player: player_2)
             break
         end
@@ -39,3 +39,6 @@ end
 
 # instantiates pieces according to board config
 game.load
+
+binding.pry
+0

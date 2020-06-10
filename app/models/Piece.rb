@@ -7,7 +7,7 @@ class Piece #instances of this class are not stored in the database since they a
 
     @@all = [] # stores all the living pieces on the active board
 
-    def initialize( x_pos, y_pos, team, sybol)
+    def initialize( x_pos, y_pos, team, symbol)
         @x_pos = x_pos
         @y_pos = y_pos
         @team = team
