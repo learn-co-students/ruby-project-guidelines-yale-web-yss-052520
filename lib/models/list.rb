@@ -65,6 +65,24 @@ class List < ActiveRecord::Base
     end
   end
 
+  # below, some dead code i was using with table_display
+  #def display_books
+  #   self.books.find_by_sql("select books.title as Title, authors.first_name || ' ' || authors.last_name as Author from books join authors on books.author_id = authors.id").to_table_display :inspect => false    
+  # end
+
+  def table_test
+    rows = []
+    self.books.each do |book|
+      row = []
+      row.push(book.title, book.author.full_name, book.year, book.genre)
+      rows << row
+    end
+    table = Terminal::Table.new :rows => rows
+    puts table
+  end
+    
+    
+
 
  ######################################################################################################
   private
