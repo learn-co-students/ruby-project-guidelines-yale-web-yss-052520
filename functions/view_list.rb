@@ -1,16 +1,13 @@
 require_relative '../config/environment'
 
-def view_lists
+def view_list
     system("clear")
-    puts "My Lists"
+    puts "List name here"
     puts "-"*100
     sleep(0.5)
 
+    
 
-    # puts List.entries
+
 
 end
-
-
-view_lists
-0

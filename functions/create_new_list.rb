@@ -7,24 +7,20 @@ def create_new_list
     puts "-"*100
     sleep(0.5)
 
-    confirm = false
-    until confirm == true
-        title = $prompt.ask("Type in a title:", required: true)
-        description = $prompt.ask("Write a description:", required: true)
+    title = $prompt.ask("Type in a title:", required: true)
+    description = $prompt.ask("Write a description:", required: true)
 
-        puts "List title: #{title}"
-        puts "Description: #{description}"
+    puts "List title: #{title}"
+    puts "Description: #{description}"
 
-        confirm = $prompt.yes?('Create list?', convert: :boolean)
-        if confirm == true
-            puts "List created!"
-            # new_list = List.create(name: title, description: description)
-        end
-
-
+    confirm = $prompt.yes?('Create list?', convert: :boolean)
+    if confirm == true
+        puts "List created!"
+        List.create(name: title, description: description)
+        main_menu
+    else
+        main_menu
     end
-
-    create_new_list_menu
 
 end
 
