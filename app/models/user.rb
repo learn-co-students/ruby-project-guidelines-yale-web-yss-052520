@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
     has_many :to_dos
     has_many :tasks, through: :to_dos
+    has_many :teams, through: :team_users, source: :teams #not sure about source
+    has_many :team_to_dos, through: :teams, source: :team_to_dos
 
     def self.make_new_user(attributes)
         User.find_or_create_by(attributes)

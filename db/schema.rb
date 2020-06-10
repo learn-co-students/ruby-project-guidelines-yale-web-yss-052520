@@ -10,13 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_10_140524) do
+ActiveRecord::Schema.define(version: 2020_06_10_233305) do
 
   create_table "tasks", force: :cascade do |t|
     t.string "category"
     t.string "name"
     t.datetime "due_date"
     t.datetime "assigned_date"
+  end
+
+  create_table "team_to_dos", force: :cascade do |t|
+    t.integer "team_id"
+    t.integer "user_id"
+    t.string "name"
+    t.boolean "complete?"
+    t.datetime "due_date"
+  end
+
+  create_table "team_users", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "team_id"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string "name"
+    t.string "password"
   end
 
   create_table "to_dos", force: :cascade do |t|
