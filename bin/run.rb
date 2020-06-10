@@ -131,6 +131,10 @@ def mark_complete
     all_to_dos
 end
 
+def delete_to_do
+    @selected_to_do.destroy
+end
+
 start
 
 
