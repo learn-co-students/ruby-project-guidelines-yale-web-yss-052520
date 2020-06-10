@@ -10,8 +10,8 @@ class Request
     end
 
     def self.country_url(country_slug)
-        # Sample url = https://api.covid19api.com/total/country/south-africa
-        'https://api.covid19api.com/country/' + country_slug
+        # Sample url = https://api.covid19api.com/total/country/canada
+        'https://api.covid19api.com/total/country/' + country_slug
     end
 
     def self.countries_list
