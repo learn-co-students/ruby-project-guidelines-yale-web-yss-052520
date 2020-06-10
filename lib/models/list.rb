@@ -55,11 +55,37 @@ class List < ActiveRecord::Base
     self.books.sort_by(&:read)
   end
 
+  def sort_by_id
+    self.books.sort_by(&:id)
+  end
+
   def mark_all_as_read
     self.books.each do |b| 
       b.update(read: true)
     end
   end
+
+  # below, some dead code i was using with table_display
+  #def display_books
+  #   self.books.find_by_sql("select books.title as Title, authors.first_name || ' ' || authors.last_name as Author from books join authors on books.author_id = authors.id").to_table_display :inspect => false    
+  # end
+
+
+
+
+
+  def display_table_by_title
+    rows = []
+    sort_by_title.each do |book|
+      row = []
+      row.push(book.title, book.author.full_name, book.year, book.genre)
+      rows << row
+    end
+    table = Terminal::Table.new :rows => rows, :headings => ['Title', 'Author', 'Year', 'Genre']
+    puts table
+  end
+    
+    
 
 
  ######################################################################################################
@@ -70,4 +96,6 @@ class List < ActiveRecord::Base
   end
     
 end
+
+
 
