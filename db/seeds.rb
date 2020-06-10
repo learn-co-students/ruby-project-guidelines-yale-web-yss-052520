@@ -1,5 +1,7 @@
 Player.destroy_all
+Player.reset_pk_sequence
 Board.destroy_all
+Board.reset_pk_sequence
 
 alex = Player.create(name: "Alex")
 bob = Player.create(name: "Bob")
