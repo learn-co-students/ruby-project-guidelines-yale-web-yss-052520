@@ -4,11 +4,11 @@ class Book < ActiveRecord::Base
   has_many :entries
   has_many :lists, through: :entries
 
-  after_initialize :unread
+  # after_initialize :unread
 
-  def unread
-    self.read = false
-  end
+  # def unread
+  #   self.read = false
+  # end
 
   def mark_as_read
     self.read = true
