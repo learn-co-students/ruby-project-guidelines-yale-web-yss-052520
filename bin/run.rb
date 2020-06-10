@@ -6,15 +6,9 @@ def run
     user_console
 end
 
-<<<<<<< HEAD
-def country_prompt
-    available_countries_names = available_countries.map {|country| country["Country"]}.sort
-    country_name = $prompt.select('Choose your country! Type to filter', available_countries_names, filter: true)
-=======
 def load_data
     puts "Welcome to the COVID-19 Database!"
     puts "To start, let's load a country's data."
->>>>>>> zm-branch
 
     country_prompt
     add_additional_countries
