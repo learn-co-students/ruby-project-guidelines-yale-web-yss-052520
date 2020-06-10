@@ -42,13 +42,23 @@ class List < ActiveRecord::Base
   end
 
   def sort_by_year
-    self.books.reject{|b| b.genre.nil?}.sort_by(&:year) +
-    self.books.select{|c| c.genre.nil?}
+    self.books.reject{|b| b.year.nil?}.sort_by(&:year) +
+    self.books.select{|c| c.year.nil?}
   end
 
   def sort_by_year_desc
-    self.books.reject{|b| b.genre.nil?}.sort_by(&:year).reverse! +
-    self.books.select{|c| c.genre.nil?}
+    self.books.reject{|b| b.year.nil?}.sort_by(&:year).reverse! +
+    self.books.select{|c| c.year.nil?}
+  end
+
+  def sort_by_read
+    self.books.sort_by(&:read)
+  end
+
+  def mark_all_as_read
+    self.books.each do |b| 
+      b.update(read: true)
+    end
   end
 
 
