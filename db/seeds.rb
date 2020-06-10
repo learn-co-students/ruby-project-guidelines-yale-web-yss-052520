@@ -11,7 +11,7 @@ justin = User.create(name: "Justin James", college: "Davenport", age: 21)
  task_1 = Task.create(name: "Math_p_set_11", category: "Math", due_date: Date.new(2020,6,19), assigned_date: Date.new(2020,6,8))
  task_2 = Task.create(name: "Econ_p_set_11", category: "Economics", due_date: Date.new(2020,6,17), assigned_date: Date.new(2020,6,1))
  task_3 = Task.create(name: "Presentation_prep", category: "French", due_date: Date.new(2020,6,10), assigned_date: Date.new(2020,6,5))
- task_4 = Task.create(name: "Work_on_thesis", category: "EP&E", due_date: Date.new(2020,6,8), assigned_date: Date.new(2020,6,3))
+ task_4 = Task.create(name: "Work_on_thesis", category: "EP&E", due_date: Date.new(2020,6,9), assigned_date: Date.new(2020,6,3))
 
 to_do1 = ToDo.create(user_id: enrique.id, task_id: task_1.id, complete?: false, priority_level: 3)
 to_do2 = ToDo.create(user_id: justin.id, task_id: task_2.id, complete?: true, priority_level: 5)

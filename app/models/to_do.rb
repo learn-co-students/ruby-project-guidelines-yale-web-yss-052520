@@ -2,17 +2,17 @@ class ToDo < ActiveRecord::Base
     belongs_to :task
     belongs_to :user
 
-    def self.get_priority
-        priority = ToDo.where(priority_level: 5)
-        priority << ToDo.where(task.due_date <=> Date.today.next = 0)
-        priority << ToDo.where(task.due_date <=> Date.today = 0)
-        priority << Todo.where(task.due_date <=> Date.today = -1)
-        priority.flatten.destroy_by(complete?: true)
-        priority 
-    end
+    # def self.get_priority
+    #     priority = ToDo.where(priority_level: 5)
+    #     priority << ToDo.where((task.due_date <=> Date.today.next) = 0)
+    #     priority << ToDo.where((task.due_date <=> Date.today = 0)
+    #     priority << ToOo.where((task.due_date <=> Date.today) = -1)
+    #     priority.flatten.destroy_by(complete?: true)
+    #     priority 
+    # end
 
     def self.all_incomplete_tasks
-        all_incomoplete_tasks = ToDo.where(complete?: false) 
+        all_incomplete_tasks = ToDo.where(complete?: false) 
     end
 
     def self.all_complete_tasks
@@ -21,6 +21,14 @@ class ToDo < ActiveRecord::Base
 
     def delete_specified_todo
         self.destroy
+    end
+
+    def mark_priority
+        self.update(priority_level: 5)
+    end
+
+    def mark_complete
+        self.update(complete?: true)
     end
 
     def self.destroy_all_complete_tasks
