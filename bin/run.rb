@@ -24,7 +24,7 @@ def returning_user_log_in
     @current_user = User.find_by(username: @current_username)
     
     p "Type in your password."
-    typed_password = gets.chomp
+    typed_password = gets.chomp #mask this password
     
     if typed_password == @current_user.password
         p "Welcome back #{@current_user.name}."
@@ -135,7 +135,6 @@ def delete_to_do
     @selected_to_do.destroy
 end
 
-def edit_to_do
     
 
 start
@@ -151,6 +150,24 @@ start
 
 # prompt.yes?("Do you like doritos?")
 
+#After you log in
+    #add "teams" option
+        #my_teams
+            #view team_to_dos
+                #claim to_do
+                    #once claimed, changes to red
+                    #adds to chosen to_dos
+                #again, chosen/incomplete todos show up red
+                #completed todos show up green
+            #chosen to_dos
+                #mark_complete
+                #unclaim to_do
+            #share to_do with team
+                #click on a todo and share it
+                            
+            #leave team
+        #join_a_team
+        #create_a_team
 
 
 puts "HELLO WORLD"
