@@ -10,13 +10,13 @@ def create_new_list
     confirm = false
     until confirm == true
         title = $prompt.ask("Type in a title:", required: true)
-        description = $prompt.ask("Put a description:", required: true)
+        description = $prompt.ask("Write a description:", required: true)
 
-        puts "List: #{title}"
-        puts "Description: #{title}"
+        puts "List title: #{title}"
+        puts "Description: #{description}"
 
-        confirm = $prompt.yes?('Do you want to create this list')
-        if confirm = true
+        confirm = $prompt.yes?('Create list?', convert: :boolean)
+        if confirm == true
             puts "List created!"
             # new_list = List.create(name: title, description: description)
         end
