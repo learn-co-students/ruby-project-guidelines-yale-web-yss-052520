@@ -47,6 +47,15 @@ def menu
     end
 end
 
+def view_all_to_dos
+    choices = []
+    choices.push(@current_user.todos).flatten
+    choices.push("back_to_menu")
+    selected_choice = @prompt.select("Your to_dos", choices)
+    if selectedd_choice == "back_to_menu"
+        menu
+    end
+end
 start
 
 
