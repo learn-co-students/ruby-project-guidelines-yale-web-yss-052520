@@ -2,11 +2,11 @@ require_relative '../config/environment'
 require "tty-prompt"
 prompt = TTY::Prompt.new
 
-User.destroy_all 
-User.reset_pk_sequence
+# User.destroy_all 
+# User.reset_pk_sequence
 
 class App 
-    attr_reader :user
+    attr_accessor :user, :user_address, :user_comment
 
 def start_with_name 
      puts "Hello! What is your name?"
@@ -15,9 +15,10 @@ def start_with_name
          puts "You have entered nothing. Please enter your name."
          name = gets.chomp
      end
-     @user = User.find_or_create_by(name: name)
+    @name = name
      puts "Thank you for using our app, #{name}."
-     question 
+     sleep(0.8)
+     question
 end 
 
 def question 
@@ -43,16 +44,16 @@ end
 
 def address
     puts "Please enter your address so we can find officials near you."
-    address = gets.chomp
-    while address == ""
+    user_address = gets.chomp
+    while user_address == ""
          puts "You have entered nothing. Please enter your address."
-         address = gets.chomp
+         user_address = gets.chomp
      end
-     @user.address = address
+     @user_address = user_address
     puts "We are finding officials near you."
-    sleep(1.0)
+    sleep(0.8)
     puts "We will provide you with a link to an email with a pre-written meesage."
-    sleep(1.0)
+    sleep(0.8)
     comment
 end 
 
@@ -61,8 +62,8 @@ def comment
     comment_choice = gets.chomp
     if comment_choice.downcase == "yes" 
         puts "What would you like to say in the email?"
-        comment_answer = gets.chomp
-        @user.comment = comment_answer
+        user_comment = gets.chomp
+        @user_comment = user_comment
         link
     elsif comment_choice.downcase == "no"
         link 
@@ -70,10 +71,11 @@ def comment
         puts "Please answer with yes or no."
         sleep(1.0)
         comment
-    end 
+    end
 end 
 
 def link 
+    User.create(name: @name, address: @user_address, comment: @user_comment)
     puts "Here is a link to your email:"
     #link here 
 end 
