@@ -6,11 +6,16 @@ def view_all
     puts "-"*100
     sleep(0.5)
 
-    array = List.all.map do |list| {list.?}
-    selected = $prompt.select("What do you want to do?")
-    puts List.all
+    array1 = List.all.map do |list| 
+        list.name 
+    end
 
-    view_list(selected)
+    array2 = List.all
+    hash = array1.zip(array2).to_h
+    # array = List.select(:name)
+    selected = $prompt.select("Select list:", hash)
+    puts selected
+    # view_list(selected)
 end
 #iterate and make a menu into a list?
 
