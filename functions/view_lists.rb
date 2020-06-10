@@ -7,7 +7,7 @@ def view_lists
     sleep(0.5)
 
 
-    # puts List.entries
+    # puts List.all
 
 end
 
