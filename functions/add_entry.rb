@@ -16,7 +16,15 @@ def add_entry(current_list)
         key(:genre).ask('Genre? (optional)', default: nil)
       end
 
-    current_list.add_book_to_list(entry)
+    confirm = $prompt.yes?('Add book to list?', convert: :boolean)
+    if confirm == true
+        puts "Book added!"
+        current_list.add_book_to_list(entry)
+        main_menu
+    else
+        main_menu
+    end
+
 
 end
 
