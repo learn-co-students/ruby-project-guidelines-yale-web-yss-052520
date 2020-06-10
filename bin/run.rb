@@ -141,16 +141,37 @@ def search_date_range(starting_date_array, ending_date_array)
     result
 end
 
-def graph
-    graph1 = Scruffy::Graph.new
-    graph1.add(:line, 'US', [100, -20, 30, 60])
-    graph1.render
-    # output.each do |entry|
-    #     entry[1]
+def graph(input)
+    max = 0.00
+    input.each do |arr|
+        if arr[2] > max
+            max = arr[2].to_f
+        end
+    end
+    base = 80.00
+    input.each do |arr|
+        percentage = (arr[2]/max).round(2)
+        print "#{arr[1].to_s}: "
+        number_of_stars = percentage*base.round
+        for i in 1..number_of_stars do
+            print "*"
+        end
+        print " #{percentage*100}% - #{arr[2]} cases"
+        puts ""
+    end
+
 end
 
-# run
-graph
+input = [
+    ["United States of America", "2020-03-03 00:00:00 UTC", 50], 
+    ["United States of America","2020-03-04 00:00:00 UTC", 131], 
+    ["United States of America", "2020-03-05 00:00:00 UTC", 193], 
+    ["United States of America", "2020-03-06 00:00:00 UTC", 241]
+]
+
+run
+
+# graph(input)
 
 # def state_cases 
 #     p "what is your state code"
