@@ -8,12 +8,12 @@ class Player < ActiveRecord::Base # instances of this class are stored in the pl
     end
 
     def self.find_or_create_by_name(name)	
-        player_temp = Player.all.find_by(name:name)
-        if(player_temp)
-            p "Welcome back #{player_temp.name} to Digital checkers!"
+        player = Player.find_by(name:name)
+        if(player)
+            puts "Welcome back #{player.name} to Digital Checkers!"
         else
-            player_temp = Player.new(name)
-            p "Welcome #{player.name} to digital checkers"
+            player = Player.new(name)
+            puts "Welcome #{player.name} to Digital Checkers"
         end
         player_temp
     end
