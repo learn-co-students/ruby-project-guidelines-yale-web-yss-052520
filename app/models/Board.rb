@@ -19,18 +19,21 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
             }
                 grid[row] = grid[row].join("")
         }
-        content = grid.join("\n")
+        self.content = grid.join("\n")
+
         self.display
     end
 
-    # Prints out the current configuration of this board's content
+    # Prints out the current configuration of this board's content and changes turn
     def display        
         # TODO: Find Gem to clear the CLI screen
         pp self.content
         if(self.player_turn == 'l')
-            p "It is #{Player.find(self.l_player_id)}'s turn!'"
+            p "It is #{Player.find(self.l_player_id).name}'s turn!'"
+            self.player_turn = 'r'
         else
-            p "It is #{Player.find(self.r_player_id)}'s turn!'"
+            p "It is #{Player.find(self.r_player_id).name}'s turn!'"
+            self.player_turn = 'l'
         end
     end
 
