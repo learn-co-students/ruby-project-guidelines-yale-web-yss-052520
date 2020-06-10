@@ -27,12 +27,12 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
     # Prints out the current configuration of this board's content and changes turn
     def display        
         # TODO: Find Gem to clear the CLI screen
-        pp self.content
+        puts self.content
         if(self.player_turn == 'l')
-            p "It is #{Player.find(self.l_player_id).name}'s turn!'"
+            puts "It is #{self.l_player.name}'s turn!"
             self.player_turn = 'r'
         else
-            p "It is #{Player.find(self.r_player_id).name}'s turn!'"
+            puts "It is #{self.r_player.name}'s turn!"
             self.player_turn = 'l'
         end
     end

@@ -12,7 +12,7 @@ class Player < ActiveRecord::Base # instances of this class are stored in the pl
         if(player)
             puts "Welcome back to Digital Checkers, #{player.name}!"
         else
-            player = Player.new(name: name)
+            player = Player.create(name: name)
             puts "Welcome to Digital Checkers, #{player.name}!"
         end
         player
