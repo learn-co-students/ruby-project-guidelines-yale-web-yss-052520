@@ -87,8 +87,8 @@ def execute_move(piece, move_type, to_pos, game)
                 loop do # runs until the user provides a valid jump move destination
                     jump_input = gets("Please provide the coordinates of your next jump.")
 
-                    if /^[A-Ha-h][1-8]$/.match(input) # the user has provided a coordinate in correct format
-                        to_pos = input.split("") # splits input string into an array [x,y]
+                    if /^[A-Ha-h][1-8]$/.match(jump_input) # the user has provided a coordinate in correct format
+                        to_pos = jump_input.split("") # splits input string into an array [x,y]
                         to_pos[0] = to_pos[0].to_i # converts letter x-coord to number
 
                         if piece.jump_moves.include?(to_pos) # if the user input coordinate is indeed a jump move
