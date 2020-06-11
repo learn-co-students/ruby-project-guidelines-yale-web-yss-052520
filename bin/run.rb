@@ -121,7 +121,7 @@ def date_prompt
         starting_date = $prompt.ask("Provide a starting date (DD/MM):") {|q| q.validate(/[0-9][0-9]\/[0-9][0-9]/, 'Please format as DD/MM')}
         ending_date = $prompt.ask("Provide a ending date (DD/MM):") {|q| q.validate(/[0-9][0-9]\/[0-9][0-9]/, 'Please format as DD/MM')}
 
-        if (!Date.valid_date? 2020,starting_date[3..4].to_i, starting_date[0..1].to_i or !Date valid_date? 2020,ending_date[3..4].to_i, ending_date[0..1].to_i)
+        if (!Date.valid_date? 2020,starting_date[3..4].to_i, starting_date[0..1].to_i or !Date.valid_date? 2020,ending_date[3..4].to_i, ending_date[0..1].to_i)
             puts "Date input incorrect"
             date_prompt
             return 0
