@@ -190,8 +190,8 @@ def view_team_to_dos
         @current_user.claim(@claimed_to_do)
         # @view_team_to_dos_choice.update(user_id: @current_user.id)
         # @view_team_to_dos_choice.colorize(:red)
-        p "#{@claimed_to_do.name} has been added to chosen_to_dos"
-        view_team_to_dos
+        p "#{@claimed_to_do.name} has been added to claimed_to_dos"
+        current_team_menu
     end
 end
 
