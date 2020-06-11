@@ -67,7 +67,7 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
     def start_game(board)
         loop do 
             move = get_move(board)
-            move_type = validate_move(move[:piece], move[:to_x], move[:to_y]) # Returns nil if its not a valid move
+            move_type = validate_move(move[:piece], move[:to_pos]) # Returns nil if its not a valid move
             if(move_type == nil)
                 puts "That is not a valid move"
             end
@@ -79,7 +79,7 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
     end
     
     def get_move(board)
-        move = {:to_X => nil, :to_Y => nil,:piece => nil}
+        move = {:to_pos => nil,:piece => nil}
         loop do
             puts "Please enter your move in the proper format, ex. '21:30'" 
             move_input = gets.chomp
@@ -92,8 +92,7 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
             from_pos = move_input[0].to_s.to_i
             to_pos = move_input[1].to_s.to_i
             
-            move[:to_X] = to_pos[0]
-            move[:to_Y] = to_pos[1]
+            move[:to_pos] = [to_pos[0], to_pos[1]]
             move[:piece] = Piece.all.find{|piece|piece.x_pos = from_pos[0] && piece.y_pos = from_pos[1]}
             if(!move[:piece])
                 puts "There is no piece to move in the specified square\n"
