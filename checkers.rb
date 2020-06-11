@@ -49,7 +49,7 @@ def validate_move(piece, to_pos)
         return "regular"
     elsif piece.jump_moves.include?(to_pos) # if its a jump move
         return "jump"
-    else
+    else # if it is not a valid move
         return nil
     end
 end
@@ -107,6 +107,16 @@ def execute_move(piece, move_type, to_pos, game)
             end
         end
     end
+
+    # switches player to the next one
+    if game.player_turn == "l"
+        game.player_turn = "r"
+    else
+        game.player_turn = "l"
+    end
+
+    # saves updated board to database
+    game.save
 end
 
 
