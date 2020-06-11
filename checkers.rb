@@ -36,8 +36,12 @@ else
     puts "Creating new game..."
     game = Board.create(l_player: player_1, r_player: player_2)
 end
-# binding.pry
+
+# Print out which side which side each player is
+puts "#{game.l_player.name}: Blue Team"
+puts "#{game.r_player.name}: Red Team"
     
+# 21:30
 
 game.load
 game.start_game(game)

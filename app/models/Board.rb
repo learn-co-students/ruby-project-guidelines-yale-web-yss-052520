@@ -74,8 +74,7 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
     def get_move(board)
         move = {:to_X => nil, :to_Y => nil,:piece => nil}
         loop do
-            puts "Please provide a move in the format (coordinates of piece being moved, coordinates of new position to move to"
-            puts "Example of proper input: 11,23"
+            puts "Please enter your move in the proper format, ex. '11:23'" 
             move_input = gets.chomp
             move_input = move_input.split(":")
             if(!move_input =~ (/^[A-Ha-h][1-8]:[A-Ha-h][1-8]$/)) 
@@ -88,13 +87,13 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
             
             move[:to_X] = to_pos[0]
             move[:to_Y] = to_pos[1]
-            move[:piece] = Piece.all.select{|piece|piece.x_pos = from_pos[0] && piece.y_pos = from_pos[1]}
-            if(move[:piece])
-                puts "There is no piece to move in the specified square"
+            move[:piece] = Piece.all.find{|piece|piece.x_pos = from_pos[0] && piece.y_pos = from_pos[1]}
+            if(!move[:piece])
+                puts "There is no piece to move in the specified square\n"
                 next #restart get_move loop
             end
             if(move[:piece].team != board.player_turn)
-                puts "You can not move your opponent’s piece"
+                puts "You can not move your opponent’s piece\n"
                 next #restart get_move loop
             end
         
