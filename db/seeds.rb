@@ -51,9 +51,10 @@ b3 = Board.create(r_player: cat, l_player: alex, content: config3)
 
 b4 = Board.create(r_player: alex, l_player: cat)
 
-# b3.load
-# test_piece = Piece.all.first
-# test_piece.y_pos = 0
-# b3.update
+b3.load
+b3.display
+b3.update
+# b3.display
+
 binding.pry
 0
