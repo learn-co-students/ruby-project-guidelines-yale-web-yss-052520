@@ -14,9 +14,9 @@ class Team < ActiveRecord::Base
         self.all_names.include?(typed_in_team_name)
     end
 
-    def team_to_do_names
+    def team_to_dos_clean_string
         self.team_to_dos.map do |to_do|
-            to_do.name
+            "#{to_do.name} #{to_do.status} due_date:#{to_do.due_date}"
         end
     end
 

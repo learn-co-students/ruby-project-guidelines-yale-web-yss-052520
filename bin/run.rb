@@ -137,14 +137,14 @@ end
 def current_team_menu
     @current_team_menu_choice = @prompt.select("You are in #{@current_team.name}. What would you like to do?", %w(
         view_team_to_dos
-        view_chosen_to_dos
+        view_claimed_to_dos
         create_team_to_do
         back_to_my_teams
     ))
     if @current_team_menu_choice == "view_team_to_dos"
         view_team_to_dos
-    elsif @current_team_menu_choice == "view_chosen_to_dos"
-        view_chosen_to_dos
+    elsif @current_team_menu_choice == "view_claimed_to_dos"
+        view_claimed_to_dos
     elsif @current_team_menu_choice == "create_team_to_do"
         create_team_to_do
     elsif @current_team_menu_choice == "back_to_my_teams"
@@ -155,14 +155,16 @@ end
 def view_team_to_dos
     # binding.pry
     # choices = @current_user.reload.team_to_dos(@current_team)
-    choices = @current_team.reload.team_to_do_names
+    choices = @current_team.reload.team_to_dos_clean_string
+    # binding.pry
     choices.push("back_to_team_menu")
     @view_team_to_dos_choice = @prompt.select("Select a to_do you want to claim", choices)
     if @view_team_to_dos_choice == "back_to_team_menu"
         current_team_menu
     else
-        binding.pry
-        @claimed_to_do = TeamToDo.find_by(name: @view_team_to_dos_choice)
+        # binding.pry
+        claimed_to_do_name = @view_team_to_dos_choice.split[0]
+        @claimed_to_do = TeamToDo.find_by(name: claimed_to_do_name)
         @current_user.claim(@claimed_to_do)
         # @view_team_to_dos_choice.update(user_id: @current_user.id)
         # @view_team_to_dos_choice.colorize(:red)
@@ -171,14 +173,14 @@ def view_team_to_dos
     end
 end
 
-def view_chosen_to_dos
-    choices = @current_user.team_to_do_name  #fix this
+def view_claimed_to_dos
+    choices = @current_user.claimed_to_do_names(@current_team)  #fix this
     choices.push("back_to_team_menu")
     view_chosen_to_dos_choice = @prompt.select("Here are your claimed to_dos", choices)
     if view_chosen_to_dos_choice == "back_to_team_menu"
         current_team_menu
     else
-        @current_team_to_do = view_chosen_to_dos_choice
+        @current_team_to_do = TeamToDo.find_by(name: view_chosen_to_dos_choice)
         current_team_to_do
     end
 end
@@ -190,7 +192,7 @@ def current_team_to_do
         unclaim
     ))
     if current_team_to_do_choice == "back"
-        view_chosen_to_dos
+        view_claimed_to_dos
     elsif current_team_to_do_choice == "mark_complete"
         mark_chosen_to_do_complete
     elsif current_team_to_do_choice == "unclaim"
@@ -200,23 +202,23 @@ end
 
 def mark_chosen_to_do_complete
     @current_team_to_do.mark_complete #build this
-    @current_team_to_do.colorize(:green)
+    # @current_team_to_do.colorize(:green)
     @current_team_to_do.unclaim
     p "Congrats! You completed #{@current_team_to_do.name}"
-    view_chosen_to_dos
+    view_claimed_to_dos
 end
 
-def unclaim
+def unclaim_chosen_to_do
     @current_team_to_do.unclaim #build this
-    @current_team_to_do.colorize(:default)
+    # @current_team_to_do.colorize(:default)
     p "#{@current_team_to_do.name} has been unclaimed"
-    view_chosen_to_dos
+    view_claimed_to_dos
 end
 
 def create_team_to_do
-    p "What is the name if this team_to_do"
+    p "What is the name if this team_to_do (snake_case_only)"
     typed_in_name = gets.chomp
-    p "When is this due? (YYYY,MM,DD)" #Date.new(2020,10,29)
+    p "When is this due? (YYYY/MM/DD)" #Date.new(2020,10,29)
     typed_in_date = gets.chomp #how do i work this with datetime? Or I could change type for due_date with migration
     new_team_to_do = TeamToDo.create(name: typed_in_name, due_date: typed_in_date, team_id: @current_team.id, complete?: false)
     p "Success! #{new_team_to_do.name} has been added to #{@current_team.name} to_dos"
@@ -305,11 +307,11 @@ def all_to_dos
     end
 end
 
-def mark_complete
-    @selected_to_do.mark_complete
-    p "#{@selected_to_do.task.name} is complete. Congratulations!"
-    all_to_dos
-end
+# def mark_complete
+#     @selected_to_do.mark_complete
+#     p "#{@selected_to_do.task.name} is complete. Congratulations!"
+#     view_claimed_to_dos
+# end
 
 def delete_to_do
     @selected_to_do.destroy

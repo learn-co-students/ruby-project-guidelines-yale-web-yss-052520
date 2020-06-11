@@ -73,10 +73,16 @@ class User < ActiveRecord::Base
         team_to_do.update(user_id: self.id)
     end
 
-    # def team_to_dos(current_team)
-    #     TeamToDo.all.select do |to_do|
-    #         (to_do.user_id == self.id) && (to_do.team_id == current_team.id)
-    #     end
-    # end
+    def claimed_to_dos(current_team)
+        TeamToDo.all.select do |to_do|
+            (to_do.user_id == self.id) && (to_do.team_id == current_team.id)
+        end
+    end
+
+    def claimed_to_do_names(current_team)
+        claimed_to_dos(current_team).map do |to_do|
+            to_do.name
+        end
+    end
 
 end

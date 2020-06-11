@@ -22,7 +22,7 @@ to_do4 = ToDo.create(user_id: justin.id, task_id: task_4.id, complete?: false,  
 team1 = Team.create(name: "Ultimus", password: "1234")
 connection1 = TeamUser.create(user_id: enrique.id, team_id: team1.id)
 
-team_to_do1 = TeamToDo.create(name: "Coding Project for Animals", complete?: false, team_id: team1.id)
+team_to_do1 = TeamToDo.create(name: "Coding_Project_for_Animals", complete?: false, team_id: team1.id, due_date: "2020/06/19")
 # team_to_do2 = TeamToDo.create(user_id: justin.id, task_id: task_2.id, complete?: true, priority_level: 5)
 # team_to_do3 = TeamToDo.create(user_id: justin.id, task_id: task_3.id, complete?: false, priority_level: 4)
 # team_to_do4 = TeamToDo.create(user_id: justin.id, task_id: task_4.id, complete?: false,  priority_level: 2)

@@ -9,4 +9,13 @@ class TeamToDo < ActiveRecord::Base
     def unclaim
         self.update(user_id: nil)
     end
+
+    def status
+        if self.complete?
+            "complete"     
+        else
+            "incomplete"
+        end
+    end
+        
 end
