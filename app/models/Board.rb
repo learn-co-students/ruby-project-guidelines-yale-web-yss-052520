@@ -15,8 +15,17 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
                 end
             }
         }
-        self.content = grid.join("\n")
+    end
+
+    # Prints out the current configuration of this board's content along with axes labels
+    def display        
+        # TODO: Find Gem to clear the CLI screen
+        system("clear") || system("cls")
+
         puts self.content
+    end
+
+    def display_turn
         if(self.player_turn == 'l')
             puts "It is #{self.l_player.name}'s turn!"
         else
@@ -24,17 +33,10 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
         end
     end
 
-    # Prints out the current configuration of this board's content and changes turn
-    def display        
-        # TODO: Find Gem to clear the CLI screen
-        system("clear") || system("cls")
-
-        puts self.content
+    def switch_turn
         if(self.player_turn == 'l')
-            puts "It is #{self.l_player.name}'s turn!"
             self.player_turn = 'r'
         else
-            puts "It is #{self.r_player.name}'s turn!"
             self.player_turn = 'l'
         end
     end
@@ -62,53 +64,50 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
             }
         }
         self.content = new_board.join("\n")
-        self.display
     end
 
+    # Gets a move from the player, parses it into coordinates, and check that player is trying to move one of their own pieces
+    def get_move
+        move = {}
+        loop do # Runs until a valid move is provided
+            # Gets input from user
+            puts "What move would you like to make?" 
+            input = gets.chomp
 
-    def start_game(board)
-        loop do 
-            move = get_move(board)
-            move_type = validate_move(move[:piece], move[:to_pos]) # Returns nil if its not a valid move
-            if(move_type == nil)
-                puts "That is not a valid move"
+            # Check input format using regex
+            if /^[A-Ha-h][1-8]:[A-Ha-h][1-8]$/.match(input) # input is properly formatted
+                move_input = input.split(":")
+                from_pos = move_input[0]
+                from_pos[0] = from_pos[0].to_i # converts letter x-coord to number
+                from_pos.map!{|n| n - 1} # converts 1-indexed user input to 0-indexed internal coords
+
+                to_pos = move_input[1]
+                to_pos[0] = to_pos[0].to_i # converts letter x-coord to number
+                to_pos.map!{|n| n - 1} # converts 1-indexed user input to 0-indexed internal coords
+                
+                move[:to_pos] = [to_pos[0], to_pos[1]] # parse to_pos into individual coordinates
+
+                # Check if there is a piece at the starting point
+                move[:piece] = Piece.all.find{|piece|piece.x_pos = from_pos[0] && piece.y_pos = from_pos[1]}
+                if move[:piece] # there is a piece
+
+                    # Check if the piece belongs to the player
+                    if move[:piece].team == self.player_turn # the piece belongs to the current player
+                        return move # returns the move hash, exits loop
+                    else # the piece doesn't belong to the current player
+                        puts "You cannot move your opponent's piece"
+                    end
+
+                else # there is no piece
+                    puts "There is no piece to move in the specified square"
+                    # will restart loop
+                end
+
+            else # input is not properly formatted
+                puts "Please enter your move in the proper format, ex. 'A1:h8'"
+                # will restart loop
             end
-            execute_move(move[:piece], move_type, move[:to_x], move[:to_y])
-            board.switch_player
-            board.update
-            board.display
         end
-    end
-    
-    def get_move(board)
-        move = {:to_pos => nil,:piece => nil}
-        loop do
-            puts "Please enter your move in the proper format, ex. '21:30'" 
-            move_input = gets.chomp
-            move_input = move_input.split(":")
-            if(!move_input =~ (/^[A-Ha-h][1-8]:[A-Ha-h][1-8]$/)) 
-                puts "Please enter your move in the proper format, ex. '21:30'" 
-                next #restart get_move loop
-            end
-            move_input = move_input.split(":")
-            from_pos = move_input[0].to_s.to_i
-            to_pos = move_input[1].to_s.to_i
-            
-            move[:to_pos] = [to_pos[0], to_pos[1]]
-            move[:piece] = Piece.all.find{|piece|piece.x_pos = from_pos[0] && piece.y_pos = from_pos[1]}
-            if(!move[:piece])
-                puts "There is no piece to move in the specified square\n"
-                next #restart get_move loop
-            end
-            if(move[:piece].team != board.player_turn)
-                puts "You can not move your opponent’s piece\n"
-                binding.pry
-                next #restart get_move loop
-            end
-        
-            break # A proper move was inputted
-        end
-        return move
     end
     
     # returns move type as a string if valid, nil if invalid
@@ -122,7 +121,7 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
         end
     end
     
-    def execute_move(piece, move_type, to_pos, game)
+    def execute_move(piece, move_type, to_pos)
         # parses destination coordinate array into individual x and y values
         to_x = to_pos[0]
         to_y = to_pos[1]
@@ -131,7 +130,7 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
             # set the piece to its new position, updates board
             piece.x_pos = to_x
             piece.y_pos = to_y
-            game.update
+            self.update
             return true # move is complete
     
         elsif move_type == "jump"
@@ -143,7 +142,7 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
                 # set the piece to its new position, updates board
                 piece.x_pos = to_x
                 piece.y_pos = to_y
-                game.update
+                self.update
     
                 # finds captured piece and removes it from the piece.all array - ruby will garbage collect
                 Piece.all.delete(Piece.all.find{|p| p.x_pos == (from_x + to_x)/2 && p.y_pos == (from_y + to_y)/2})
@@ -153,11 +152,12 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
                     return true # move is complete
                 else
                     loop do # runs until the user provides a valid jump move destination
-                        jump_input = gets("Please provide the coordinates of your next jump.")
+                        jump_input = gets("Please provide the coordinates of your next jump.").chomp
     
                         if /^[A-Ha-h][1-8]$/.match(jump_input) # the user has provided a coordinate in correct format
                             to_pos = jump_input.split("") # splits input string into an array [x,y]
                             to_pos[0] = to_pos[0].to_i # converts letter x-coord to number
+                            to_pos.map!{|n| n - 1} # converts 1-indexed user input to 0-indexed internal coords
     
                             if piece.jump_moves.include?(to_pos) # if the user input coordinate is indeed a jump move
                                 # parses destination coordinate array into individual x and y values
