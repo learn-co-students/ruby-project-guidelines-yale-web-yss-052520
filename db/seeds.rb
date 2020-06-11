@@ -1,6 +1,5 @@
 Player.destroy_all
-
-p1 = Player.create(name: "D", bag_count: 0, location_id: 1)
+Item.destroy_all
 
 # Start Town 
 l1 = Location.find_or_create_by(name: "Candy Castle",
@@ -153,4 +152,44 @@ l17 = Location.find_or_create_by(name: "Final Flan",
     south_location: 14,
     east_location: nil,
     west_location: 16
+)
+
+# Swizzle Stick
+i1= Item.find_or_create_by(
+    name: "Swizzle Stick",
+    description: "A small stick that is used for more than just stirring drinks. It emits a magical glow.",
+    location_id: 16,
+    player_id: nil
+)
+
+# Chewy Nougat
+i2= Item.find_or_create_by(
+    name: "Chewy Nougat",
+    description: "An aerated gem that is surrounded by a veil of fairy dust.",
+    location_id: 9,
+    player_id: nil
+)
+
+# Jolly Rancher
+i3= Item.find_or_create_by(
+    name: "Jolly Rancher",
+    description: "A small but powerful gem, that packs a good punch.",
+    location_id: 6,
+    player_id: nil
+)
+
+# Taffy
+i4= Item.find_or_create_by(
+    name: "Taffy",
+    description:"A gem that has the ability to control the sea.",
+    location_id: 2,
+    player_id: nil
+)
+
+# Lemonhead
+i5= Item.find_or_create_by(
+    name: "Lemonhead",
+    description:"Sour, sweet, and all those before it will be gone.",
+    location_id: 10,
+    player_id: nil
 )

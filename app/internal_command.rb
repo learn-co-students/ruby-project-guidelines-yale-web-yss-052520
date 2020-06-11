@@ -44,9 +44,9 @@ class ICommand
         when "t"
             talk_to_NPC 
         when "l"
-            look #double check 
+            Action.look
         when "c"
-            check_bag
+            Action.check_bag
         when "1"
             Game.help_menu
         else 
@@ -82,34 +82,42 @@ class ICommand
         #need back function
     end
 
-    def move(direction)
+    def self.move(direction)
         # possibly need return if checking bag
-
         error_message = "You've reached the edge of the map, turn back, or go a different direction!"
 
         if direction == "north"
-            locations.find_by(id: self.player.location_id).north_location ? (self.player.location_id = locations.north_location) : (puts error_message)
+            Location.find_by(id: self.player.location_id).north_location ? (self.player.location_id = Location.find_by(id: self.player.location_id).north_location) : (puts error_message)
         elsif direction == "south"
-            locations.find_by(id: self.player.location_id).south_location ? (self.player.location_id = locations.south_location) : (puts error_message)
-       # elsif direction == "east"
-            #self.player.locations.east_location ? (self.player.location_id = self.player.locations.east_location) : (puts error_message)
-        #elsif direction == "west"
-            #self.player.locations.west_location ? (self.player.location_id = self.player.locations.west_location) : (puts error_message)
+            Location.find_by(id: self.player.location_id).south_location ? (self.player.location_id = Location.find_by(id: self.player.location_id).south_location) : (puts error_message)
+       elsif direction == "east"
+            Location.find_by(id: self.player.location_id).east_location ? (self.player.location_id = Location.find_by(id: self.player.location_id).east_location) : (puts error_message)
+        elsif direction == "west"
+            Location.find_by(id: self.player.location_id).west_location ? (self.player.location_id = Location.find_by(id: self.player.location_id).west_location) : (puts error_message)
         end
     end
 
-  # def self.location_display
-       # north = Location.all.find_by(id: self.player.locations.north_location)
-       # south = Location.all.find_by(id: self.player.locations.south_location)
-        #east = Location.all.find_by(id: self.player.locations.east_location)
-        #west = Location.all.find_by(id: self.player.locations.west_location)
+    def self.location_display
+        north_row = Location.find_by(id: Location.find_by(id: self.player.location_id).north_location)
+        south_row = Location.find_by(id: Location.find_by(id: self.player.location_id).south_location)
+        east_row = Location.find_by(id: Location.find_by(id: self.player.location_id).east_location)
+        west_row = Location.find_by(id: Location.find_by(id: self.player.location_id).west_location)
 
-       # puts "North of here, is #{north.name}." if north
-       # puts "South of here, is #{south.name}." if south
-        #puts "East of here, is #{east.name}." if east
-        #puts "West of here, is #{west.name}." if west
+        puts "North of here, is #{north_row.name}." if north_row
+        puts "South of here, is #{south_row.name}." if south_row
+        puts "East of here, is #{east_row.name}." if east_row
+        puts "West of here, is #{west_row.name}." if west_row
+    end
 
-   # end
+    def self.move_and_display
+        self.location_display
+        self.move(self.key_funcs)
+        Game.clear_term
+    end
+
+    def self.move_and_display_loop
+        self.move_and_display while(true)
+    end
 
 
 end

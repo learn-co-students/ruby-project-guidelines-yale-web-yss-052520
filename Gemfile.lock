@@ -4,6 +4,12 @@ GIT
   specs:
     remedy (0.2.0)
 
+GIT
+  remote: https://github.com/miketierney/artii
+  revision: f02e459687056608ad2f9d1c58ed5e239f5d3cd1
+  specs:
+    artii (2.1.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -72,6 +78,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord (~> 5.2)
+  artii!
   pry
   rake
   remedy!

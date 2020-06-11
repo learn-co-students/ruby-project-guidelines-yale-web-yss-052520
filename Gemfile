@@ -10,3 +10,4 @@ gem "rake"
 gem 'tty-prompt'
 
 gem 'remedy', git: 'https://github.com/acook/remedy'
+gem 'artii', git: 'https://github.com/miketierney/artii'

@@ -1,5 +1,6 @@
 class Game
 
+    @@artii = Artii::Base.new :font => 'doom'
     @@prompt = TTY::Prompt.new
 
     def self.start
@@ -33,7 +34,7 @@ class Game
     end 
 
     def self.new_game
-        Game.player
+        Game.player_prompt
         #begins a new game for player
     end
 
@@ -48,7 +49,7 @@ class Game
         system('clear') || system('cls') # clears the terminal
     end
 
-    def self.player
+    def self.player_prompt
         puts 
         select_player_name = @@prompt.ask("What is your name?")
         @@player = Player.create(name: select_player_name, bag_count: 0, location_id: 1)
@@ -74,7 +75,14 @@ class Game
     end
 
     def self.intro
-    Game.slow_puts("asdfadf \nasdfads \nasdfad")
+        Game.slow_puts("Our world is in need of rescue. In order to protect \nthe planet, you must help Queen Frostine restore the \nnatural balance by finding the five hidden gems \nscattered throughout the planet's remains. On your \njourney you may run into helpers, but remember to \nstay focused. Otherwise the Earth might just implode.")
+            # "Our world is in need of rescue. In order to protect
+            # the planet, you must help Queen Frostine restore the
+            # natural balance by finding the five hidden gems 
+            # scattered throughout the planet's remains. On your
+            # journey you may run into helpers, but remember to 
+            # stay focused. Otherwise the Earth might just implode."
+
     end
 
     def self.next_screen
@@ -90,13 +98,19 @@ class Game
     def self.slow_puts(string)
         string.each_char {|char| sleep(0.05); print char}
         print "\n"
-   end
+    end
 
-   def self.gameplay_screen
-    Game.clear_term
-    ICommand.location_display
-    ICommand.key_funcs
-  end
+    def self.gameplay_screen
+        Game.clear_term
+        ICommand.move_and_display_loop
+        ICommand.key_funcs
+    end
+
+
+    def self.title
+        puts @@artii.asciify("Title")
+    end
+
 
 
 end
