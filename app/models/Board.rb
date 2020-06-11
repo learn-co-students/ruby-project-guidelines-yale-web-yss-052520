@@ -16,7 +16,7 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
             }
         }
         self.content = grid.join("\n")
-        self.display
+        puts self.content
     end
 
     # Prints out the current configuration of this board's content and changes turn
@@ -93,6 +93,7 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
                 next #restart get_move loop
             end
             if(move[:piece].team != board.player_turn)
+                binding.pry
                 puts "You can not move your opponent’s piece\n"
                 next #restart get_move loop
             end
