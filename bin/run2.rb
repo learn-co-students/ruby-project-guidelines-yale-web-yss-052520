@@ -21,6 +21,15 @@ def main_menu
 end
 
 
+def list_menu
+    $prompt.select("What do you want to do?") do |menu|
+    menu.choice "View Book", -> {display_list_commands}
+    menu.choice "Add Book", -> {add_entry(selected)}
+    menu.choice "Exit Program", -> {exit}
+    # menu.choice "Hang out for a bit", -> {hang_out(0.5,5)}
+    end
+end
+
 def create_new_list_menu
     $prompt.select("What do you want to do now?") do |menu|
     menu.choice "View My Lists", -> {view_all}
@@ -30,6 +39,9 @@ def create_new_list_menu
     end
     system("clear")
 end
+
+
+
 
 initial_screen
 main_menu
