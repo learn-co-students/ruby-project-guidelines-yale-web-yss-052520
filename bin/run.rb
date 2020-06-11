@@ -188,9 +188,16 @@ def increment(input)
 
     prev = input[0][2]
     output = []
+    country_name = ""
     input.each do |arr|
-        output << [arr[0], arr[1], arr[2] - prev]
-        prev = arr[2]
+        if country_name != arr[0]
+            country_name = arr[0]
+            prev = arr[2]
+            next #omit the first date
+        else
+            output << [arr[0], arr[1], arr[2] - prev]
+            prev = arr[2]
+        end
     end
     output
 end

@@ -25,7 +25,7 @@ class Exporter
                 puts("")
             end
             percentage = (arr[2]/max).round(2)
-            print "#{arr[1].to_s}: "
+            print "#{arr[1].to_s[0..9]}: "
             number_of_stars = percentage*base.round
             for i in 1..number_of_stars do
                 print "*"
