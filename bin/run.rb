@@ -4,8 +4,14 @@ require_relative '../config/environment'
 # def presuf(string)
 #     string.delete_prefix('"').delete_suffix('"')
 # end
+# def render_ascii_art
+#     File.readlines("art.txt") do |line|
+#       puts line
+#     end
+# end
 
 def start
+    # render_ascii_art
     welcome_section
 end
 
