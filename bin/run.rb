@@ -1,20 +1,15 @@
 require_relative '../config/environment'
 
-# Finished by 12pm 
-# The earliest date with data is Jan 22th  (done)
-# Export data to the exports/data folder and label the file as "id_1_confirmed_cases_daily.txt" (done)
-# Export graph to the exports/graph folder and label the file as "id_1_confirmed_cases_daily_graph.txt" (done)
-# Create folder if not already existed (done)
-# The date must be in correct format DD/MM, e.g. MM is between 1 to 12 (done)
+# TODO:
 
-# To-do-list
 # Change the display message to warnings, use $prompt to make everything look nicer
-# Fix the graph percentage label, round sometimes gives "7.0000001", so I used string truncation, that still gives a problem: 100.%. 
-# Make sure that at each step there is an option "Quit", so that user can end the app early
-# Write a good README file, such as "bundle install", run "rake db:migrate", and graphs are exported to 'exports/graphs' and data are exported to 'exports/data' folders
+# Remove percentages from graphs
+# Standardize "Quit" option
+# Make README.md
 
 def run
     Seeder.clear
+    Viewer.header
     load_data
     user_console
 end
@@ -30,19 +25,29 @@ def load_data
 end
 
 def user_console
-    puts "Now, form a query."
+    puts "Now, you will form a query on your data."
 
     new_query_prompt
 
-    while selection = $prompt.select('What would you like to do next?', {"Form a new query": 0, "Load existing query": 1, "Export data": 2, "Quit": 3})
+    while true
+        Viewer.header
+        pp Query.load.return
+        puts "\n"
+
+        selection = $prompt.select('What would you like to do next?', {"Form a new query": 0, "Load existing query": 1, "Export data": 2, "Quit": 3})
+        
         case selection
         when 0
+            Viewer.header
             new_query_prompt
         when 1
+            Viewer.header
             load_query_prompt
         when 2
+            Viewer.header
             export_prompt
         when 3
+            puts "Goodbye!"
             break
         end
     end
@@ -83,15 +88,12 @@ def new_query_prompt
     case_prompt
 
     Query.load = query
-    pp Query.load.return
 end
 
 def load_query_prompt
     options = Query.all.each_with_object({}) {|query, hash| hash["#{query.id}: #{query.case_type}, #{query.date_type}, #{query.single_date}, #{query.starting_date}, #{query.ending_date}"] = query}
 
     Query.load = $prompt.select("Which query would you like to load?", options)
-
-    pp Query.load.return
 end
 
 def date_prompt
@@ -100,7 +102,7 @@ def date_prompt
 
     case selection
     when 0
-        date = $prompt.ask("Provide a date (DD/MM):") {|q| q.validate(/[0-9][0-9]\/[0-9][0-9]/,'Please format as DD/MM')}
+        date = $prompt.ask("Provide a date (DD/MM):") {|q| q.validate(/[0-9][0-9]\/[0-9][0-9]/, 'Please format as DD/MM')}
 
         if !Date.valid_date? 2020,date[3..4].to_i, date[0..1].to_i #check whether it is a valid date
             puts "Date input incorrect"
