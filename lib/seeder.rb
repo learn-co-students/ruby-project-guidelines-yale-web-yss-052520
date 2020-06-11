@@ -1,3 +1,5 @@
+# Writes data to database
+
 class Seeder
     def self.clear
         Country.destroy_all
@@ -6,12 +8,20 @@ class Seeder
         Day.reset_pk_sequence
     end
 
-    def self.seed(country_info)
-        country_name = country_info.first["Country"]
+    def self.seed(country_data)
+        country_name = country_data.first["Country"]
         country = Country.create(name: country_name)
 
-        country_info.each do |date_info|
-            Day.create(date: date_info["Date"], country_id: country.id, confirmed_cases: date_info["Confirmed"], active_cases: date_info["Active"], death_cases: date_info["Deaths"], recovered_cases: date_info["Recovered"])
+        country_data.each do |date_data|
+            Day.create(
+                date: date_data["Date"],
+                country_id: country.id,
+                confirmed_cases:
+                date_data["Confirmed"],
+                active_cases: date_data["Active"],
+                death_cases: date_data["Deaths"],
+                recovered_cases: date_data["Recovered"]
+                )
         end
     end
 end
