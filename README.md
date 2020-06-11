@@ -1,59 +1,76 @@
-# Module One Final Project Guidelines
+Welcome to ToDo.it
+    created by: Enrique Valencia Yale '23
+                Justin James Yale '21
 
-Congratulations, you're at the end of module one! You've worked crazy hard to get here and have learned a ton.
+We built a functional CRUD CLI to-do list app, with features somewhat specific to Yale students, but nothing that could not be modified to a wider audience.  The application relies heavily upon the Ruby active record gem, as well as its built-in functions and ability to migrate in data-tables.
 
-For your final project, we'll be building a Command Line database application.
 
-## Project Requirements
+There are six classes:
 
-### Option One - Data Analytics Project
+Task.rb
+Team_to_do.rb
+team_user.rb
+Team.rb
+To_do.rb
+User.rb
 
-1. Access a Sqlite3 Database using ActiveRecord.
-2. You should have at minimum three models including one join model. This means you must have a many-to-many relationship.
-3. You should seed your database using data that you collect either from a CSV, a website by scraping, or an API.
-4. Your models should have methods that answer interesting questions about the data. For example, if you've collected info about movie reviews, what is the most popular movie? What movie has the most reviews?
-5. You should provide a CLI to display the return values of your interesting methods.  
-6. Use good OO design patterns. You should have separate classes for your models and CLI interface.
+The bulk of the application is operated from the run file, with support from an app/models folder, and several migrations from db/migrate.
 
-  **Resource:** [Easy Access APIs](https://github.com/learn-co-curriculum/easy-access-apis)
+The task table is composed of a name column(string), a category column(string), a due date (datetime), and an assigned date(datetime).  A To-Do is composed of a user_id, a task_id, a boolean of whether the To-Do is complete or not, and a priority level column specifying an integer from 1 - 5.  A user is composed of a name(string), a username(string), a password(string), a college(at Yale, we have residential colleges; string), and an age(integer).
 
-### Option Two - Command Line CRUD App
+The to-list includes the ability to log-in with a username and password, masking passwords, and double-entry surety upon password creation.  Once your password has been confirmed as a new or returning user, you will be led to the menu board.  
 
-1. Access a Sqlite3 Database using ActiveRecord.
-2. You should have a minimum of three models.
-3. You should build out a CLI to give your user full CRUD ability for at least one of your resources. For example, build out a command line To-Do list. A user should be able to create a new to-do, see all todos, update a todo item, and delete a todo. Todos can be grouped into categories, so that a to-do has many categories and categories have many to-dos.
-4. Use good OO design patterns. You should have separate classes for your models and CLI interface.
+At the menu board, you can choose between:
 
-### Brainstorming and Proposing a Project Idea
+View_priority_to_dos
+	Leads to => priority to_dos
+		Ability to select a To-Do or return to a menu is seen on this screen.  Once you select a To-Do (note: this process is the same for all to_dos marked incomplete), you will have the ability to edit that To-Do, in which case it will be deleted and you build a new To-Do, you can mark that To-Do complete, or you can deleted, after which you will be led to the other completed To-Dos for possible deletion as well (assuming you’re in the deleting spirit).  From that screen, which is described below, you will be able to return to the menu.
 
-Projects need to be approved prior to launching into them, so take some time to brainstorm project options that will fulfill the requirements above.  You must have a minimum of four [user stories](https://en.wikipedia.org/wiki/User_story) to help explain how a user will interact with your app.  A user story should follow the general structure of `"As a <role>, I want <goal/desire> so that <benefit>"`. For example, if we were creating an app to randomly choose nearby restaurants on Yelp, we might write:
+View_all_to_dos
+	Leads to => all_to_dos
+		Same functionality as priority to-dos, except To-Dos with all priority levels will be displayed.
 
-* As a user, I want to be able to enter my name to retrieve my records
-* As a user, I want to enter a location and be given a random nearby restaurant suggestion
-* As a user, I should be able to reject a suggestion and not see that restaurant suggestion again
-* As a user, I want to be able to save to and retrieve a list of favorite restaurant suggestions
+New_to_do
+	Leads to => allows you to choose between task categories for making a task that will lead to a To-Do, or make a new category.
+		If you choose an existing category, you will have the opportunity to see task names within that category.  If there is a match, go ahead and select it.  At this point, you will have a chance to look at the due date, if that matches to, you’ll be led to instructions to finish making the to-do, where you’ll input a priority level for the to-do, and you’ll be all set.
 
-## Instructions
+	If you make a new category, you’ll give that new task a name, and a due date. Note: all assigned dates are automatically set to today’s date.  From there, you’ll be able to finish off making that To-Do with a priority level.
 
-1. Fork and clone this repository.
-2. Build your application. Make sure to commit early and commit often. Commit messages should be meaningful (clearly describe what you're doing in the commit) and accurate (there should be nothing in the commit that doesn't match the description in the commit message). Good rule of thumb is to commit every 3-7 mins of actual coding time. Most of your commits should have under 15 lines of code and a 2 line commit is perfectly acceptable.
-3. Make sure to create a good README.md with a short description, install instructions, a contributor's guide and a link to the license for your code.
-4. Make sure your project checks off each of the above requirements.
-5. Prepare a video demo (narration helps!) describing how a user would interact with your working project.
-    * The video should:
-      - Have an overview of your project. (2 minutes max)
-6. Prepare a presentation to follow your video. (3 minutes max)
-    * Your presentation should:
-      - Describe something you struggled to build, and show us how you ultimately implemented it in your code.
-      - Discuss 3 things you learned in the process of working on this project.
-      - Address, if anything, what you would change or add to what you have today?
-      - Present any code you would like to highlight.   
-7. *OPTIONAL, BUT RECOMMENDED*: Write a blog post about the project and process.
+Old_to_dos
+	Leads to => view_old_to_dos, Delete_old_to_dos
+View_old_to_dos allows you to look at and select all to_dos that have been marked complete, and mark them incomplete, or delete them.  You will of course be prompted whether you want to mark a previously completed to-do as incomplete again, as all To-Do are automatically initialized to incomplete.  
+For delete_old_to_dos, this is a catch-all function to delete all to_dos marked as complete.  It’s a reasonable observation to not see value in hanging on completed To-Dos.
 
----
-### Common Questions:
-- How do I turn off my SQL logger?
-```ruby
-# in config/environment.rb add this line:
-ActiveRecord::Base.logger = nil
-```
+-Teams-
+Intro: Teams is a space in which a user can create to_dos that can be seen and interacted with by other teammates. The menu schematic for teams is as follows:
+
+Teams
+    My_teams
+        Team1 (team you have joined or created)
+            View_team_to_dos
+                (here you can select a to_do that has been created for the team)
+                (once claimed, the to_do populates in “view_claimed_to_dos)
+            View_claimed_to_dos
+                (shows claimed to_dos)
+                (you can: mark_complete, or unclaim)
+            Create_team_to_do
+                (create to_do with name and due_date)
+            back
+        Team2 etc..
+    Join_team
+        (prompts to select from a list of created teams and asks for password to join)
+    Create_team
+        (prompts to create team with unique name, and password)
+    back_to_menu
+
+Conclusion: Once a to_do is created for the team you are currently in, all other users in that team can claim that to_do. Also, once a user claims and marks that to_do complete, other teammates will see the status of that particular to_do change to “complete” in their “view_team_to_dos” page.
+
+Log_out
+	Self-explanatory: it logs out the current user and sends them back to the welcome section.  
+
+Install Instructions
+
+In terms of install instructions, simply run ‘bundle install’ to install all necessary gems to run the application.
+To run the app type 'ruby bin/run.rb'  
+
+
