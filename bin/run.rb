@@ -1,12 +1,5 @@
 require_relative '../config/environment'
 
-# TODO:
-
-# Change the display message to warnings, use $prompt to make everything look nicer
-# Remove percentages from graphs
-# Standardize "Quit" option
-# Make README.md
-
 def run
     Seeder.clear
     Viewer.header
@@ -21,7 +14,7 @@ def load_data
     country_prompt
     add_additional_countries_prompt
 
-    puts "Data loaded! Launching user console..."
+    puts "Data loaded! Launching user console...".green
 end
 
 def user_console
@@ -64,7 +57,7 @@ end
 def country_prompt
     country_slug = $prompt.select('Choose your country! Type to filter', country_options, filter: true)
 
-    puts "Loading data..."
+    puts "Loading data...".yellow
     seed_database(country_slug)
 end
 
@@ -105,13 +98,13 @@ def date_prompt
         date = $prompt.ask("Provide a date (DD/MM):") {|q| q.validate(/[0-9][0-9]\/[0-9][0-9]/, 'Please format as DD/MM')}
 
         if !Date.valid_date? 2020,date[3..4].to_i, date[0..1].to_i #check whether it is a valid date
-            puts "Date input incorrect"
+            puts "Date input incorrect".red
             date_prompt
             return 0
         end
 
         if check_date(date) == false
-            puts "Selected date cannot be later than the current date!"
+            puts "Selected date cannot be later than the current date!".red
             date_prompt
             return 0
         end
@@ -124,23 +117,23 @@ def date_prompt
         ending_date = $prompt.ask("Provide a ending date (DD/MM):") {|q| q.validate(/[0-9][0-9]\/[0-9][0-9]/, 'Please format as DD/MM')}
 
         if (!Date.valid_date? 2020,starting_date[3..4].to_i, starting_date[0..1].to_i or !Date.valid_date? 2020,ending_date[3..4].to_i, ending_date[0..1].to_i)
-            puts "Date input incorrect"
+            puts "Date input incorrect".red
             date_prompt
             return 0
         end
 
         if check_date(starting_date) == false || check_date(ending_date) == false
-            puts "Selected date cannot be later than the current date!"
+            puts "Selected date cannot be later than the current date!".red
             date_prompt
             return 0
         end
         if check_date(starting_date, ending_date) == false
-            puts "Starting date must be earlier than ending_date!"
+            puts "Starting date must be earlier than ending_date!".red
             date_prompt
             return 0
         end
         if check_date_available(starting_date) == false || check_date_available(ending_date) == false
-            puts "Data are only available for dates later than Jan 22 "
+            puts "Data are only available for dates later than Jan 22 ".red
             date_prompt
             return 0
         end
@@ -176,7 +169,7 @@ def export_prompt
         data_incremented = Query.increment(data)
         Exporter.graph(data_incremented, "cumulative")
     when 5
-        puts "Returning to menu..."
+        puts "Returning to menu...".green
     end
 end
 
@@ -184,12 +177,12 @@ def seed_database(country_slug)
     country_url = Request.country_url(country_slug)
     country_data = GetRequester.get_data(country_url)
     if country_data == []
-        puts "API does not support the current country!"
+        puts "API does not support the current country!".red
     elsif Country.all.map {|country| country.name}.include?(country_data.first["Country"])
-        puts "Country already loaded!"
+        puts "Country already loaded!".yellow
     else
         Seeder.seed(country_data)
-        puts "Done!"
+        puts "Done!".green
     end
 end
 
