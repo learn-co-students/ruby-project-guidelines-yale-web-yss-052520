@@ -20,7 +20,7 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
     # Prints out the current configuration of this board's content along with axes labels
     def display        
         # TODO: Find Gem to clear the CLI screen
-        # DEBUG TURN OFFsystem("clear") || system("cls")
+        system("clear") || system("cls")
 
         grid = content.split("\n")
         print " " # make grid line up
@@ -104,8 +104,6 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
 
                 else # there is no piece
                     puts "There is no piece to move in the specified square"
-                    puts from_pos
-                    Piece.all.select{|piece| piece.team == self.player_turn}.each{|piece| puts "x:#{piece.x_pos} y:#{piece.y_pos}"} #DEBUG
                     # will restart loop
                 end
 
@@ -154,13 +152,15 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
 
                 # updates board
                 self.update
+                self.display
     
                 # recalculates posisble jump moves and checks if there are any left
                 if piece.jump_moves.empty?
                     return true # move is complete
                 else
                     loop do # runs until the user provides a valid jump move destination
-                        jump_input = gets("Please provide the coordinates of your next jump.").chomp.upcase
+                        puts "Please provide the coordinates of your next jump."
+                        jump_input = gets.chomp.upcase
     
                         if /^[A-H][1-8]$/.match(jump_input) # the user has provided a coordinate in correct format
                             to_pos = jump_input.split("") # splits input string into an array [x,y]
@@ -182,5 +182,9 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
                 end
             end
         end
+    end
+
+    def game_over
+        
     end
 end

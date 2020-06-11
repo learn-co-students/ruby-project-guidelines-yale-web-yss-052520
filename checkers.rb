@@ -5,7 +5,7 @@ require "tty-prompt"
 $prompt = TTY::Prompt.new
 puts "|--------------|"
 puts "| CLI CHECKERS |"
-puts "|--------------|"
+puts "|--------------|\n"
 
 # finds/creates and greets player 1
 puts "Player 1: What is your name?"
@@ -41,6 +41,34 @@ else
     puts "Creating new game..."
     game = Board.create(l_player: player_1, r_player: player_2)
 end
+
+
+# DEBUG
+
+#     # test double jump 
+# game.content = [
+#     "⬜🔵⬜⬛⬜⬛⬜🔴",
+#     "⬛⬜🔵⬜🔴⬜🔴⬜",
+#     "⬜🔵⬜🔵⬜🔴⬜🔴",
+#     "🔵⬜⬛⬜⬛⬜🔴⬜",
+#     "⬜🔵⬜🔵⬜🔴⬜🔴",
+#     "🔵⬜🔵⬜🔴⬜⬛⬜",
+#     "⬜🔵⬜⬛⬜🔴⬜🔴",
+#     "🔵⬜🔵⬜⬛⬜🔴⬜"
+# ].join("\n")
+
+    # test win
+game.content = [
+    "⬜⬛⬜⬛⬜⬛⬜⬛",
+    "⬛⬜⬛⬜⬛⬜⬛⬜",
+    "⬜⬛⬜🔴⬜⬛⬜⬛",
+    "⬛⬜⬛⬜🔵⬜⬛⬜",
+    "⬜⬛⬜⬛⬜⬛⬜⬛",
+    "⬛⬜⬛⬜⬛⬜⬛⬜",
+    "⬜⬛⬜⬛⬜⬛⬜⬛",
+    "⬛⬜⬛⬜⬛⬜⬛⬜"
+].join("\n")
+
 
 # Create piece instances according to the configuration stored in board instance
 game.load
@@ -83,26 +111,36 @@ loop do # runs until a winner is determined
     # Now that a valid move has been provided, execute it!
     game.exc_move(player_move[:piece], move_type, player_move[:to_pos])
 
-    # Check if l_player has won if there are no more right pieces
-    if Piece.all.none?{|p| p.team == "r"}
-        winner = game.l_player
-        break
-    end
-    
-    # Check if r_player has won if there are no more left pieces
-    if Piece.all.none?{|p| p.team == "l"}
-        winner = game.r_player
-        break
-    end
+    # Checks if someone has won, and breaks out of loop if so
+    break if(winner?())
 
     # Now that the player's turn has finished, switch to the next player!
     game.switch_turn
+
+    # Saves new board configuration to database
+    game.save
 
     # Display the current board
     game.display
 
     # Display the current player's turn
     game.display_turn
+end
+
+def winner?
+    # Check if l_player has won if there are no more right pieces
+    if Piece.all.none?{|p| p.team == "r"}
+        winner = game.l_player
+        break
+    end
+    # Check if r_player has won if there are no more left pieces
+    if Piece.all.none?{|p| p.team == "l"}
+        winner = game.r_player
+        break
+    end
+
+    system("clear") || system("cls")
+    puts "CONGRAGULATIONS #{winner.name}! YOU WON!!!!"
 end
 
 puts winner
