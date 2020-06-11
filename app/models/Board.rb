@@ -98,7 +98,7 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
                 move[:to_pos] = [to_pos[0], to_pos[1]] # parse to_pos into individual coordinates
 
                 # Check if there is a piece at the starting point
-                move[:piece] = Piece.all.find{|piece|piece.x_pos = from_pos[0] && piece.y_pos = from_pos[1]}
+                move[:piece] = Piece.all.find{|piece|piece.x_pos == from_pos[0] && piece.y_pos == from_pos[1]}
                 if move[:piece] # there is a piece
 
                     # Check if the piece belongs to the player
@@ -110,6 +110,8 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
 
                 else # there is no piece
                     puts "There is no piece to move in the specified square"
+                    puts from_pos
+                    Piece.all.select{|piece| piece.team == self.player_turn}.each{|piece| puts "x:#{piece.x_pos} y:#{piece.y_pos}"} #DEBUG
                     # will restart loop
                 end
 
@@ -167,8 +169,7 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
                         if /^[A-Ha-h][1-8]$/.match(jump_input) # the user has provided a coordinate in correct format
                             to_pos = jump_input.split("") # splits input string into an array [x,y]
                             to_pos[0] = to_pos[0].to_i # converts letter x-coord to number
-                            to_pos.map!{|n| n - 1} # converts 1-indexed user input to 0-indexed internal coords
-T    
+                            to_pos.map!{|n| n - 1} # converts 1-indexed user input to 0-indexed internal coords   
                             if piece.jump_moves.include?(to_pos) # if the user input coordinate is indeed a jump move
                                 # parses destination coordinate array into individual x and y values
                                 to_x = to_pos[0]
