@@ -15,7 +15,9 @@ class Book < ActiveRecord::Base
   end
 
   def set_genre(genre)
-    self.genre = genre.downcase
+    if genre != nil
+      self.genre = genre.downcase
+    end
   end
 
   def entries

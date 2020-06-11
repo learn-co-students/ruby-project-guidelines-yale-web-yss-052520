@@ -21,7 +21,7 @@ def add_entry(current_list)
         puts "Book added!"
         current_list.add_book_to_list(entry)
         main_menu
-    else
+    else1
         main_menu
     end
 
