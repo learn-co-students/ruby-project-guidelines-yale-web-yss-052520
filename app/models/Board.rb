@@ -23,16 +23,16 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
         system("clear") || system("cls")
 
         grid = content.split("\n")
-
-        grid.length.times{|num| print " #{(65+num).chr}"}
+        print " " # make grid line up
+        grid.length.times{|num| print " #{num + 1}"}
         grid.length.times{|row|
             puts ""
-            print (row + 1)
+            print (65+row).chr + " "
             grid[row].length.times{|col|
                 print grid[row][col] 
         }
     }
-
+    puts ""
     end
 
     def display_turn
