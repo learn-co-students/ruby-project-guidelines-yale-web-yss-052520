@@ -3,8 +3,9 @@ require_relative 'config/environment'
 require "tty-prompt"
 
 $prompt = TTY::Prompt.new
-puts "-------------|"
-puts "CLI CHECKERS"
+puts "|--------------|"
+puts "| CLI CHECKERS |"
+puts "|--------------|"
 
 # finds/creates and greets player 1
 puts "Player 1: What is your name?"
@@ -45,7 +46,7 @@ end
 game.load
 
 # Let the status message linger for a bit to make it seem like the program is working
-sleep(2)
+sleep(1)
 
 # Print out which side which side each player is
 puts "#{game.l_player.name}: Blue Team"
@@ -66,6 +67,7 @@ loop do # runs until a winner is determined
     loop do # runs until the player inputs a valid move
         move = game.get_move # parse player input into coordinates
 
+        puts move
         # validates move
         move_type = game.validate_move(move[:piece], move[:to_pos]) # Returns nil if its not a valid move
         

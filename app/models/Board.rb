@@ -77,13 +77,13 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
             # Check input format using regex
             if /^[A-Ha-h][1-8]:[A-Ha-h][1-8]$/.match(input) # input is properly formatted
                 move_input = input.split(":")
-                from_pos = move_input[0]
+                from_pos = move_input[0].split("")
                 from_pos[0] = from_pos[0].to_i # converts letter x-coord to number
-                from_pos.map!{|n| n - 1} # converts 1-indexed user input to 0-indexed internal coords
+                from_pos[1] = from_pos[1].to_i - 1 # converts 1-indexed user input to 0-indexed internal coords
 
-                to_pos = move_input[1]
+                to_pos = move_input[1].split("")
                 to_pos[0] = to_pos[0].to_i # converts letter x-coord to number
-                to_pos.map!{|n| n - 1} # converts 1-indexed user input to 0-indexed internal coords
+                to_pos[1] = to_pos[1].to_i # converts 1-indexed user input to 0-indexed internal coords
                 
                 move[:to_pos] = [to_pos[0], to_pos[1]] # parse to_pos into individual coordinates
 
