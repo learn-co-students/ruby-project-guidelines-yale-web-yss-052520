@@ -10,7 +10,6 @@ def main_menu
     menu.choice "View Lists", -> {view_all}
     menu.choice "Create New List", -> {create_new_list}
     menu.choice "Exit Program", -> {exit}
-    # menu.choice "Hang out for a bit", -> {hang_out(0.5,5)}
     end
 end
 

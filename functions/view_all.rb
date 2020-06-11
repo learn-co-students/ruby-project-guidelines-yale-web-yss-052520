@@ -8,7 +8,7 @@ def view_all
     # array = List.select(:name)
     selected = $prompt.select("Select list:", list_hash)
     #puts selected
-    view_list(selected)
+    view_list(selected, "sort_by_id")
 end
 
 #helper method

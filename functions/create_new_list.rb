@@ -15,11 +15,12 @@ def create_new_list
 
     confirm = $prompt.yes?('Create list?', convert: :boolean)
     if confirm == true
+        system("clear")
         puts "List created!"
         List.create(name: title, description: description)
-        main_menu
+        view_all
     else
-        main_menu
+        view_all
     end
 
 end
