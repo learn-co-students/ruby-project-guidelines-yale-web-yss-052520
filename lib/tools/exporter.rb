@@ -18,7 +18,7 @@ class Exporter
                 country_name = arr[0]
                 puts("")
                 puts("-----------------------")
-                puts("The graph for " + country_name + " (from: " + input[0][1].to_s[0..9] + " to: " + input[-1][1].to_s[0..9] + ")").yellow
+                puts "The graph for #{country_name} (from #{input[0][1].to_s[0..9]} to #{input[-1][1].to_s[0..9]})".yellow
                 puts ("----------------------")
                 puts("")
             end

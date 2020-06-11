@@ -8,7 +8,7 @@ def run
 end
 
 def load_data
-    puts "Welcome to the COVID-19 Database!"
+    puts "Welcome to the COVID-19 App!"
     puts "To start, let's load a country's data."
 
     country_prompt
@@ -59,6 +59,20 @@ def country_prompt
 
     puts "Loading data...".yellow
     seed_database(country_slug)
+end
+
+def seed_database(country_slug)
+    country_url = Request.country_url(country_slug)
+    country_data = GetRequester.get_data(country_url)
+    if country_data == []
+        puts "API does not support the current country!".red
+        country_prompt
+    elsif Country.all.map {|country| country.name}.include?(country_data.first["Country"])
+        puts "Country already loaded!".yellow
+    else
+        Seeder.seed(country_data)
+        puts "Done!".green
+    end
 end
 
 def add_additional_countries_prompt
@@ -159,30 +173,17 @@ def export_prompt
     
     case selection
     when 1
-        Exporter.export_txt(data, "daily")
+        Exporter.export_txt(data, "cumulative")
     when 2
         data_incremented = Query.increment(data)
-        Exporter.export_txt(data_incremented, "cumulative")
+        Exporter.export_txt(data_incremented, "daily")
     when 3
-        Exporter.graph(data, "daily")
+        Exporter.graph(data, "cumulative")
     when 4
         data_incremented = Query.increment(data)
-        Exporter.graph(data_incremented, "cumulative")
+        Exporter.graph(data_incremented, "daily")
     when 5
         puts "Returning to menu...".green
-    end
-end
-
-def seed_database(country_slug)
-    country_url = Request.country_url(country_slug)
-    country_data = GetRequester.get_data(country_url)
-    if country_data == []
-        puts "API does not support the current country!".red
-    elsif Country.all.map {|country| country.name}.include?(country_data.first["Country"])
-        puts "Country already loaded!".yellow
-    else
-        Seeder.seed(country_data)
-        puts "Done!".green
     end
 end
 
@@ -214,4 +215,5 @@ def check_date_available(date)
         true
     end
 end
+
 run
