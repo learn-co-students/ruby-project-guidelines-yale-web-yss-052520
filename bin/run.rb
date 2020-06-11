@@ -1,6 +1,10 @@
 require_relative '../config/environment'
 @prompt = TTY::Prompt.new
 
+# def presuf(string)
+#     string.delete_prefix('"').delete_suffix('"')
+# end
+
 def start
     welcome_section
 end
@@ -119,7 +123,7 @@ def teams
 end
 
 def my_teams
-    choices = @current_user.all_team_names
+    choices = @current_user.reload.all_team_names
     choices.push("back_to_teams")
     @my_teams_choice = @prompt.select("Choose the team you want to go to.", choices) #methods that show all teams
     if @my_teams_choice == "back_to_teams"
@@ -207,7 +211,7 @@ end
 def create_team_to_do
     p "What is the name if this team_to_do"
     typed_in_name = gets.chomp
-    p "When is this due?"
+    p "When is this due? (YYYY,MM,DD) Date.new(2020,10,29)
     typed_in_date = gets.chomp #how do i work this with datetime? Or I could change type for due_date with migration
     new_team_to_do = TeamToDo.create(name: typed_in_name, due_date: typed_in_date, team_id: @current_team.id, complete?: false)
     p "Success! #{new_team_to_do.name} has been added to #{@current_team.name} to_dos"
@@ -215,7 +219,7 @@ def create_team_to_do
 end
 
 def join_team
-    choices = @current_user.unjoined_team_names
+    choices = @current_user.reload.unjoined_team_names
     choices.push("back_to_teams")
     join_team_choice = @prompt.select("Which team would you like to join?", choices)
     if join_team_choice == "back_to_teams"
@@ -231,7 +235,7 @@ def join_team_sign_in
     if typed_in_password == @current_team.password
         TeamUser.create(user_id: @current_user.id, team_id: @current_team.id)
         p "#{@current_team.name} has been added to my_teams"
-        join_team
+        teams
     else
         p "Sorry, wrong password. Try again."
         join_team_sign_in
