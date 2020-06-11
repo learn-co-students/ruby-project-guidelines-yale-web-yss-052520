@@ -1,6 +1,6 @@
 class Game
 
-    @@artii = Artii::Base.new :font => 'doom'
+    @@artii = Artii::Base.new
     @@prompt = TTY::Prompt.new
 
     def self.start
