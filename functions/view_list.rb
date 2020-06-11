@@ -3,8 +3,6 @@ require 'pry'
 
 def view_list(selected, sortstring)
     system("clear")
-    puts selected.name
-    puts "-"*100
     sleep(0.2)
 
     display_table(selected, sortstring)
@@ -27,8 +25,8 @@ end
 
 
 def select_book(list)
-    book_num = $prompt.ask("Enter the number of the book you want to access.", convert: :int)
-    book = list.sort_by_id[book_num-1]
-    edit_book(book, list)
+    title = $prompt.ask("Enter the title of the book you want to view.").to_s
+    book = Book.find_by_title(title)
+    view_book(book, list)
    # binding.pry
 end
