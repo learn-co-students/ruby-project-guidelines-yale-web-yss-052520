@@ -7,8 +7,8 @@ def view_all
     sleep(0.5)
     # array = List.select(:name)
     selected = $prompt.select("Select list:", list_hash)
-    puts selected
-    # view_list(selected)
+    #puts selected
+    view_list(selected)
 end
 
 #helper method
