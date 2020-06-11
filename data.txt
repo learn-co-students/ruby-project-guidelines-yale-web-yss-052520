@@ -1,25 +1,7 @@
 This is a chart for confirmed_cases
 
 -----------------------
-The chart for Lithuania (from: 2020-03-03 to: 2020-03-09)
+The chart for Turkey (from: 2020-03-03 to: 2020-03-03)
 ----------------------
 
-Date: 2020-03-03 Cases: 1
-Date: 2020-03-04 Cases: 1
-Date: 2020-03-05 Cases: 1
-Date: 2020-03-06 Cases: 1
-Date: 2020-03-07 Cases: 1
-Date: 2020-03-08 Cases: 1
-Date: 2020-03-09 Cases: 1
-
------------------------
-The chart for Estonia (from: 2020-03-03 to: 2020-03-09)
-----------------------
-
-Date: 2020-03-03 Cases: 2
-Date: 2020-03-04 Cases: 2
-Date: 2020-03-05 Cases: 3
-Date: 2020-03-06 Cases: 10
-Date: 2020-03-07 Cases: 10
-Date: 2020-03-08 Cases: 10
-Date: 2020-03-09 Cases: 10
+Date: 2020-03-03 Cases: 0
