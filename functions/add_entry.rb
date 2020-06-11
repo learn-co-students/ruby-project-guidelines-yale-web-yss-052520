@@ -20,9 +20,9 @@ def add_entry(current_list)
     if confirm == true
         puts "Book added!"
         current_list.add_book_to_list(entry)
-        main_menu
+        view_list(current_list, "sort_by_author")
     else
-        main_menu
+        view_list(current_list, "sort_by_author")
     end
 
 

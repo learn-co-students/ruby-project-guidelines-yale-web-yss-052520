@@ -25,5 +25,13 @@ class Book < ActiveRecord::Base
   def lists
     entries.map{|e| e.list}
   end
+
+  def toggle_read
+    self.toggle(:read)
+  end
+
+  def self.find_by_title(title)
+    Book.all.find_by(title: title)
+  end
     
 end
