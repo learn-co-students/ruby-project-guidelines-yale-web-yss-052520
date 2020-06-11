@@ -54,15 +54,16 @@ def validate_move(piece, to_pos)
     end
 end
 
-def execute_move(piece, move_type, to_pos)
+def execute_move(piece, move_type, to_pos, game)
     # parses destination coordinate array into individual x and y values
     to_x = to_pos[0]
     to_y = to_pos[1]
 
     if move_type == "regular"
-        # set the piece to its new position
+        # set the piece to its new position, updates board
         piece.x_pos = to_x
         piece.y_pos = to_y
+        game.update
         return true # move is complete
 
     elsif move_type == "jump"
@@ -71,8 +72,10 @@ def execute_move(piece, move_type, to_pos)
             from_x = piece.x_pos
             from_y = piece.y_pos
 
+            # set the piece to its new position, updates board
             piece.x_pos = to_x
             piece.y_pos = to_y
+            game.update
 
             # finds captured piece and removes it from the piece.all array - ruby will garbage collect
             Piece.all.delete(Piece.all.find{|p| p.x_pos == (from_x + to_x)/2 && p.y_pox == (from_y + to_y)/2})
