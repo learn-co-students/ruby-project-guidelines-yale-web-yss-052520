@@ -27,7 +27,6 @@ class User < ActiveRecord::Base
         end
     end
 
-
     def update_priorities
         to_dos.each do |to_do|
             if to_do.task.due_date == Date.today || to_do.task.due_date == Date.today.next #|| #to_do.task.due_date <=> Date.today = -1
@@ -40,7 +39,7 @@ class User < ActiveRecord::Base
         self.update_priorities
         all_incomplete_tasks.where(priority_level: 5) 
     end
-
+  
     def self.all_usernames
         all.map do |user|
             user.username
@@ -84,5 +83,6 @@ class User < ActiveRecord::Base
             to_do.name
         end
     end
+
 
 end
