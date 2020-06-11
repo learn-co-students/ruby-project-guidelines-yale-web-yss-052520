@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
     has_many :to_dos
     has_many :tasks, through: :to_dos
+    has_many :team_users
+    has_many :teams, through: :team_users# source: :teams #not sure about source
+    has_many :team_to_dos, through: :teams# source: :team_to_dos
 
     def self.make_new_user(attributes)
         User.find_or_create_by(attributes)
@@ -45,7 +48,41 @@ class User < ActiveRecord::Base
 
     def self.username_exists?(username)
         User.all_usernames.include?(username)
-    end     
+    end
     
-    
+    def all_team_names
+        self.teams.map do |team|
+            team.name
+        end
+    end
+
+    def unjoined_teams
+        Team.all.select do |team|
+            !(teams.include?(team))
+        end
+    end
+
+    def unjoined_team_names
+        unjoined_teams.map do |team|
+            team.name
+        end
+    end
+
+    def claim(team_to_do)
+        team_to_do.update(user_id: self.id)
+    end
+
+    def claimed_to_dos(current_team)
+        TeamToDo.all.select do |to_do|
+            (to_do.user_id == self.id) && (to_do.team_id == current_team.id)
+        end
+    end
+
+    def claimed_to_do_names(current_team)
+        claimed_to_dos(current_team).map do |to_do|
+            to_do.name
+        end
+    end
+
+
 end
