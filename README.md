@@ -8,7 +8,8 @@ To use this app, you will need to have Ruby installed. Look [here](https://www.r
 
 Once you have Ruby and git installed, you need to type the following commands in your terminal:
 
-```git clone https://github.com/anmolk18/ruby-project-guidelines-yale-web-yss-052520.git
+```
+   git clone https://github.com/anmolk18/ruby-project-guidelines-yale-web-yss-052520.git
    cd ruby-project-guidelines-yale-web-yss-052520
    ruby run/bin.rb
 ```
