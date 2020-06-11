@@ -10,7 +10,15 @@ class Task < ActiveRecord::Base
         Task.all.map{|task| task.category}
     end
 
-    def self.names
-        Task.all.map {|task| task.name }
+    def Task.find_tasks_by_category(category)
+        Task.where(category: category)
+    end
+
+    def self.find_names_by_category(category)
+        Task.find_tasks_by_category(category).map{|task| task.name }
+    end
+
+    def clean_look
+        "name: #{self.name}, category: #{self.category}, due date: #{self.due_date.strftime('%a %d %b %Y')}"
     end
 end

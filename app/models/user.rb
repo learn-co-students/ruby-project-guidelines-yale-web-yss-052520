@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
 
     def make_to_dos_clean(array)
         array.map do |to_do|
-            "#{to_do.task.name}, #{to_do.task.category}, #{to_do.task.due_date.strftime('%a %d %b %Y')}, #{to_do.priority_level}, internal_id: #{to_do.id}"
+            "Name: #{to_do.task.name}, Category: #{to_do.task.category}, Due: #{to_do.task.due_date.strftime('%a %d %b %Y')}, Priority: #{to_do.priority_level}, internal_id: #{to_do.id}"
         end
     end
 
