@@ -41,8 +41,9 @@ def edit_menu(book, list)
         menu.choice "Genre", -> {edit(book, "genre", list)}
         menu.choice "Notes", -> {edit(book, "notes", list)}
         menu.choice "Link", -> {edit(book, "link", list)}
-        menu.choice "Delete this book record", -> {book.destroy}
-        menu.choice "Back to list", -> {view_list(list)}
+        menu.choice "Delete this book record", -> {book.destroy
+            view_list(list, "sort_by_title")}
+        menu.choice "Back to list", -> {view_list(list, "sort_by_title")}
     end
 end
 

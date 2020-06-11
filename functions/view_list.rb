@@ -17,7 +17,8 @@ def view_list(selected, sortstring)
         menu.choice "Add a new book", -> {add_entry(selected)}
         menu.choice "View/edit a book record", -> {select_book(selected)}
         menu.choice "Back to my lists", -> {view_all}
-        menu.choice "Delete this list", -> {delete_list(selected)}
+        menu.choice "Delete this list", -> {delete_list(selected)
+        view_all}
         menu.choice "Back to main menu", -> {system("clear")
         main_menu}
     end
