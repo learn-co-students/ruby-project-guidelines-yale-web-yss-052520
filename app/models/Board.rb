@@ -22,7 +22,17 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
         # TODO: Find Gem to clear the CLI screen
         system("clear") || system("cls")
 
-        puts self.content
+        grid = content.split("\n")
+
+        grid.length.times{|num| print " #{(65+num).chr}"}
+        grid.length.times{|row|
+            puts ""
+            print (row + 1)
+            grid[row].length.times{|col|
+                print grid[row][col] 
+        }
+    }
+
     end
 
     def display_turn
@@ -158,7 +168,7 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
                             to_pos = jump_input.split("") # splits input string into an array [x,y]
                             to_pos[0] = to_pos[0].to_i # converts letter x-coord to number
                             to_pos.map!{|n| n - 1} # converts 1-indexed user input to 0-indexed internal coords
-    
+T    
                             if piece.jump_moves.include?(to_pos) # if the user input coordinate is indeed a jump move
                                 # parses destination coordinate array into individual x and y values
                                 to_x = to_pos[0]
