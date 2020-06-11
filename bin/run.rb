@@ -153,21 +153,26 @@ def current_team_menu
 end
 
 def view_team_to_dos
-    choices = @current_user.team_to_dos
+    # binding.pry
+    # choices = @current_user.reload.team_to_dos(@current_team)
+    choices = @current_team.reload.team_to_do_names
     choices.push("back_to_team_menu")
     @view_team_to_dos_choice = @prompt.select("Select a to_do you want to claim", choices)
     if @view_team_to_dos_choice == "back_to_team_menu"
         current_team_menu
     else
-        @view_team_to_dos_choice.user_id = @current_user.id
-        @view_team_to_dos_choice.colorize(:red)
-        p "#{@view_team_to_dos_choice.name} has been added to chosen_to_dos"
+        binding.pry
+        @claimed_to_do = TeamToDo.find_by(name: @view_team_to_dos_choice)
+        @current_user.claim(@claimed_to_do)
+        # @view_team_to_dos_choice.update(user_id: @current_user.id)
+        # @view_team_to_dos_choice.colorize(:red)
+        p "#{@claimed_to_do.name} has been added to chosen_to_dos"
         view_team_to_dos
     end
 end
 
 def view_chosen_to_dos
-    choices = @current_user.team_to_dos
+    choices = @current_user.team_to_do_name  #fix this
     choices.push("back_to_team_menu")
     view_chosen_to_dos_choice = @prompt.select("Here are your claimed to_dos", choices)
     if view_chosen_to_dos_choice == "back_to_team_menu"
@@ -211,7 +216,7 @@ end
 def create_team_to_do
     p "What is the name if this team_to_do"
     typed_in_name = gets.chomp
-    p "When is this due? (YYYY,MM,DD) Date.new(2020,10,29)
+    p "When is this due? (YYYY,MM,DD)" #Date.new(2020,10,29)
     typed_in_date = gets.chomp #how do i work this with datetime? Or I could change type for due_date with migration
     new_team_to_do = TeamToDo.create(name: typed_in_name, due_date: typed_in_date, team_id: @current_team.id, complete?: false)
     p "Success! #{new_team_to_do.name} has been added to #{@current_team.name} to_dos"

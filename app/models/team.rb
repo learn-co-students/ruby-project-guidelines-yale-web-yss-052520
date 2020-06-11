@@ -14,4 +14,10 @@ class Team < ActiveRecord::Base
         self.all_names.include?(typed_in_team_name)
     end
 
+    def team_to_do_names
+        self.team_to_dos.map do |to_do|
+            to_do.name
+        end
+    end
+
 end

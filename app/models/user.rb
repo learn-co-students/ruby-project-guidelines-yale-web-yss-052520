@@ -69,10 +69,14 @@ class User < ActiveRecord::Base
         end
     end
 
-    def team_to_dos
-        TeamToDo.all.select do |to_do|
-            to_do.user_id == self.id && to_do.team_id == @current_team.id
-        end
+    def claim(team_to_do)
+        team_to_do.update(user_id: self.id)
     end
+
+    # def team_to_dos(current_team)
+    #     TeamToDo.all.select do |to_do|
+    #         (to_do.user_id == self.id) && (to_do.team_id == current_team.id)
+    #     end
+    # end
 
 end
