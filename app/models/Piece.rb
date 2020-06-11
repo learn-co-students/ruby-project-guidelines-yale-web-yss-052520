@@ -40,11 +40,10 @@ class Piece #instances of this class are not stored in the database since they a
         pos1 = [@x_pos + 1, @y_pos + dir]
         moves << pos1 if Piece.all.none?{|p| [p.x_pos, p.y_pos] == pos1}
         pos2 = [@x_pos - 1, @y_pos + dir]
-        moves << pos2 if Piece.all.none?{|p| [p.x_pos, p.y_pos] == pos1}
+        moves << pos2 if Piece.all.none?{|p| [p.x_pos, p.y_pos] == pos2}
         
         # deletes any moves with coordinates that aren't on the board
         moves.delete_if{|move| move.find{|n| n < 0 || n > 7}}
-        puts "regular: #{moves}"
         return moves 
     end
 
@@ -63,11 +62,10 @@ class Piece #instances of this class are not stored in the database since they a
         pos1 = [@x_pos + 2, @y_pos + 2*dir]
         moves << pos1 if Piece.all.find{|p| p.x_pos == @x_pos + 1 && p.y_pos == @y_pos + dir && p.team != @team} && Piece.all.none?{|p| [p.x_pos, p.y_pos] == pos1}
         pos2 = [@x_pos - 2, @y_pos + 2*dir]
-        moves << pos1 if Piece.all.find{|p| p.x_pos == @x_pos - 1 && p.y_pos == @y_pos + dir && p.team != @team} && Piece.all.none?{|p| [p.x_pos, p.y_pos] == pos1}
+        moves << pos2 if Piece.all.find{|p| p.x_pos == @x_pos - 1 && p.y_pos == @y_pos + dir && p.team != @team} && Piece.all.none?{|p| [p.x_pos, p.y_pos] == pos2}
         
         # deletes any moves with coordinates that aren't on the board
         moves.delete_if{|move| move.find{|n| n < 0 || n > 7}}
-        puts "jump: #{moves}"
         return moves
     end
 
