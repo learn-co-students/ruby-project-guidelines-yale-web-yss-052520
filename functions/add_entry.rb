@@ -18,8 +18,8 @@ def add_entry(current_list)
 
     confirm = $prompt.yes?('Add book to list?', convert: :boolean)
     if confirm == true
-        puts "Book added!"
         current_list.add_book_to_list(entry)
+        puts "Book added!"
         view_list(current_list, "sort_by_author")
     else
         view_list(current_list, "sort_by_author")
