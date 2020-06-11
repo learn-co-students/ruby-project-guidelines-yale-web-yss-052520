@@ -2,7 +2,7 @@ require_relative '../config/environment'
 
 $ex_address = "688%20Passaic%20Avenue,%20Nutley,%20NJ%2007109"
 
-def getResponse(address)
+def getOfficialsListWithAddress(address)
 	address = "688%20Passaic%20Avenue,%20Nutley,%20NJ%2007109"
 	api_key = "AIzaSyCb-lOzV8VGKHM495tFhMF_S_-PhmVFNc4"
 	url = "https://www.googleapis.com/civicinfo/v2/representatives?address=#{address}&key=#{api_key}"
@@ -23,10 +23,11 @@ def createOfficial(officialHash, responseJson)
 end 
 
 def createAllOfficialsForUser(address)
-	response = getResponse(address)
+	Official.destroy_all
+	Official.reset_pk_sequence
+	response = getOfficialsListWithAddress(address)
 	response["officials"].map { |official|
 		if official
-			# binding.pry
 			createOfficial(official, response)
 		end
 	}
@@ -37,15 +38,4 @@ createAllOfficialsForUser($ex_address)
 binding.pry
 0
 
-
-# get list of officials
-
-
-# response["Countries"].each do |c| 
-#     c1 = Country.create(name: c["Country"])
-#     Case.create(country_id: c1.id, total: c["TotalConfirmed"], recovered: c[ "TotalRecovered"])
-# end
-
-
-puts "HELLO WORLD"
 
