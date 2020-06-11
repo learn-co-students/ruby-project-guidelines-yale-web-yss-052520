@@ -32,7 +32,7 @@ class ToDo < ActiveRecord::Base
     end
 
     def mark_incomplete
-        self.update(compete?: false)
+        self.update(complete?: false)
     end
 
     def self.destroy_all_complete_tasks
