@@ -148,7 +148,40 @@ def current_team_menu
     end
 end
 
+def view_team_to_dos
+
+end
+
+def view_chosen_to_dos
+
+end
+
+def create_team_to_do
+
+end
+
 def join_team
+    choices = @current_user.unjoined_team_names
+    choices.push("back_to_teams")
+    join_team_choice = @prompt.select("which team would you like to join?", choices)
+    if join_team_choice == "back_to_teams"
+        teams
+    else
+        @current_team = Team.find_by(name: join_team_choice)
+        join_team_sign_in
+    end
+end
+
+def join_team_sign_in
+    typed_in_password = @prompt.mask("Type in the password for #{@current_team.name}")
+    if typed_in_password == @current_team.password
+        TeamUser.create(user_id: @current_user.id, team_id: @current_team.id)
+        p "#{@current_team.name} has been added to my_teams"
+        join_team
+    else
+        p "Sorry, wrong password. Try again."
+        join_team_sign_in
+    end
 end
 
 def create_team

@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
     has_many :to_dos
     has_many :tasks, through: :to_dos
+    has_many :team_users
     has_many :teams, through: :team_users# source: :teams #not sure about source
     # has_many :team_to_dos, through: :teams# source: :team_to_dos
 
@@ -52,6 +53,18 @@ class User < ActiveRecord::Base
     
     def all_team_names
         self.teams.map do |team|
+            team.name
+        end
+    end
+
+    def unjoined_teams
+        Team.all.select do |team|
+            !(teams.include?(team))
+        end
+    end
+
+    def unjoined_team_names
+        unjoined_teams.map do |team|
             team.name
         end
     end
