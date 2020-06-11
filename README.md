@@ -1,4 +1,4 @@
-# Module One Final Project: Chad and Ziming
+# Flatiron Module One Final Project: Chad and Ziming
 
 ## Short Description
 
