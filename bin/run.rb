@@ -149,7 +149,15 @@ def current_team_menu
         create_team_to_do
     elsif @current_team_menu_choice == "back_to_my_teams"
         my_teams
+    elsif @current_team_menu_choice == "leave_team"
+        leave_team
     end
+end
+
+def leave_team
+    connection = TeamUser.find_by(user_id: @current_user.id, team_id: @current_team.id)
+    p "You left #{@current_team.name}"
+    my_teams
 end
 
 def view_team_to_dos

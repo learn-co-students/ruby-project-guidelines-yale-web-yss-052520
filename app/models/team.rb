@@ -16,7 +16,7 @@ class Team < ActiveRecord::Base
 
     def team_to_dos_clean_string
         self.team_to_dos.map do |to_do|
-            "#{to_do.name} #{to_do.status} due_date:#{to_do.due_date}"
+            "#{to_do.name} status-#{to_do.status} due_date-#{to_do.due_date}"
         end
     end
 
