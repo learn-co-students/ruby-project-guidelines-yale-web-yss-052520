@@ -14,6 +14,7 @@ require_relative '../config/environment'
 
 # Question:
 # Do we need to keep track of multiple queries? Each query already supports multiple countries and time durations.
+# We should try to finish everything by Thursday. Also there is video and documentation to write.
 
 def run
     Seeder.clear
@@ -99,7 +100,7 @@ def date_prompt
     when 0
         date = $prompt.ask("Provide a date (DD/MM):") {|q| q.validate(/[0-9][0-9]\/[0-9][0-9]/,'Please format as DD/MM')}
         if check_date(date) == false
-            puts "Selected date cannot be earlier than the current date!"
+            puts "Selected date cannot be later than the current date!"
             date_prompt
             return 0
         end
@@ -110,7 +111,7 @@ def date_prompt
         starting_date = $prompt.ask("Provide a starting date (DD/MM):") {|q| q.validate(/[0-9][0-9]\/[0-9][0-9]/, 'Please format as DD/MM')}
         ending_date = $prompt.ask("Provide a ending date (DD/MM):") {|q| q.validate(/[0-9][0-9]\/[0-9][0-9]/, 'Please format as DD/MM')}
         if check_date(starting_date) == false || check_date(ending_date) == false
-            puts "Selected date cannot be earlier than the current date!"
+            puts "Selected date cannot be later than the current date!"
             date_prompt
             return 0
         end
@@ -189,11 +190,11 @@ def increment(input)
     prev = input[0][2]
     output = []
     country_name = ""
-    input.each do |arr|
+    input.each do |arr| 
         if country_name != arr[0]
             country_name = arr[0]
             prev = arr[2]
-            next #omit the first date
+            next #omit the first date starting with each country
         else
             output << [arr[0], arr[1], arr[2] - prev]
             prev = arr[2]

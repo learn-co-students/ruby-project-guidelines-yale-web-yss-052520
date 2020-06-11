@@ -1,74 +1,74 @@
+Increment!
+This is a chart for confirmed_cases
 
 -----------------------
-The chart for China (from: 2020-03-03 to: 2020-04-03)
+The chart for United Kingdom (from: 2020-03-16 to: 2020-04-15)
 ----------------------
 
-Date: 2020-03-03 Cases: 80261
-Date: 2020-03-04 Cases: 80386
-Date: 2020-03-05 Cases: 80537
-Date: 2020-03-06 Cases: 80690
-Date: 2020-03-07 Cases: 80770
-Date: 2020-03-08 Cases: 80823
-Date: 2020-03-09 Cases: 80860
-Date: 2020-03-10 Cases: 80887
-Date: 2020-03-11 Cases: 80921
-Date: 2020-03-12 Cases: 80932
-Date: 2020-03-13 Cases: 80945
-Date: 2020-03-14 Cases: 80977
-Date: 2020-03-15 Cases: 81003
-Date: 2020-03-16 Cases: 81033
-Date: 2020-03-17 Cases: 81058
-Date: 2020-03-18 Cases: 81102
-Date: 2020-03-19 Cases: 81156
-Date: 2020-03-20 Cases: 81250
-Date: 2020-03-21 Cases: 81305
-Date: 2020-03-22 Cases: 81435
-Date: 2020-03-23 Cases: 81498
-Date: 2020-03-24 Cases: 81591
-Date: 2020-03-25 Cases: 81661
-Date: 2020-03-26 Cases: 81782
-Date: 2020-03-27 Cases: 81897
-Date: 2020-03-28 Cases: 81999
-Date: 2020-03-29 Cases: 82122
-Date: 2020-03-30 Cases: 82198
-Date: 2020-03-31 Cases: 82279
-Date: 2020-04-01 Cases: 82361
-Date: 2020-04-02 Cases: 82432
-Date: 2020-04-03 Cases: 82511
+Date: 2020-03-16 Cases: 406
+Date: 2020-03-17 Cases: 409
+Date: 2020-03-18 Cases: 682
+Date: 2020-03-19 Cases: 74
+Date: 2020-03-20 Cases: 1298
+Date: 2020-03-21 Cases: 1053
+Date: 2020-03-22 Cases: 678
+Date: 2020-03-23 Cases: 981
+Date: 2020-03-24 Cases: 1438
+Date: 2020-03-25 Cases: 1476
+Date: 2020-03-26 Cases: 2172
+Date: 2020-03-27 Cases: 2933
+Date: 2020-03-28 Cases: 2567
+Date: 2020-03-29 Cases: 2468
+Date: 2020-03-30 Cases: 2673
+Date: 2020-03-31 Cases: 3028
+Date: 2020-04-01 Cases: 4384
+Date: 2020-04-02 Cases: 4308
+Date: 2020-04-03 Cases: 4516
+Date: 2020-04-04 Cases: 3788
+Date: 2020-04-05 Cases: 5959
+Date: 2020-04-06 Cases: 3843
+Date: 2020-04-07 Cases: 3670
+Date: 2020-04-08 Cases: 5525
+Date: 2020-04-09 Cases: 4398
+Date: 2020-04-10 Cases: 8733
+Date: 2020-04-11 Cases: 5269
+Date: 2020-04-12 Cases: 5332
+Date: 2020-04-13 Cases: 4364
+Date: 2020-04-14 Cases: 5275
+Date: 2020-04-15 Cases: 4638
 
 -----------------------
-The chart for Singapore (from: 2020-03-03 to: 2020-04-03)
+The chart for United States of America (from: 2020-03-16 to: 2020-04-15)
 ----------------------
 
-Date: 2020-03-03 Cases: 110
-Date: 2020-03-04 Cases: 110
-Date: 2020-03-05 Cases: 117
-Date: 2020-03-06 Cases: 130
-Date: 2020-03-07 Cases: 138
-Date: 2020-03-08 Cases: 150
-Date: 2020-03-09 Cases: 150
-Date: 2020-03-10 Cases: 160
-Date: 2020-03-11 Cases: 178
-Date: 2020-03-12 Cases: 178
-Date: 2020-03-13 Cases: 200
-Date: 2020-03-14 Cases: 212
-Date: 2020-03-15 Cases: 226
-Date: 2020-03-16 Cases: 243
-Date: 2020-03-17 Cases: 266
-Date: 2020-03-18 Cases: 313
-Date: 2020-03-19 Cases: 345
-Date: 2020-03-20 Cases: 385
-Date: 2020-03-21 Cases: 432
-Date: 2020-03-22 Cases: 455
-Date: 2020-03-23 Cases: 509
-Date: 2020-03-24 Cases: 558
-Date: 2020-03-25 Cases: 631
-Date: 2020-03-26 Cases: 683
-Date: 2020-03-27 Cases: 732
-Date: 2020-03-28 Cases: 802
-Date: 2020-03-29 Cases: 844
-Date: 2020-03-30 Cases: 879
-Date: 2020-03-31 Cases: 926
-Date: 2020-04-01 Cases: 1000
-Date: 2020-04-02 Cases: 1049
-Date: 2020-04-03 Cases: 1114
+Date: 2020-03-16 Cases: 1133
+Date: 2020-03-17 Cases: 1789
+Date: 2020-03-18 Cases: 1362
+Date: 2020-03-19 Cases: 5964
+Date: 2020-03-20 Cases: 5526
+Date: 2020-03-21 Cases: 6327
+Date: 2020-03-22 Cases: 7676
+Date: 2020-03-23 Cases: 10567
+Date: 2020-03-24 Cases: 9893
+Date: 2020-03-25 Cases: 12042
+Date: 2020-03-26 Cases: 18058
+Date: 2020-03-27 Cases: 17821
+Date: 2020-03-28 Cases: 19808
+Date: 2020-03-29 Cases: 19444
+Date: 2020-03-30 Cases: 20922
+Date: 2020-03-31 Cases: 26341
+Date: 2020-04-01 Cases: 25070
+Date: 2020-04-02 Cases: 30380
+Date: 2020-04-03 Cases: 31745
+Date: 2020-04-04 Cases: 33283
+Date: 2020-04-05 Cases: 28152
+Date: 2020-04-06 Cases: 29515
+Date: 2020-04-07 Cases: 30804
+Date: 2020-04-08 Cases: 31533
+Date: 2020-04-09 Cases: 34126
+Date: 2020-04-10 Cases: 33755
+Date: 2020-04-11 Cases: 29861
+Date: 2020-04-12 Cases: 28917
+Date: 2020-04-13 Cases: 25306
+Date: 2020-04-14 Cases: 27051
+Date: 2020-04-15 Cases: 28680
