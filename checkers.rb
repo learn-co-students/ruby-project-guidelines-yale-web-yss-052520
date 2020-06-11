@@ -36,9 +36,13 @@ else
     puts "Creating new game..."
     game = Board.create(l_player: player_1, r_player: player_2)
 end
+# binding.pry
+    
 
-# instantiates pieces according to board config
 game.load
+game.start_game(game)
+
+
 
 binding.pry
 0
