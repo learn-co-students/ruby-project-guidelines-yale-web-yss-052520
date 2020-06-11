@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
     has_many :to_dos
     has_many :tasks, through: :to_dos
-    has_many :teams, through: :team_users, source: :teams #not sure about source
-    has_many :team_to_dos, through: :teams, source: :team_to_dos
+    has_many :teams, through: :team_users# source: :teams #not sure about source
+    # has_many :team_to_dos, through: :teams# source: :team_to_dos
 
     def self.make_new_user(attributes)
         User.find_or_create_by(attributes)
@@ -48,5 +48,11 @@ class User < ActiveRecord::Base
 
     def self.username_exists?(username)
         User.all_usernames.include?(username)
-    end     
+    end
+    
+    def all_team_names
+        self.teams.map do |team|
+            team.name
+        end
+    end
 end

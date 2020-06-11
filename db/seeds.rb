@@ -19,3 +19,5 @@ to_do2 = ToDo.create(user_id: justin.id, task_id: task_2.id, complete?: true, pr
 to_do3 = ToDo.create(user_id: justin.id, task_id: task_3.id, complete?: false, priority_level: 4)
 to_do4 = ToDo.create(user_id: justin.id, task_id: task_4.id, complete?: false,  priority_level: 2)
 
+team1 = Team.create(name: "Ultimus", password: "1234")
+connection1 = TeamUser.create(user_id: enrique.id, team_id: team1.id)

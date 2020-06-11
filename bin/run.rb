@@ -104,6 +104,7 @@ def teams
         my_teams
         join_team
         create_team
+        back_to_menu
     ))
 
     if @teams_choice == "my_teams"
@@ -112,18 +113,74 @@ def teams
         join_team
     elsif @teams_choice == "create_team"
         create_team
+    elsif @teams_choice == "back_to_menu"
+        menu
     end
 end
 
 def my_teams
-    @current_team = @prompt.select("Choose the team you want to go to.", %w(team.all_names)) #methods that show all teams
+    choices = @current_user.all_team_names
+    choices.push("back_to_teams")
+    @my_teams_choice = @prompt.select("Choose the team you want to go to.", choices) #methods that show all teams
+    if @my_teams_choice == "back_to_teams"
+        teams
+    elsif
+        @current_team = Team.find_by(name: @my_teams_choice)
+        current_team_menu
+    end
+end
+
+def current_team_menu
+    @current_team_menu_choice = @prompt.select("You are in #{@current_team.name}. What would you like to do?", %w(
+        view_team_to_dos
+        view_chosen_to_dos
+        create_team_to_do
+        back_to_my_teams
+    ))
+    if @current_team_menu_choice == "view_team_to_dos"
+        view_team_to_dos
+    elsif @current_team_menu_choice == "view_chosen_to_dos"
+        view_chosen_to_dos
+    elsif @current_team_menu_choice == "create_team_to_do"
+        create_team_to_do
+    elsif @current_team_menu_choice == "back_to_my_teams"
+        my_teams
+    end
 end
 
 def join_team
 end
 
 def create_team
+    p "What would you like to name this team?"
+    typed_in_team_name = gets.chomp
+
+    if Team.name_exists?(typed_in_team_name)
+        p "Sorry, this username exists already."
+        create_team
+    else
+        @new_team_name = typed_in_team_name
+        p "Nice! Remember this team's name is #{@new_team_name}"
+    end
+    create_team_password
 end
+
+def create_team_password
+    typed_in_password_1 = @prompt.mask("Type in a password. This is required for those who want to join this team.")
+    typed_in_password_2 = @prompt.mask("Type it in again please")
+    
+    if typed_in_password_1 == typed_in_password_2
+        @new_team_password = typed_in_password_2
+        @new_team = Team.create(name: @new_team_name, password: @new_team_password)
+        TeamUser.create(team_id: @new_team.id, user_id: @current_user.id)
+        p "Congrats! You made a new team called #{@new_team.name}."
+        teams
+    else
+        p "Passwords didn't match. Try again."
+        create_team_password
+    end
+end
+
 
 def all_to_dos
     # choices = []
