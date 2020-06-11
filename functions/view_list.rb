@@ -15,8 +15,9 @@ def view_list(selected)
     $prompt.select("What do you want to do?") do |menu|
         menu.choice "Sort by:", -> {choose_sort}
         menu.choice "Add a new book", -> {add_entry(selected)}
-        menu.choice "View a book record", -> {select_book(selected)}
+        menu.choice "View/edit a book record", -> {select_book(selected)}
         menu.choice "Back to my lists", -> {view_all}
+        menu.choice "Back to main", -> {main_menu}
         menu.choice "Delete this list", -> {selected.destroy
         view_all}
         menu.choice "Exit Program", -> {exit}
@@ -30,6 +31,6 @@ end
 def select_book(list)
     book_num = $prompt.ask("Enter the number of the book you want to access.", convert: :int)
     book = list.sort_by_id[book_num-1]
-    view_book(book, list)
+    edit_book(book, list)
    # binding.pry
 end

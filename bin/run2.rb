@@ -2,15 +2,9 @@ require_relative '../config/environment'
 $prompt = TTY::Prompt.new
 
 
-def initial_screen
-    system("clear")
-    hello = $prompt.ask('What is your name?')    
-    puts "Hi #{hello}! Welcome to your reading lists!"
-    puts "-"*100
-    sleep(1)
-end
-
 def main_menu
+    system("clear")
+    puts "Hi! Welcome to your reading lists!"
     puts "-"*100
     $prompt.select("Main Menu") do |menu|
     menu.choice "View Lists", -> {view_all}
@@ -30,6 +24,7 @@ def list_menu
     end
 end
 
+
 def create_new_list_menu
     $prompt.select("What do you want to do now?") do |menu|
     menu.choice "View My Lists", -> {view_all}
@@ -41,7 +36,4 @@ def create_new_list_menu
 end
 
 
-
-
-initial_screen
 main_menu
