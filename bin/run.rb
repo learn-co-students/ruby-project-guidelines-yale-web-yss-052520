@@ -149,21 +149,75 @@ def current_team_menu
 end
 
 def view_team_to_dos
-
+    choices = @current_user.team_to_dos
+    choices.push("back_to_team_menu")
+    @view_team_to_dos_choice = @prompt.select("Select a to_do you want to claim", choices)
+    if @view_team_to_dos_choice == "back_to_team_menu"
+        current_team_menu
+    else
+        @view_team_to_dos_choice.user_id = @current_user.id
+        @view_team_to_dos_choice.colorize(:red)
+        p "#{@view_team_to_dos_choice.name} has been added to chosen_to_dos"
+        view_team_to_dos
+    end
 end
 
 def view_chosen_to_dos
+    choices = @current_user.team_to_dos
+    choices.push("back_to_team_menu")
+    view_chosen_to_dos_choice = @prompt.select("Here are your claimed to_dos", choices)
+    if view_chosen_to_dos_choice == "back_to_team_menu"
+        current_team_menu
+    else
+        @current_team_to_do = view_chosen_to_dos_choice
+        current_team_to_do
+    end
+end
 
+def current_team_to_do
+    current_team_to_do_choice = @prompt.select("What would you like to do?", %w(
+        back
+        mark_complete
+        unclaim
+    ))
+    if current_team_to_do_choice == "back"
+        view_chosen_to_dos
+    elsif current_team_to_do_choice == "mark_complete"
+        mark_chosen_to_do_complete
+    elsif current_team_to_do_choice == "unclaim"
+        unclaim_chosen_to_do
+    end
+end
+
+def mark_chosen_to_do_complete
+    @current_team_to_do.mark_complete #build this
+    @current_team_to_do.colorize(:green)
+    @current_team_to_do.unclaim
+    p "Congrats! You completed #{@current_team_to_do.name}"
+    view_chosen_to_dos
+end
+
+def unclaim
+    @current_team_to_do.unclaim #build this
+    @current_team_to_do.colorize(:default)
+    p "#{@current_team_to_do.name} has been unclaimed"
+    view_chosen_to_dos
 end
 
 def create_team_to_do
-
+    p "What is the name if this team_to_do"
+    typed_in_name = gets.chomp
+    p "When is this due?"
+    typed_in_date = gets.chomp #how do i work this with datetime? Or I could change type for due_date with migration
+    new_team_to_do = TeamToDo.create(name: typed_in_name, due_date: typed_in_date, team_id: @current_team.id, complete?: false)
+    p "Success! #{new_team_to_do.name} has been added to #{@current_team.name} to_dos"
+    current_team_menu
 end
 
 def join_team
     choices = @current_user.unjoined_team_names
     choices.push("back_to_teams")
-    join_team_choice = @prompt.select("which team would you like to join?", choices)
+    join_team_choice = @prompt.select("Which team would you like to join?", choices)
     if join_team_choice == "back_to_teams"
         teams
     else
