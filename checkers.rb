@@ -78,7 +78,7 @@ def execute_move(piece, move_type, to_pos, game)
             game.update
 
             # finds captured piece and removes it from the piece.all array - ruby will garbage collect
-            Piece.all.delete(Piece.all.find{|p| p.x_pos == (from_x + to_x)/2 && p.y_pox == (from_y + to_y)/2})
+            Piece.all.delete(Piece.all.find{|p| p.x_pos == (from_x + to_x)/2 && p.y_pos == (from_y + to_y)/2})
 
             # recalculates posisble jump moves and checks if there are any left
             if piece.jump_moves.empty?
