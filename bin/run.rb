@@ -99,6 +99,7 @@ def menu
         new_to_do
         old_to_dos
         teams
+        log_out
     ))
 
     if @menu_choice == "view_priority_to_dos"
@@ -111,6 +112,8 @@ def menu
         old_to_dos
     elsif @menu_choice == "teams"
         teams
+    elsif @menu_choice == "log_out"
+        welcome_section
     end
 end
 
@@ -299,7 +302,7 @@ def create_team_password
 end
 
 
-def view_ll_to_dos
+def view_all_to_dos
 
     choices = @current_user.make_to_dos_clean(@current_user.all_incomplete_to_dos)
     add_back_to_menu_and_select_choice(choices)
@@ -315,8 +318,6 @@ def add_back_to_menu_and_select_choice(array)
 end
 
 def view_priority_to_dos
-    
-
     choices = @current_user.make_to_dos_clean(@current_user.get_priority_to_dos)
     add_back_to_menu_and_select_choice(choices)
     select_to_do
