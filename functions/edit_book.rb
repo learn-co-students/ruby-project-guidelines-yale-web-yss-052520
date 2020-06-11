@@ -5,6 +5,25 @@ def edit_book_header(book)
     puts "View/Edit Book"
     puts "-"*100
     display_entry(book)
+    display_search(book)
+end
+
+def display_search(book)
+    title = book.title
+    author = search_author(title)
+    date = search_date(title)
+    pages = search_pages(title)
+    publisher = search_publisher(title)
+    genre = search_genre(title)
+    puts "Google Books Search"
+    puts "-"*100 
+    puts "Title: #{title}"
+    puts "Author: #{author}"
+    puts "Publish date: #{date}"
+    puts "Page Count: #{pages}"
+    puts "Publisher: #{publisher}"
+    puts "Genre: #{genre}"
+    puts "-"*100 
 end
 
 def edit_book(book, list)
