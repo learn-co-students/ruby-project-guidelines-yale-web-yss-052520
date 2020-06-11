@@ -20,7 +20,7 @@ class List < ActiveRecord::Base
   end
 
   def books #returns an array of instances of books in the list
-    entries.map{|e| e.book}.uniq
+    entries.map{|e| e.book}.uniq.compact
   end
 
   def sort_by_title
