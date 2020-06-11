@@ -3,6 +3,7 @@
 class Exporter
 
     def self.graph(input, text)
+        puts ("")
         puts ("This is a graph for " + Query.load.case_type + " " + text)
         max = 0.00
         input.each do |arr|
@@ -17,17 +18,21 @@ class Exporter
                 country_name = arr[0]
                 puts("")
                 puts("-----------------------")
-                puts("The graph for " + country_name + " (from: " + input[0][1].to_s[0..9] + " to: " + input[-1][1].to_s[0..9] + ")")
+                puts("The graph for " + country_name + " (from: " + input[0][1].to_s[0..9] + " to: " + input[-1][1].to_s[0..9] + ")").yellow
                 puts ("----------------------")
                 puts("")
             end
-            percentage = (arr[2]/max).round(2)
+            if max == 0
+                percentage = 0
+            else
+                percentage = (arr[2]/max).round(2)
+            end
             print "#{arr[1].to_s[0..9]}: "
             number_of_stars = percentage*base.round
             for i in 1..number_of_stars do
                 print "*"
             end
-            print " #{(percentage*100).to_s[0..3]}% - #{arr[2]} cases"
+            print " #{arr[2]} cases"
             puts ""
         end
 
@@ -65,13 +70,17 @@ class Exporter
                 out_file.puts ("----------------------")
                 out_file.puts("")
             end
-            percentage = (arr[2]/max).round(2)
+            if max == 0
+                percentage = 0
+            else
+                percentage = (arr[2]/max).round(2)
+            end
             out_file.print "#{arr[1].to_s[0..9]}: "
             number_of_stars = percentage*base.round
-            for i in 1..number_of_stars do
+            for i in 0..number_of_stars do
                 out_file.print "*"
             end
-            out_file.print " #{(percentage*100).to_s[0..3]}% - #{arr[2]} cases"
+            out_file.print " #{arr[2]} cases"
             out_file.puts ""
         end
         out_file.close

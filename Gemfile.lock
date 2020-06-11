@@ -16,6 +16,7 @@ GEM
     arel (9.0.0)
     builder (3.2.4)
     coderay (1.1.3)
+    colorize (0.8.1)
     concurrent-ruby (1.1.6)
     equatable (0.6.1)
     fileutils (1.1.0)
@@ -71,6 +72,7 @@ DEPENDENCIES
   activerecord (~> 5.2.1)
   activerecord-reset-pk-sequence
   builder
+  colorize
   fileutils
   pry
   rake
