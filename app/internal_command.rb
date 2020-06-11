@@ -4,6 +4,10 @@ class ICommand
 
     @@prompt = TTY::Prompt.new
 
+    def self.player
+        Game.class_variable_get(:@@player)
+    end
+
     # http://www.alecjacobson.com/weblog/?p=75
     def self.read_char
         STDIN.echo = false
@@ -84,28 +88,28 @@ class ICommand
         error_message = "You've reached the edge of the map, turn back, or go a different direction!"
 
         if direction == "north"
-            Player.locations.north_location ? (Player.location_id = Player.locations.north_location) : (puts error_message)
+            locations.find_by(id: self.player.location_id).north_location ? (self.player.location_id = locations.north_location) : (puts error_message)
         elsif direction == "south"
-            Player.locations.south_location ? (Player.location_id = Player.locations.south_location) : (puts error_message)
-        elsif direction == "east"
-            Player.locations.east_location ? (Player.location_id = Player.locations.east_location) : (puts error_message)
-        elsif direction == "west"
-            Player.locations.west_location ? (Player.location_id = Player.locations.west_location) : (puts error_message)
+            locations.find_by(id: self.player.location_id).south_location ? (self.player.location_id = locations.south_location) : (puts error_message)
+       # elsif direction == "east"
+            #self.player.locations.east_location ? (self.player.location_id = self.player.locations.east_location) : (puts error_message)
+        #elsif direction == "west"
+            #self.player.locations.west_location ? (self.player.location_id = self.player.locations.west_location) : (puts error_message)
         end
     end
 
-    def self.location_display
-        north = Location.all.find_by(id: Player.locations.north_location)
-        south = Location.all.find_by(id: Player.locations.south_location)
-        east = Location.all.find_by(id: Player.locations.east_location)
-        west = Location.all.find_by(id: Player.locations.west_location)
+  # def self.location_display
+       # north = Location.all.find_by(id: self.player.locations.north_location)
+       # south = Location.all.find_by(id: self.player.locations.south_location)
+        #east = Location.all.find_by(id: self.player.locations.east_location)
+        #west = Location.all.find_by(id: self.player.locations.west_location)
 
-        puts "North of here, is #{north.name}"
-        puts "South of here, is #{south.name}"
-        puts "East of here, is #{east.name}"
-        puts "West of here, is #{west.name}"
+       # puts "North of here, is #{north.name}." if north
+       # puts "South of here, is #{south.name}." if south
+        #puts "East of here, is #{east.name}." if east
+        #puts "West of here, is #{west.name}." if west
 
-    end
+   # end
 
 
 end

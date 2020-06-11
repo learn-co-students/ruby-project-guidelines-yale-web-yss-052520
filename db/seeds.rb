@@ -1,4 +1,8 @@
-## Start Town ##
+Player.destroy_all
+
+p1 = Player.create(name: "D", bag_count: 0, location_id: 1)
+
+# Start Town 
 l1 = Location.find_or_create_by(name: "Candy Castle",
     npc_id: nil,
     north_location: 16,
@@ -7,7 +11,7 @@ l1 = Location.find_or_create_by(name: "Candy Castle",
     west_location: 2
 )
 
-## Gummy Hills ##
+# Gummy Hills 
 l2 = Location.find_or_create_by(name: "Gummy Hills",
     npc_id: nil,    
     north_location: 3,
@@ -16,7 +20,7 @@ l2 = Location.find_or_create_by(name: "Gummy Hills",
     west_location: nil
 )
 
-## Cupcake Cosmos ##
+# Cupcake Cosmos
 l3 = Location.find_or_create_by(name: "Cupcake Cosmos",
     npc_id: nil,
     north_location: nil,
@@ -25,7 +29,7 @@ l3 = Location.find_or_create_by(name: "Cupcake Cosmos",
     west_location: 4
 )
 
-## Ice Cream Slopes ##
+# Ice Cream Slopes 
 l4 = Location.find_or_create_by(name: "Ice Cream Slopes",
     npc_id: nil,
     north_location: 5,
@@ -34,7 +38,7 @@ l4 = Location.find_or_create_by(name: "Ice Cream Slopes",
     west_location: nil
 )
 
-## Gingerbread House ##
+# Gingerbread House
 l5 = Location.find_or_create_by(name: "Gingerbread House",
     npc_id: nil,
     north_location: nil,
@@ -43,7 +47,7 @@ l5 = Location.find_or_create_by(name: "Gingerbread House",
     west_location: nil
 )
 
-## Licorice Lagoon ##
+# Licorice Lagoon
 l6 = Location.find_or_create_by(name: "Licorice Lagoon",
     npc_id: nil,
     north_location: 4,
@@ -52,7 +56,7 @@ l6 = Location.find_or_create_by(name: "Licorice Lagoon",
     west_location: 7
 )
 
-## Lollipop Woods ##
+# Lollipop Woods
 l7 = Location.find_or_create_by(name: "Lollipop Woods",
     npc_id: nil,
     north_location: nil,
@@ -61,7 +65,7 @@ l7 = Location.find_or_create_by(name: "Lollipop Woods",
     west_location: nil
 )
 
-## Ice Palace ##
+# Ice Palace
 l8 = Location.find_or_create_by(name: "Ice Palace",
     npc_id: nil,
     north_location: 6,
@@ -70,7 +74,7 @@ l8 = Location.find_or_create_by(name: "Ice Palace",
     west_location: nil
 )
 
-## Chocolate Mt ##
+# Chocolate Mt
 l9 = Location.find_or_create_by(name: "Chocolate Mt",
     npc_id: nil,
     north_location: 2,
@@ -79,7 +83,7 @@ l9 = Location.find_or_create_by(name: "Chocolate Mt",
     west_location: 8
 )
 
-## Sour Plateu ##
+# Sour Plateu
 l10 = Location.find_or_create_by(name: "Sour Plateu",
     npc_id: nil,
     north_location: 9,
@@ -88,7 +92,7 @@ l10 = Location.find_or_create_by(name: "Sour Plateu",
     west_location: nil
 )
 
-## CC Court ##
+# CC Court
 l11 = Location.find_or_create_by(name: "CC Court",
     npc_id: nil,    
     north_location: 13,
@@ -97,7 +101,7 @@ l11 = Location.find_or_create_by(name: "CC Court",
     west_location: 10
 )
 
-## Sprinkle Hills ##
+# Sprinkle Hills
 l12 = Location.find_or_create_by(name: "Sprinkle Hills",
     npc_id: nil,
     north_location: 11,
@@ -106,7 +110,7 @@ l12 = Location.find_or_create_by(name: "Sprinkle Hills",
     west_location: nil
 )
 
-## Brownie Way ##
+# Brownie Way
 l13 = Location.find_or_create_by(name: "Brownie Way",
     npc_id: nil,
     north_location: 1,
@@ -115,7 +119,7 @@ l13 = Location.find_or_create_by(name: "Brownie Way",
     west_location: nil
 )
 
-## Bluebery Block ##
+# Bluebery Block
 l14 = Location.find_or_create_by(name: "Blueberry Block",
     npc_id: nil,
     north_location: 17,
@@ -124,7 +128,7 @@ l14 = Location.find_or_create_by(name: "Blueberry Block",
     west_location: 13
 )
 
-## Mint Meadows ##
+# Mint Meadows
 l15 = Location.find_or_create_by(name: "Mint Meadows",
     npc_id: nil,
     north_location: 14,
@@ -133,7 +137,7 @@ l15 = Location.find_or_create_by(name: "Mint Meadows",
     west_location: 11
 )
 
-## Dessert Desert ##
+# Dessert Desert
 l16 = Location.find_or_create_by(name: "Dessert Desert",
     npc_id: nil,
     north_location: nil,
@@ -142,7 +146,7 @@ l16 = Location.find_or_create_by(name: "Dessert Desert",
     west_location: nil
 )
 
-## Final Flan ##
+# Final Flan
 l17 = Location.find_or_create_by(name: "Final Flan",
     npc_id: nil,
     north_location: nil,
