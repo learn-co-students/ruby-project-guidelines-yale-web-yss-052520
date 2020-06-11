@@ -20,7 +20,7 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
     # Prints out the current configuration of this board's content along with axes labels
     def display        
         # TODO: Find Gem to clear the CLI screen
-        system("clear") || system("cls")
+        # DEBUG TURN OFFsystem("clear") || system("cls")
 
         grid = content.split("\n")
         print " " # make grid line up
@@ -68,8 +68,7 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
         # Updates every empty cell with piece symbol if a piece exists at that position
         new_board.length.times{|row|
             new_board[row].length.times{|col|
-                piece_at_curr_pos = Piece.all.find{|piece| piece.x_pos == col && piece.y_pos == row} 
-                p piece_at_curr_pos
+                piece_at_curr_pos = Piece.all.find{|piece| piece.x_pos == row && piece.y_pos == col}
                 new_board[row][col] = piece_at_curr_pos.symbol if(piece_at_curr_pos)
             }
         }
@@ -82,18 +81,18 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
         loop do # Runs until a valid move is provided
             # Gets input from user
             puts "What move would you like to make?" 
-            input = gets.chomp
+            input = gets.chomp.upcase
 
             # Check input format using regex
-            if /^[A-Ha-h][1-8]:[A-Ha-h][1-8]$/.match(input) # input is properly formatted
+            if /^[A-H][1-8]:[A-H][1-8]$/.match(input) # input is properly formatted
                 move_input = input.split(":")
                 from_pos = move_input[0].split("")
-                from_pos[0] = from_pos[0].to_i # converts letter x-coord to number
+                from_pos[0] = from_pos[0].ord - 65 # converts letter x-coord to number
                 from_pos[1] = from_pos[1].to_i - 1 # converts 1-indexed user input to 0-indexed internal coords
 
                 to_pos = move_input[1].split("")
-                to_pos[0] = to_pos[0].to_i # converts letter x-coord to number
-                to_pos[1] = to_pos[1].to_i # converts 1-indexed user input to 0-indexed internal coords
+                to_pos[0] = to_pos[0].ord - 65 # converts letter x-coord to number
+                to_pos[1] = to_pos[1].to_i - 1 # converts 1-indexed user input to 0-indexed internal coords
                 
                 move[:to_pos] = [to_pos[0], to_pos[1]] # parse to_pos into individual coordinates
 
@@ -133,7 +132,7 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
         end
     end
     
-    def execute_move(piece, move_type, to_pos)
+    def exc_move(piece, move_type, to_pos)
         # parses destination coordinate array into individual x and y values
         to_x = to_pos[0]
         to_y = to_pos[1]
@@ -151,25 +150,27 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
                 from_x = piece.x_pos
                 from_y = piece.y_pos
     
-                # set the piece to its new position, updates board
+                # set the piece to its new position
                 piece.x_pos = to_x
                 piece.y_pos = to_y
-                self.update
     
                 # finds captured piece and removes it from the piece.all array - ruby will garbage collect
                 Piece.all.delete(Piece.all.find{|p| p.x_pos == (from_x + to_x)/2 && p.y_pos == (from_y + to_y)/2})
+
+                # updates board
+                self.update
     
                 # recalculates posisble jump moves and checks if there are any left
                 if piece.jump_moves.empty?
                     return true # move is complete
                 else
                     loop do # runs until the user provides a valid jump move destination
-                        jump_input = gets("Please provide the coordinates of your next jump.").chomp
+                        jump_input = gets("Please provide the coordinates of your next jump.").chomp.upcase
     
-                        if /^[A-Ha-h][1-8]$/.match(jump_input) # the user has provided a coordinate in correct format
+                        if /^[A-H][1-8]$/.match(jump_input) # the user has provided a coordinate in correct format
                             to_pos = jump_input.split("") # splits input string into an array [x,y]
-                            to_pos[0] = to_pos[0].to_i # converts letter x-coord to number
-                            to_pos.map!{|n| n - 1} # converts 1-indexed user input to 0-indexed internal coords   
+                            to_pos[0] = to_pos[0].ord - 65 # converts letter x-coord to number
+                            to_pos[1] = to_pos[1].to_i - 1 # converts 1-indexed user input to 0-indexed internal coords   
                             if piece.jump_moves.include?(to_pos) # if the user input coordinate is indeed a jump move
                                 # parses destination coordinate array into individual x and y values
                                 to_x = to_pos[0]

@@ -63,13 +63,15 @@ game.display_turn
 
 # Cycle of getting, validating, and executing moves; checks for win condition and switches player
 loop do # runs until a winner is determined
+    player_move = {}
+    move_type = ""
     # Ask the player for a move
     loop do # runs until the player inputs a valid move
-        move = game.get_move # parse player input into coordinates
+        player_move = game.get_move # parse player input into coordinates
 
-        puts move
+        puts player_move
         # validates move
-        move_type = game.validate_move(move[:piece], move[:to_pos]) # Returns nil if its not a valid move
+        move_type = game.validate_move(player_move[:piece], player_move[:to_pos]) # Returns nil if its not a valid move
         
         # exit this loop if the move is valid
         break if move_type
@@ -79,7 +81,7 @@ loop do # runs until a winner is determined
     end
 
     # Now that a valid move has been provided, execute it!
-    game.execute_move(move[:piece], move_type, move[:to_pos])
+    game.exc_move(player_move[:piece], move_type, player_move[:to_pos])
 
     # Check if l_player has won if there are no more right pieces
     if Piece.all.none?{|p| p.team == "r"}
@@ -94,7 +96,7 @@ loop do # runs until a winner is determined
     end
 
     # Now that the player's turn has finished, switch to the next player!
-    game.switch_player
+    game.switch_turn
 
     # Display the current board
     game.display
