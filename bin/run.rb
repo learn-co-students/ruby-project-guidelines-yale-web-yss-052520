@@ -35,18 +35,16 @@ end
 def user_console
     puts "Now, form a query."
 
-    query_prompt
+    new_query_prompt
 
-    while selection = $prompt.select('What would you like to do next?', {"Form a new query": 0, "Export data": 1, "Export data - increments": 2, "Quit": 3})
+    while selection = $prompt.select('What would you like to do next?', {"Form a new query": 0, "Load existing query": 1, "Export data": 2, "Quit": 3})
         case selection
         when 0
-            query_prompt
+            new_query_prompt
         when 1
-            export_prompt
+            load_query_prompt
         when 2
-            data =  increment(Query.all.first.return)
-            pp data
-            export_prompt(data)
+            export_prompt
         when 3
             break
         end
@@ -66,7 +64,6 @@ def country_prompt
 
     puts "Loading data..."
     seed_database(country_slug)
-    
 end
 
 def add_additional_countries_prompt
@@ -82,19 +79,27 @@ def add_additional_countries_prompt
     end
 end
 
-def query_prompt
-    Query.destroy_all
+def new_query_prompt
     query = Query.new
 
     date_prompt
     case_prompt
 
-    pp query.return
+    Query.load = query
+    pp Query.load.return
+end
+
+def load_query_prompt
+    options = Query.all.each_with_object({}) {|query, hash| hash["#{query.id}: #{query.case_type}, #{query.date_type}, #{query.single_date}, #{query.starting_date}, #{query.ending_date}"] = query}
+
+    Query.load = $prompt.select("Which query would you like to load?", options)
+
+    pp Query.load.return
 end
 
 def date_prompt
-    query = Query.all.first
-    selection = $prompt.select('Would you like to search by a date or a range of dates?', {'Date' => 0, 'Range of dates' => 1, 'Exit' => 2})
+    query = Query.all.last
+    selection = $prompt.select('Would you like to search by a date or a range of dates?', {'Date' => 0, 'Range of dates' => 1})
 
     case selection
     when 0
@@ -126,27 +131,31 @@ def date_prompt
 
         query.starting_date = starting_date_array
         query.ending_date = ending_date_array
-    when 2
-        exit
     end
 end
 
 def case_prompt
-    query = Query.all.first
+    query = Query.all.last
     query.case_type = $prompt.select('Select a case type.', {'Confirmed' => 'confirmed_cases', 'Active' => 'active_cases', 'Deaths' => 'death_cases', 'Recovered' => 'recovered_cases'}) 
 end
 
-def export_prompt(data = Query.all.first.return)
-    selection = $prompt.select('How would you like to export your data?', {"Formatted data": 1, "Graph": 2, "Go back": 3, "Quit": 4})
+def export_prompt
+    data = Query.load.return
+    selection = $prompt.select('How would you like to export your data?', {"Data: Cumulative cases": 1, "Data: Daily cases": 2, "Graph: Cumulative cases": 3, "Graph: Daily cases": 4, "Go back": 5})
     
-    # I deleted raw data option, we can add that back if we have time
     case selection
     when 1
         Exporter.export_txt(data)
     when 2
+        data_incremented = Query.increment(data)
+        Exporter.export_txt(data_incremented)
+    when 3
         Exporter.graph(data)
     when 4
-        exit
+        data_incremented = Query.increment(data)
+        Exporter.graph(data_incremented)
+    when 5
+        puts "Returning to menu..."
     end
 end
 
@@ -155,71 +164,26 @@ def seed_database(country_slug)
     country_data = GetRequester.get_data(country_url)
     if country_data == []
         puts "API does not support the current country!"
+    elsif Country.all.map {|country| country.name}.include?(country_data.first["Country"])
+        puts "Country already loaded!"
     else
         Seeder.seed(country_data)
         puts "Done!"
     end
 end
 
-def search_date(date_array)
-    date = "2020-#{date_array[1]}-#{date_array[0]} 00:00:00 UTC"
-    # "Date": "2020-02-26 00:00:00 UTC"
-    Day.all.select{|element| element["date"] == date}
-end
-
 def check_date(date1, date2 = Time.now.strftime("%d/%m/%Y %H:%M"))
-
     # time_now = Time.now.strftime("%d/%m/%Y %H:%M")
     #=> "14/09/2011 14:09"
     # date => DD/MM
+
     if date2[3..4].to_i > date1[3..4].to_i
-        return true
+        true
     elsif date2[3..4].to_i == date1[3..4].to_i
-        if date2[0..1].to_i > date1[0..1].to_i + 2
-            return true
-        else
-            return false
-        end
+        date2[0..1].to_i > date1[0..1].to_i + 2
     else 
-        return false
+        false
     end
 end
-
-def increment(input)
-
-    prev = input[0][2]
-    output = []
-    country_name = ""
-    input.each do |arr| 
-        if country_name != arr[0]
-            country_name = arr[0]
-            prev = arr[2]
-            next #omit the first date starting with each country
-        else
-            output << [arr[0], arr[1], arr[2] - prev]
-            prev = arr[2]
-        end
-    end
-    output
-end
-
 
 run
-
-
-# def state_cases 
-#     p "what is your state code"
-#     state_code = gets.chomp
-
-    # # Sample state_url: "https://covidtracking.com/api/v1/states/ct/current.json"
-
-#     state_url = "https://covidtracking.com/api/v1/states/" + state_code.downcase + "/current.json"
-
-#     state_info = GetRequester.new(state_url).parse_json
-#     state_positive = state_info["positive"]
-#     state_death = state_info["death"]
-
-#     p "state code: " + state_code
-#     p "positive cases: " + state_positive.to_s + ", death cases: " + state_death.to_s
-# end
-

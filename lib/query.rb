@@ -1,11 +1,17 @@
 # Reads data from database
 
 class Query
-    attr_accessor :date_type, :starting_date, :ending_date, :single_date, :case_type
+    attr_accessor :id, :date_type, :starting_date, :ending_date, :single_date, :case_type
 
     @@all = []
 
     def initialize
+        if @@all.empty?
+            @id = 1
+        else
+            @id = Query.all.last.id + 1
+        end
+
         @@all << self
     end
 
@@ -17,13 +23,18 @@ class Query
         @@all = []
     end
 
+    def self.load=(query)
+        @@load = query
+    end
+
+    def self.load
+        @@load
+    end
+
     def self.create_date_array(date)
         date.split('/')
     end
 
-    # This method needs to return all information for all countries with clear delineations between them
-
-    # It used to be def print; However, I need it to return info so that I can call it when using exporter
     def return 
         case date_type
         when "single"
@@ -75,5 +86,22 @@ class Query
             element[case_type]
             ]
         end
+    end
+
+    def self.increment(input)
+        prev = input[0][2]
+        output = []
+        country_name = ""
+        input.each do |arr| 
+            if country_name != arr[0]
+                country_name = arr[0]
+                prev = arr[2]
+                next #omit the first date starting with each country
+            else
+                output << [arr[0], arr[1], arr[2] - prev]
+                prev = arr[2]
+            end
+        end
+        output
     end
 end

@@ -3,10 +3,7 @@
 class Exporter
 
     def self.graph(input)
-        if input[0][2] != Query.all.first.return[0][2]
-            puts ("Increment!")
-        end
-        puts ("This is a graph for " + Query.all.first.case_type)
+        puts ("This is a graph for " + Query.load.case_type)
         max = 0.00
         input.each do |arr|
             if arr[2] > max
@@ -35,15 +32,11 @@ class Exporter
         end
     end
     
-    
     def self.export_txt(input)
         puts("File is going to be exported to the current folder")
         out_file = File.new("data.txt", "w")
-        if input[0][2] != Query.all.first.return[0][2]
-            out_file.puts("Increment!")
-        end
         country_name = ""
-        out_file.puts ("This is a chart for " + Query.all.first.case_type)
+        out_file.puts ("This is a chart for " + Query.load.case_type)
 
         input.each do |arr|
             if country_name != arr[0]
