@@ -27,12 +27,46 @@ class Piece #instances of this class are not stored in the database since they a
 
     # calculates all the regular moves (directly adjacent diagonals)
     def regular_moves
+        moves = [] # initializes empty move array
 
+        # choses "forward" y direction based on piece team
+        if @team == "l"
+            dir = 1
+        else
+            dir = -1
+        end
+        
+        # looks at the two forward diagonal positions and adds them to moves array if there are no pieces there
+        pos1 = [@x_pos + 1, @y_pos + dir]
+        moves << pos1 if Piece.all.none?{|p| [p.x_pos, p.y_pos] == pos1}
+        pos2 = [@x_pos - 1, @y_pos + dir]
+        moves << pos2 if Piece.all.none?{|p| [p.x_pos, p.y_pos] == pos1}
+        
+        # deletes any moves with coordinates that aren't on the board
+        moves.delete{|move| move.find{|n| n < 0 || n > 7}}
+        return moves 
     end
 
     # calculates all the jump moves (diagnonals one square away)
     def jump_moves
+        moves = [] # initializes empty move array
+
+        # choses "forward" y direction based on piece team
+        if @team == "l"
+            dir = 1
+        else
+            dir = -1
+        end
+
+        # looks at the two forward far diagonal positions and adds them to moves array if there are no pieces there and an opponent piece in between
+        pos1 = [@x_pos + 2, @y_pos + 2*dir]
+        moves << pos1 if Piece.all.find{|p| p.x_pos == @x_pos + 1 && p.y_pos == @y_pos + dir && p.team != @team} && Piece.all.none?{|p| [p.x_pos, p.y_pos] == pos1}
+        pos2 = [@x_pos - 2, @y_pos + 2*dir]
+        moves << pos1 if Piece.all.find{|p| p.x_pos == @x_pos - 1 && p.y_pos == @y_pos + dir && p.team != @team} && Piece.all.none?{|p| [p.x_pos, p.y_pos] == pos1}
         
+        # deletes any moves with coordinates that aren't on the board
+        moves.delete{|move| move.find{|n| n < 0 || n > 7}}
+        return moves
     end
 
 end

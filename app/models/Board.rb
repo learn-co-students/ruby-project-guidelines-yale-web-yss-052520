@@ -9,9 +9,9 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
         grid.length.times{|row|
                 grid[row].length.times{|col|
                 if grid[row][col] == "🔴"
-                    Piece.new(row, col, "r", "🔴")
+                    Piece.new(row, col, "right", "🔴")
                 elsif grid[row][col] == "🔵"
-                    Piece.new(row, col, "l", "🔵")
+                    Piece.new(row, col, "left", "🔵")
                 end
             }
         }
@@ -33,6 +33,7 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
     end
 
     # Looks through coordinates stored in all pieces and “arrange” them in self.contents
+    # TODO: try more efficient code
     def update
 
         new_board = [
@@ -57,51 +58,7 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
         self.display
     end
 
-    def start_game(board)
-        loop do 
-            move = get_move(board)
-            move_type = validate_move(move[:piece], move[:to_x], move[:to_y]) # Returns nil if its not a valid move
-            if(move_type == nil)
-                puts "That is not a valid move"
-            end
-            execute_move(move[:piece], move_type, move[:to_x], move[:to_y])
-            board.switch_player
-            board.update
-            board.display
-        end
-    end
-    
-    def get_move(board)
-        move = {:to_X => nil, :to_Y => nil,:piece => nil}
-        loop do
-            puts "Please enter your move in the proper format, ex. '11:23'" 
-            move_input = gets.chomp
-            move_input = move_input.split(":")
-            if(!move_input =~ (/^[A-Ha-h][1-8]:[A-Ha-h][1-8]$/)) 
-                puts "Please enter your move in the proper format, ex. '11:23'" 
-                next #restart get_move loop
-            end
-            move_input = move_input.split(":")
-            from_pos = move_input[0].to_s.to_i
-            to_pos = move_input[1].to_s.to_i
-            
-            move[:to_X] = to_pos[0]
-            move[:to_Y] = to_pos[1]
-            move[:piece] = Piece.all.find{|piece|piece.x_pos = from_pos[0] && piece.y_pos = from_pos[1]}
-            if(!move[:piece])
-                puts "There is no piece to move in the specified square\n"
-                next #restart get_move loop
-            end
-            if(move[:piece].team != board.player_turn)
-                binding.pry
-                puts "You can not move your opponent’s piece\n"
-                next #restart get_move loop
-            end
-        
-            break # A proper move was inputted
-        end
-        return move
-    end
+
     
     
 end
