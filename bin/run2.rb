@@ -7,7 +7,7 @@ def initial_screen
     hello = $prompt.ask('What is your name?')    
     puts "Hi #{hello}! Welcome to your reading lists!"
     puts "-"*100
-    sleep(1)
+    sleep(0.5)
 end
 
 def main_menu
@@ -15,7 +15,6 @@ def main_menu
     menu.choice "View Lists", -> {view_all}
     menu.choice "Create New List", -> {create_new_list}
     menu.choice "Exit Program", -> {exit}
-    # menu.choice "Hang out for a bit", -> {hang_out(0.5,5)}
     end
 end
 
