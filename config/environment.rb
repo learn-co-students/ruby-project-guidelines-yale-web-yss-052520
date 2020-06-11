@@ -1,6 +1,7 @@
 require 'bundler'
 require 'pry'
 require 'require_all'
+require 'system'
 require_all 'app/models'
 Bundler.require
 
