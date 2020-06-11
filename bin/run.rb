@@ -576,7 +576,7 @@ def make_new_task
 end
 
     
-
+system "clear"
 start
 
 
