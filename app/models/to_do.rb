@@ -31,6 +31,10 @@ class ToDo < ActiveRecord::Base
         self.update(complete?: true)
     end
 
+    def mark_incomplete
+        self.update(compete?: false)
+    end
+
     def self.destroy_all_complete_tasks
         ToDo.destroy_by(complete?: true)
     end
