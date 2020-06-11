@@ -9,9 +9,9 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
         grid.length.times{|row|
                 grid[row].length.times{|col|
                 if grid[row][col] == "🔴"
-                    Piece.new(row, col, "right", "🔴")
+                    Piece.new(row, col, "r", "🔴")
                 elsif grid[row][col] == "🔵"
-                    Piece.new(row, col, "left", "🔵")
+                    Piece.new(row, col, "l", "🔵")
                 end
             }
         }
@@ -78,7 +78,7 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
         # If player_turn = left
             # possible_moves.push([old_x + 1, old_y + 1])
             # possible_moves.push([old_x - 1, old_y + 1])
-        # If player_turn = right
+        # If player_turn = r
             # possible_moves.push([old_x + 1, old_y - 1])
             # possible_moves.push([old_x - 1, old_y - 1])
         # Return possible_moves
@@ -88,11 +88,11 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
     # jump_moves(old_x, old_y)
         # possible_moves = []
         # If player_turn = left
-            # If Piece.all.find( team = right && xpos ==[old_x + 1 && ypos == old_y + 1)
+            # If Piece.all.find( team = r && xpos ==[old_x + 1 && ypos == old_y + 1)
                 # possible_moves.push([old_x + 2, old_y + 2])
-            # If Piece.all.find( team = right && xpos == old_x - 1 && ypos == old_y + 1])
+            # If Piece.all.find( team = r && xpos == old_x - 1 && ypos == old_y + 1])
                 # possible_moves.push([old_x - 2, old_y + 2])	
-        # If player_turn = right
+        # If player_turn = r
             # If Piece.all.find( team = left && xpos ==[old_x + 1 && ypos == old_y - 1)
                 # possible_moves.push([old_x + 2, old_y  - 2])
             # If Piece.all.find( team = left && xpos == old_x - 1 && ypos == old_y - 1])
