@@ -154,7 +154,7 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
                 self.update
                 self.display
                 puts "😳Woah, you captured a piece! 👏"
-                sleep(0.5)
+                sleep(0.75)
     
                 # recalculates posisble jump moves and checks if there are any left
                 if piece.jump_moves.empty?
