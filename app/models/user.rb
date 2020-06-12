@@ -93,7 +93,8 @@ class User < ActiveRecord::Base
 
     	if officials.length == emailLinks.length
     		officials.each_with_index { |official, index|
-    			print "#{official.name}, #{official.role} \nHere's their link: \n\n\t#{emailLinks[index]}\n\n\n"
+    			print "#{official.name}, #{official.role} \nHere's their link: "
+    			print "\n\n\t#{emailLinks[index]}\n\n\n".colorize(:blue)
     		}
     	else
     		puts "There was an error. Please rerun the program"
