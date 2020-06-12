@@ -19,7 +19,6 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
 
     # Prints out the current configuration of this board's content along with axes labels
     def display        
-        # TODO: Find Gem to clear the CLI screen
         system("clear") || system("cls")
 
         grid = content.split("\n")
@@ -37,9 +36,9 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
 
     def display_turn
         if(self.player_turn == 'l')
-            puts "It is #{self.l_player.name}'s turn!(blue)"
+            puts "🔵It is #{self.l_player.name}'s turn!🔵"
         else
-            puts "It is #{self.r_player.name}'s turn!(red)"
+            puts "🔴It is #{self.r_player.name}'s turn!🔴"
         end
     end
 
@@ -75,7 +74,7 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
         move = {}
         loop do # Runs until a valid move is provided
             # Gets input from user
-            # puts "What move would you like to make?" 
+            puts "🤔What move would you like to make?" 
             # binding.pry
             input = gets.chomp.upcase
 
@@ -100,16 +99,16 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
                     if move[:piece].team == self.player_turn # the piece belongs to the current player
                         return move # returns the move hash, exits loop
                     else # the piece doesn't belong to the current player
-                        puts "You cannot move your opponent's piece"
+                        puts "😢You cannot move your opponent's piece"
                     end
 
                 else # there is no piece
-                    puts "There is no piece to move in the specified square"
+                    puts "😢There is no piece to move in the specified square"
                     # will restart loop
                 end
 
             else # input is not properly formatted
-                puts "Please enter your move in the proper format, ex. 'A1:h8'"
+                puts "🥺Please enter your move in the proper format, ex. 'A1:h8'"
                 # will restart loop
             end
         end
@@ -150,17 +149,19 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
     
                 # finds captured piece and removes it from the piece.all array - ruby will garbage collect
                 Piece.all.delete(Piece.all.find{|p| p.x_pos == (from_x + to_x)/2 && p.y_pos == (from_y + to_y)/2})
-
+                
                 # updates board
                 self.update
                 self.display
+                puts "😳Woah, you captured a piece! 👏"
+                sleep(0.5)
     
                 # recalculates posisble jump moves and checks if there are any left
                 if piece.jump_moves.empty?
                     return true # move is complete
                 else
                     loop do # runs until the user provides a valid jump move destination
-                        puts "Please provide the coordinates of your next jump."
+                        puts "🤔Please provide the coordinates of your next jump."
                         jump_input = gets.chomp.upcase
     
                         if /^[A-H][1-8]$/.match(jump_input) # the user has provided a coordinate in correct format
@@ -174,10 +175,10 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
     
                                 break # exits into main loop to execute another jump move
                             else # if the user input coordinate is not a jump move
-                                puts "You must jump over an opponent piece."
+                                puts "😢You must jump over an opponent piece."
                             end
                         else # the user has not provided a coordinate in wrong format
-                            puts "That is not a valid coordinate. Examples: 'A2', 'g5'"
+                            puts "😢That is not a valid coordinate. Examples: 'A2', 'g5'"
                         end
                     end
                 end
@@ -196,10 +197,26 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
         # WIN SCREEN
         system("clear") || system("cls")
         self.display
-        puts "CONGRAGULATIONS #{winner.name}! YOU WON!!!!"
         l_player.save
         r_player.save
         self.destroy
+        sleep (0.25)
+        puts "\n"
+        puts "🎊🥳🎉CONGRAGULATIONS, #{winner.name}! YOU WON!!!!🎉🥳🎊"
+        puts "🔥✨💯Your score is now #{winner.win_count}💯✨🔥"
+        puts "\n"
+
+        10.times do
+            print "👏👍👌👏👍👌👏👍👌👏👍👌👏👍👌👏👍👌\r"
+            sleep(0.25)
+            print "👍👌👏👍👌👏👍👌👏👍👌👏👍👌👏👍👌👏\r"
+            sleep(0.25)
+            print "👌👏👍👌👏👍👌👏👍👌👏👍👌👏👍👌👏👍\r"
+            sleep(0.25)
+        end
+
+        $prompt.keypress("\n🚪🚶Press any key to exit....")
+        
     end
 
 end
