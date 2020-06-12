@@ -16,7 +16,7 @@ loop do # keeps running until the user wants to exit the leaderboard
     puts "Wins.....Player....................."
     puts "\n"
     for player in leaderboard
-        puts "#{"%04d" % win_count}     #{player.name}"
+        puts "#{"%04d" % player.win_count}     #{player.name}"
     end
     puts "\n"
     $prompt.keypress("Press any key to exit....")
