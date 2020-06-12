@@ -11,7 +11,8 @@ Once you have Ruby and Git installed, you need to type the following commands in
 ```
    git clone https://github.com/anmolk18/blm-email-yale-web-project-mod1.git
    cd blm-email-yale-web-project-mod1
-   ruby run/bin.rb
+   rake db:migrate
+   ruby bin/run.rb
 ```
 The app should now be running and you will be inputting some information, such as your name, address, and your support for/against the Black Lives Matter movement. You will eventually be given an email link with a pre-written message to officals based on the address they provided. You will even be given the option of writing a personalized comment in the body of their email.
 
