@@ -15,11 +15,13 @@ loop do # keeps running until the user wants to exit the leaderboard
     puts "************LEADERBOARD*************"
     puts "Wins.....Player....................."
     puts "\n"
-    for player in playerboard
-        puts "#{"%04d" % player.id}     #{player.name}"
+    for player in leaderboard
+        puts "#{"%04d" % win_count}     #{player.name}"
     end
     puts "\n"
     $prompt.keypress("Press any key to exit....")
+end
+
 
 # finds/creates and greets player 1
 puts "Player 1: What is your name?"
