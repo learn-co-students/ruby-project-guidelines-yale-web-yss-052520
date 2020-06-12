@@ -115,6 +115,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   activerecord-reset-pk-sequence
+  minitest
   pry
   rake
   require_all
