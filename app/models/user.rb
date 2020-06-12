@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
     def createAllOfficialsAndEmailsForUser
         response = getOfficialsListWithAddress
 
-        if !response
+        if !response["officials"]
         	puts "You have no elected officials. That address is probably incomplete (include \"street address, city, state zip code\" and try again.)"
         	exit(1)
         end
