@@ -66,6 +66,7 @@ class Piece #instances of this class are not stored in the database since they a
         
         # deletes any moves with coordinates that aren't on the board
         moves.delete_if{|move| move.find{|n| n < 0 || n > 7}}
+        puts moves
         return moves
     end
 
