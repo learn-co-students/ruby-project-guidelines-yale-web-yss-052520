@@ -1,5 +1,6 @@
 require_relative '../config/environment'
 
+<<<<<<< HEAD
 $ex_address = "688%20Passaic%20Avenue,%20Nutley,%20NJ%2007109"
 
 def getOfficialsListWithAddress(address)
@@ -34,6 +35,9 @@ def createAllOfficialsForUser(address)
 end
 
 createAllOfficialsForUser($ex_address)
+
+# app = CLI.new 
+# app.start_with_name
 
 binding.pry
 0
