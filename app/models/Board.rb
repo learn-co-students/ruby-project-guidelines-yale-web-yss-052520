@@ -78,6 +78,7 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
             # binding.pry
             input = gets.chomp.upcase
 
+
             # Check input format using regex
             if /^[A-H][1-8]:[A-H][1-8]$/.match(input) # input is properly formatted
                 move_input = input.split(":")
@@ -108,6 +109,10 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
                 end
 
             else # input is not properly formatted
+                # Check to see if the user wants to exit the program 
+                if(input == "EXIT")
+                    exit(0)
+                end
                 puts "🥺Please enter your move in the proper format, ex. 'A1:h8'"
                 # will restart loop
             end
