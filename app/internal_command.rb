@@ -87,20 +87,36 @@ class ICommand
 
     def self.move(direction)
         # possibly need return if checking bag
-        error_message = "You've reached the edge of the map, turn back, or go a different direction!"
+        error_message = "\nYou've reached the edge of the map, turn back, or go a different direction!"
 
         if direction == "north"
-            Location.find_by(id: self.player.location_id).north_location ? (self.player.location_id = Location.find_by(id: self.player.location_id).north_location) : (puts error_message)
-            sleep(1)
+            if Location.find_by(id: self.player.location_id).north_location 
+                self.player.location_id = Location.find_by(id: self.player.location_id).north_location
+            else 
+                puts error_message
+                sleep(1.5)
+            end
         elsif direction == "south"
-            Location.find_by(id: self.player.location_id).south_location ? (self.player.location_id = Location.find_by(id: self.player.location_id).south_location) : (puts error_message)
-            sleep(1)
+            if Location.find_by(id: self.player.location_id).south_location 
+                self.player.location_id = Location.find_by(id: self.player.location_id).south_location
+            else 
+                puts error_message
+                sleep(1.5)
+            end
         elsif direction == "east"
-            Location.find_by(id: self.player.location_id).east_location ? (self.player.location_id = Location.find_by(id: self.player.location_id).east_location) : (puts error_message)
-            sleep(1)
+            if Location.find_by(id: self.player.location_id).east_location
+                self.player.location_id = Location.find_by(id: self.player.location_id).east_location
+            else
+                puts error_message
+                sleep(1.5)
+            end
         elsif direction == "west"
-            Location.find_by(id: self.player.location_id).west_location ? (self.player.location_id = Location.find_by(id: self.player.location_id).west_location) : (puts error_message)
-            sleep(1)
+            if Location.find_by(id: self.player.location_id).west_location 
+                self.player.location_id = Location.find_by(id: self.player.location_id).west_location
+            else
+                puts error_message
+                sleep(1.5)
+            end
         end
     end
 
@@ -123,7 +139,7 @@ class ICommand
         Game.clear_term
         Game.end_game_message
         Game.bag_and_loc
-        sleep(0.5)
+        # sleep(0.5)
     end
 
     def self.move_and_display_loop

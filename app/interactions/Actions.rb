@@ -51,7 +51,7 @@ class Action
             # check npc's location_id of the location of current player == 
             # if there is an item in your current location, that location_id = npc's location_id
             Game.slow_puts("\n#{Npc.find_by(id: Location.find_by(npc_id: ICommand.player.location_id).npc_id).name.colorize(:blue)}: There seems to be an gem here, let me guide you")
-            Game.slow_puts("\n#{Npc.find_by(id: Location.find_by(npc_id: ICommand.player.location_id).npc_id).name.colorize(:blue)}: We found it! Press 'p' to pickup the gem.")
+            Game.slow_puts("#{Npc.find_by(id: Location.find_by(npc_id: ICommand.player.location_id).npc_id).name.colorize(:blue)}: We found it! Press 'p' to pickup the gem.")
         else 
             Game.slow_puts("\n#{Npc.find_by(id: Location.find_by(npc_id: ICommand.player.location_id).npc_id).name.colorize(:blue)}: There's nothing I can help you with. Move on to the next location.")
         end

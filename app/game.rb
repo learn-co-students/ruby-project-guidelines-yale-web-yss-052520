@@ -96,8 +96,8 @@ class Game
         Game.intro
         sleep(2)
         Game.clear_term
-        ICommand.display_key_funcs
-        sleep(2)
+        # ICommand.display_key_funcs
+        # sleep(2)
         Game.gameplay_screen
         
     end
@@ -123,6 +123,7 @@ class Game
         # when bag_count = 5, puts "Go to Final Flan", && location_id == 17
         if self.bag.count == 5 
             Game.slow_puts("Go to Final Flan to save the world!")
+            sleep (1)
         end
             
     end
