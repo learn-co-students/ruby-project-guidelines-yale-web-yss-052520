@@ -2,7 +2,7 @@
 -Flatiron Module 1 Final Project
 
 ---
-### Install instructions:
+### Installation instructions:
 - Install this repository
 - Open up your computer terminal
 - Navigate to the folder housing this repository on your local machine
