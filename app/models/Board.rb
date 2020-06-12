@@ -64,14 +64,9 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
             "⬛⬜⬛⬜⬛⬜⬛⬜",
             "⬜⬛⬜⬛⬜⬛⬜⬛",
             "⬛⬜⬛⬜⬛⬜⬛⬜"]
-        
-        # Updates every empty cell with piece symbol if a piece exists at that position
-        new_board.length.times{|row|
-            new_board[row].length.times{|col|
-                piece_at_curr_pos = Piece.all.find{|piece| piece.x_pos == row && piece.y_pos == col}
-                new_board[row][col] = piece_at_curr_pos.symbol if(piece_at_curr_pos)
-            }
-        }
+
+        Piece.all.each{|piece| new_board[piece.x_pos][piece.y_pos] = piece.symbol}
+        # binding.pry
         self.content = new_board.join("\n")
     end
 
@@ -80,7 +75,8 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
         move = {}
         loop do # Runs until a valid move is provided
             # Gets input from user
-            puts "What move would you like to make?" 
+            # puts "What move would you like to make?" 
+            # binding.pry
             input = gets.chomp.upcase
 
             # Check input format using regex
@@ -189,7 +185,17 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
         end
     end
 
-    def game_over
-        
+    
+def win_screen
+    if Piece.all.none?{|p| p.team == "r"}
+        winner = game.l_player
+    else
+        winner = game.r_player
     end
+    
+    system("clear") || system("cls")
+    game.display
+
+    puts "CONGRAGULATIONS #{winner.name}! YOU WON!!!!"
+end
 end
