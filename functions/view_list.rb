@@ -37,7 +37,7 @@ def select_book(list)
         view_book(book, list)
     else
         puts "Sorry, I can't find a book with that title in this list."
-        view_list(list, "sort_by_author")
+        select_book(list)
     end
 
    # binding.pry

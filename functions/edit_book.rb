@@ -47,16 +47,16 @@ def edit_menu(book, list)
 end
 
 
-def mark_read(book, list)
-    if book.read == false
-        book.read = true
-    else
-        book.read = false     
-    end
-    edit_book_header(book)
-    puts "You updated your read status!"
-    edit_menu(book, list)
-end
+# def mark_read(book, list)
+#     if book.read == false
+#         book.read = true
+#     else
+#         book.read = false     
+#     end
+#     edit_book_header(book)
+#     puts "You updated your read status!"
+#     edit_menu(book, list)
+# end
 
 def edit(book, item, list)
     input = $prompt.ask("Enter #{item}:", default: nil)
