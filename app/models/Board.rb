@@ -185,17 +185,22 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
         end
     end
 
-    
-def win_screen
-    if Piece.all.none?{|p| p.team == "r"}
-        winner = game.l_player
-    else
-        winner = game.r_player
+    def game_over
+        if (Piece.all.none?{|p| p.team == "r"})
+            winner = self.l_player
+            self.l_player.win_count +=1
+        else
+            winner = self.r_player
+            self.r_player.win_count +=1
+        end
+        # WIN SCREEN
+        system("clear") || system("cls")
+        self.display
+        puts "CONGRAGULATIONS #{winner.name}! YOU WON!!!!"
+        l_player.save
+        r_player.save
+        self.destroy
+        binding.pry
     end
-    
-    system("clear") || system("cls")
-    game.display
 
-    puts "CONGRAGULATIONS #{winner.name}! YOU WON!!!!"
-end
 end

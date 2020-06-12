@@ -62,7 +62,7 @@ game.content = [
     "⬜⬛⬜⬛⬜⬛⬜⬛",
     "⬛⬜⬛⬜⬛⬜⬛⬜",
     "⬜⬛⬜🔴⬜⬛⬜⬛",
-    "⬛⬜⬛⬜🔵⬜⬛⬜",
+    "⬛⬜🔵⬜⬛⬜⬛⬜",
     "⬜⬛⬜⬛⬜⬛⬜⬛",
     "⬛⬜⬛⬜⬛⬜⬛⬜",
     "⬜⬛⬜⬛⬜⬛⬜⬛",
@@ -112,7 +112,11 @@ loop do # runs until a winner is determined
     game.exc_move(player_move[:piece], move_type, player_move[:to_pos])
 
     # Checks if someone has won, and breaks out of loop if so
-    break if(Piece.all.none?{|p| p.team == "r" || p.team == "l"})
+    if(Piece.all.none?{|p| p.team == "r"} || Piece.all.none?{|p| p.team == "l"})
+        game.game_over
+        break;
+    end
+    
 
     # Now that the player's turn has finished, switch to the next player!
     game.switch_turn
@@ -128,7 +132,7 @@ loop do # runs until a winner is determined
 end
 
 
-board.win_screen
+
 
 
     # # switches player to the next one
