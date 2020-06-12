@@ -7,6 +7,20 @@ puts "|--------------|"
 puts "| CLI CHECKERS |"
 puts "|--------------|\n"
 
+# asks user if they want to see leaderboard
+loop do # keeps running until the user wants to exit the leaderboard
+    # exit into main flow if user chooses to play checkers
+    break if $prompt.select("What would you like to do?", {"Play checkers" => true, "See leaderboard" => false})
+    leaderboard = Player.order(win_count: :desc).limit(5)
+    puts "************LEADERBOARD*************"
+    puts "Wins.....Player....................."
+    puts "\n"
+    for player in playerboard
+        puts "#{"%04d" % player.id}     #{player.name}"
+    end
+    puts "\n"
+    $prompt.keypress("Press any key to exit....")
+
 # finds/creates and greets player 1
 puts "Player 1: What is your name?"
 player_1 = Player.find_or_create_by_name(gets.chomp)
