@@ -127,5 +127,5 @@ end
 user = startup
 giveResults(user)
 
-binding.pry
-0
+# binding.pry
+# 0
