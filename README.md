@@ -4,7 +4,7 @@ Reading List is a Ruby CLI app for organizing reading lists.
 
 ## Installation
 
-Run [bin/run.rb](bin/run.rb) to install.
+Run [bin/run.rb](bin/run.rb) to install. Make sure you have all the necessary gems by running `bundle install` within the directory.
 
 ```bash
 ruby bin/run.rb
