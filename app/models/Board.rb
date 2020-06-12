@@ -37,9 +37,9 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
 
     def display_turn
         if(self.player_turn == 'l')
-            puts "It is #{self.l_player.name}'s turn!"
+            puts "It is #{self.l_player.name}'s turn!(blue)"
         else
-            puts "It is #{self.r_player.name}'s turn!"
+            puts "It is #{self.r_player.name}'s turn!(red)"
         end
     end
 
@@ -200,7 +200,6 @@ class Board < ActiveRecord::Base # instances of this class are stored in the boa
         l_player.save
         r_player.save
         self.destroy
-        binding.pry
     end
 
 end
