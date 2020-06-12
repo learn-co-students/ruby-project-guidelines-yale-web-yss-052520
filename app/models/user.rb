@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
     def createAllOfficialsAndEmailsForUser
         response = getOfficialsListWithAddress
 
-        if !response
+        if !response["officials"]
         	puts "You have no elected officials. That address is probably incomplete (include \"street address, city, state zip code\" and try again.)"
         	exit(1)
         end
@@ -93,7 +93,8 @@ class User < ActiveRecord::Base
 
     	if officials.length == emailLinks.length
     		officials.each_with_index { |official, index|
-    			print "#{official.name}, #{official.role} \nHere's their link: \n\n\t#{emailLinks[index]}\n\n\n"
+    			print "#{official.name}, #{official.role} \nHere's their link: "
+    			print "\n\n\t#{emailLinks[index]}\n\n\n".colorize(:blue)
     		}
     	else
     		puts "There was an error. Please rerun the program"
