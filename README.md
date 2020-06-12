@@ -14,7 +14,7 @@ ruby bin/run.rb
 
 When you install, the main menu provides an option to create a new list or view all existing lists.
 
-```ruby
+```zsh
 Hi! Welcome to your reading lists!
 ----------------------------------------------------------------------------------------------------
 Main Menu (Use ↑/↓ arrow keys, press Enter to select)
@@ -24,7 +24,7 @@ Main Menu (Use ↑/↓ arrow keys, press Enter to select)
 ```
 Use ↑/↓ arrow keys, press Enter to select to take a look inside an individual list.
 
-```ruby
+```zsh
 My Lists
 ----------------------------------------------------------------------------------------------------
 Select list: 
@@ -34,7 +34,7 @@ Select list:
 ```
 
 Inside a list, you have an option to sort, add/view/edit books, and delete list.
-```ruby
+```zsh
 +-------------------------------+---------------+------+-------+-------+
 |                      Arthur's June Reading List                      |
 |                             read for fun                             |
@@ -54,7 +54,7 @@ What do you want to do? (Use ↑/↓ arrow keys, press Enter to select)
 ```
 You can sort by Title, Author, Year, Genre, Read/Unread.
 
-```ruby
+```zsh
 +-------------------------------+---------------+------+-------+-------+
 |                      Arthur's June Reading List                      |
 |                             read for fun                             |
@@ -75,7 +75,7 @@ Sort by: (Use ↑/↓ arrow keys, press Enter to select)
 
 The View/Edit Book page shows a simple Google Books search of the title.
 
-```ruby
+```zsh
 View/Edit Book
 ----------------------------------------------------------------------------------------------------
 +-------------------+-------------+------+-------+-------+-------+------+
