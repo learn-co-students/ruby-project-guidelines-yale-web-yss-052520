@@ -74,6 +74,7 @@ def seeRepresentatives(user)
         return
     else 
         puts "Please answer with yes or no.".colorize(:red)
+        seeRepresentatives(user)
         sleep(1.0)
     end
 end
@@ -90,6 +91,7 @@ def printLink(user)
         user.printOneRandomEmailWithOfficialAndLink
     else 
         puts "Please answer with all or one.".colorize(:red)
+        printLink(user)
         sleep(1.0)
     end
     puts "Another email?".colorize(:yellow)
