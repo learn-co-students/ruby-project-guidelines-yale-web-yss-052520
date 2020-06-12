@@ -3,9 +3,9 @@ Player.reset_pk_sequence
 Board.destroy_all
 Board.reset_pk_sequence
 
-alex = Player.create(name: "Alex")
-bob = Player.create(name: "Bob")
-cat = Player.create(name: "Cat")
+alex = Player.create(name: "Alex", win_count: 999)
+bob = Player.create(name: "Bob", win_count: 998)
+cat = Player.create(name: "Cat", win_count: 50)
 dan = Player.create(name: "Dan")
 
 config1 = [

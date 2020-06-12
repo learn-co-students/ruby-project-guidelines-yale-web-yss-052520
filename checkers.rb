@@ -3,17 +3,18 @@ require_relative 'config/environment'
 require "tty-prompt"
 
 $prompt = TTY::Prompt.new
+puts "\n"
 puts "|--------------|"
 puts "| CLI CHECKERS |"
-puts "|--------------|\n"
+puts "|--------------|\n\n"
 
 # asks user if they want to see leaderboard
 loop do # keeps running until the user wants to exit the leaderboard
     # exit into main flow if user chooses to play checkers
     break if $prompt.select("What would you like to do?", {"Play checkers" => true, "See leaderboard" => false})
     leaderboard = Player.order(win_count: :desc).limit(5)
-    puts "************LEADERBOARD*************"
-    puts "Wins.....Player....................."
+    puts "\n************LEADERBOARD*************"
+    puts "\nWins.....Player....................."
     puts "\n"
     for player in leaderboard
         puts "#{"%04d" % player.win_count}     #{player.name}"
@@ -74,16 +75,16 @@ end
 # ].join("\n")
 
     # test win
-game.content = [
-    "⬜⬛⬜⬛⬜⬛⬜⬛",
-    "⬛⬜⬛⬜⬛⬜⬛⬜",
-    "⬜⬛⬜🔴⬜⬛⬜⬛",
-    "⬛⬜⬛⬜🔵⬜⬛⬜",
-    "⬜⬛⬜⬛⬜⬛⬜⬛",
-    "⬛⬜⬛⬜⬛⬜⬛⬜",
-    "⬜⬛⬜⬛⬜⬛⬜⬛",
-    "⬛⬜⬛⬜⬛⬜⬛⬜"
-].join("\n")
+# game.content = [
+#     "⬜⬛⬜⬛⬜⬛⬜⬛",
+#     "⬛⬜⬛⬜⬛⬜⬛⬜",
+#     "⬜⬛⬜🔴⬜⬛⬜⬛",
+#     "⬛⬜⬛⬜🔵⬜⬛⬜",
+#     "⬜⬛⬜⬛⬜⬛⬜⬛",
+#     "⬛⬜⬛⬜⬛⬜⬛⬜",
+#     "⬜⬛⬜⬛⬜⬛⬜⬛",
+#     "⬛⬜⬛⬜⬛⬜⬛⬜"
+# ].join("\n")
 
 
 # Create piece instances according to the configuration stored in board instance
