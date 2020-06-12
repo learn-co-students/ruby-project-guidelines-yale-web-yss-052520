@@ -1,5 +1,5 @@
 # CLI Checkers
--Flatiron Module 1 Final Project
+Flatiron Module 1 Final Project
 
 ---
 ### Installation instructions:
