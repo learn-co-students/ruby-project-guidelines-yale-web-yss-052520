@@ -95,11 +95,12 @@ def printLink(user)
     puts "Another email?".colorize(:yellow)
     response2 = gets.chomp
     if response2.downcase == "yes"
-    	printLink
-    elsif response.downcase == "no"
+    	printLink(user)
+    elsif response2.downcase == "no"
     	puts "Ok! Bye."
     else 
-        puts "Please answer with all or one.".colorize(:red)
+        puts "Please answer with yes or no.".colorize(:red)
+        printLink(user)
         sleep(1.0)
     end
 end 
@@ -123,3 +124,6 @@ end
 
 user = startup
 giveResults(user)
+
+binding.pry
+0

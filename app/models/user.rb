@@ -22,10 +22,6 @@ class User < ActiveRecord::Base
     end 
 
     def createAllOfficialsAndEmailsForUser
-        Official.destroy_all
-        Official.reset_pk_sequence
-        Email.destroy_all
-        Email.reset_pk_sequence
         response = getOfficialsListWithAddress
 
         if !response
@@ -34,10 +30,7 @@ class User < ActiveRecord::Base
         end
 
         response["officials"].each { |official|
-            # if official #IF YOU END UP HAVING MULTIPLE USERS, REMOVE THE DESTROY AND RESET PK & CHANGE THIS LINE TO BE IF OFFICIAL ISN'T ALREADY IN THE DATABASE
-                
-            # end
-            officialInstance = createOfficial(official, response)
+            officialInstance = Official.where(name: official["name"]).exists? ? Official.where(name: official["name"])[0] : createOfficial(official, response)
             createEmail(officialInstance)
         }
     end
@@ -53,7 +46,7 @@ class User < ActiveRecord::Base
 				  "#{self.comment}#{newLine}#{newLine}" \
 				  "Sincerely,#{newLine} #{self.name}"
 		subject = "Support for Black Lives"
-		
+
 		link = official.email ? "mailto:#{official.email}?subject=#{subject}&body=#{message}" : nil
 		Email.create(message: message, subject: subject, link:link, user_id: self.id, official_id: official.id)
     end
