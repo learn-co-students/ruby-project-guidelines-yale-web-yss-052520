@@ -8,7 +8,7 @@
 - Navigate to the folder housing this repository on your local machine
 - Run the command 'bundle install'
 - Run the command 'ruby checkers.rb'
-- Follow the instructions printed on the temrinal and have fun!
+- Follow the instructions printed on the temrinal and have fun! <br/>
 Note: If you get the following error
 ```shell
 WARN: Unresolved specs during Gem::Specification.reset:
