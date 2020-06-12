@@ -64,7 +64,7 @@ class List < ActiveRecord::Base
   end
 
   def sort_by_read
-    self.books.sort_by(&:read)
+    self.books.select{|b| b.read == true} + self.books.select{|b| b.read == false}
   end
 
   # def sort_by_id
