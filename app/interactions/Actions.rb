@@ -1,3 +1,4 @@
+
 class Action
 
     # move the item to the players bag, so when we check the bag we can see the items
@@ -10,41 +11,52 @@ class Action
     # Along the way, you will have various Nps to help you along your quest
     # potential time limit
 
-    # look for item: 
-    # look at location, see if it's assigned an item id and if true puts "there might be something here", else puts "not here"
-
     # npc to help indicate item
     # npc looks at location, see if assigned item and if true puts "might be something here, 'press p' to look"
-
-    # pickup for item:
-    # Items.player_id = self.player.id
-    # bag count += 1
 
     # bag count <= 5
 
     @@bag = []
+    
 
-    def pickup
-        #bag_contents
+    def self.pickup
+        if ICommand.player.location_id == Item.find_by(location_id: ICommand.player.location_id)&.location_id
+            @@bag << Item.find_by(location_id: ICommand.player.location_id)
+            puts "You've picked up the item"
+            puts "Please move on to the next location"
+            sleep(1)
+        else 
+            puts "There's nothing for you to pickup"
+            puts "Please move on to the next location"
+            sleep(1)
+        end
+        Item.find_by(location_id: ICommand.player.location_id)&.update(location_id: nil)
+        # # after you test code & pick up item, update item location_id to original in pry
+        # binding.pry
     end
+
+    # def self.change_item_id
+    #     i = nil 
+    # end
     
     def self.check_bag
-        @@bag.map {|item| item.name}
+        puts @@bag.map {|item| item.name}.uniq
+        sleep(2)
         #return new array of all items in bag (name only)
     end
 
-    def self.look
-        if ICommand.player.location_id = Item.find_by(location_id: ICommand.player.location_id)
-            #object is in this location, if object a location id that matches the current location id
-            puts "I feel like something is here but I don't know where"
-        else #object is not in this location, if objects location id doesnt match the location's id
-            puts "I feel like something is not here but I don't know"
+    def self.talk_to_npc
+        if Location.find_by(npc_id:ICommand.player.location_id).npc_id == Item.find_by(location_id: ICommand.player.location_id)&.location_id
+            # npc_id == item's location_id
+            # check npc's location_id of the location of current player == 
+            # if there is an item in your current location, that location_id = npc's location_id
+            Game.slow_puts("#{Npc.find_by(id: Location.find_by(npc_id: ICommand.player.location_id).npc_id).name}: There seems to be an gem here, let me guide you")
+            Game.slow_puts("#{Npc.find_by(id: Location.find_by(npc_id: ICommand.player.location_id).npc_id).name}: We found it! Press 'p' to pickup the gem.")
+        else 
+            Game.slow_puts("#{Npc.find_by(id: Location.find_by(npc_id: ICommand.player.location_id).npc_id).name}: There's nothing I can help you with. Move on to the next location.")
         end
-        #to look around the area
-    end
-
-    def talk_to_NPC
-        #talk to NPC
+        Game.clear_term
+        #if yes = guide to location,pause, i think we found it, use 'p' to pickup the item, no = sorry I can't help
     end
 
 end

@@ -42,11 +42,13 @@ class ICommand
         when "q"
             Game.exit_game
         when "t"
-            talk_to_NPC 
+            Action.talk_to_npc
         when "l"
-            Action.look
+            self.look
         when "c"
             Action.check_bag
+        when "p"
+            Action.pickup
         when "1"
             Game.help_menu
         else 
@@ -65,6 +67,7 @@ class ICommand
         puts "C -- Check Bag"
         puts "L -- Look Around"
         puts "T -- Talk to Guides"
+        puts "P -- Pickup Item"
         puts "H -- Help Menu"
         puts "Q -- Quit"
 
@@ -88,12 +91,16 @@ class ICommand
 
         if direction == "north"
             Location.find_by(id: self.player.location_id).north_location ? (self.player.location_id = Location.find_by(id: self.player.location_id).north_location) : (puts error_message)
+            sleep(1)
         elsif direction == "south"
             Location.find_by(id: self.player.location_id).south_location ? (self.player.location_id = Location.find_by(id: self.player.location_id).south_location) : (puts error_message)
-       elsif direction == "east"
+            sleep(1)
+        elsif direction == "east"
             Location.find_by(id: self.player.location_id).east_location ? (self.player.location_id = Location.find_by(id: self.player.location_id).east_location) : (puts error_message)
+            sleep(1)
         elsif direction == "west"
             Location.find_by(id: self.player.location_id).west_location ? (self.player.location_id = Location.find_by(id: self.player.location_id).west_location) : (puts error_message)
+            sleep(1)
         end
     end
 
@@ -113,11 +120,29 @@ class ICommand
         self.location_display
         self.move(self.key_funcs)
         Game.clear_term
+        Game.end_game_message
+        Game.bag_and_loc
+        sleep(1)
     end
 
     def self.move_and_display_loop
         self.move_and_display while(true)
     end
 
+    # def self.look
+    #     if self.player.location_id == Item.find_by(location_id: self.player.location_id).location_id
+    #         puts "I feel like something is here but I don't know where"
+    #     else
+    #         puts "I feel like something is not here but I don't know"
+    #     end
+    #     # #to look around the area
+    # end
+
+    def self.look
+        lc1 = self.player.location_id
+        lc2 = Item.find_by(location_id: lc1)&.location_id
+        lc1 == lc2 ? (puts "I feel like something is here but I don't know where") : (puts "I feel like something is not here but I don't know")
+        sleep(2)
+    end
 
 end

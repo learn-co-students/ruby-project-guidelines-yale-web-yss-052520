@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(version: 2020_06_11_151917) do
 
   create_table "npcs", force: :cascade do |t|
     t.string "name"
-    t.string "message"
   end
 
   create_table "players", force: :cascade do |t|

@@ -1,11 +1,12 @@
 class Game
 
-    @@artii = Artii::Base.new
+    @@artii = Artii::Base.new :font => 'slant'
     @@prompt = TTY::Prompt.new
 
     def self.start
         Game.clear_term
-        puts "title"
+        Game.title 
+        sleep(2)
         Game.main_menu
         # runs the program
     end
@@ -82,13 +83,12 @@ class Game
             # scattered throughout the planet's remains. On your
             # journey you may run into helpers, but remember to 
             # stay focused. Otherwise the Earth might just implode."
-
     end
 
     def self.next_screen
-        puts "Title"
+        Game.title 
         Game.intro
-        sleep(5)
+        sleep(2)
         Game.clear_term
         ICommand.display_key_funcs
         sleep(2)
@@ -106,11 +106,32 @@ class Game
         ICommand.key_funcs
     end
 
-
     def self.title
-        puts @@artii.asciify("Title")
+        puts @@artii.asciify("Candy Hunt")
     end
 
+    def self.end_game_message
+        # when bag_count = 5, puts "Go to Final Flan", && location_id == 17
+        if self.bag.count == 5 
+            Game.slow_puts("Go to Final Flan to save the world!")
+        end
+            
+    end
 
+    def self.bag_and_loc
+        if self.bag.count == 5 && ICommand.player.location_id == 17
+            self.end_game
+        end
+    end
+
+    def self.end_game
+        Game.slow_puts("Congratulations on saving the world!")
+        sleep(1)
+        self.exit_game
+    end
+
+    def self.bag
+        Action.class_variable_get(:@@bag)
+    end
 
 end
