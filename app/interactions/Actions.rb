@@ -22,11 +22,11 @@ class Action
     def self.pickup
         if ICommand.player.location_id == Item.find_by(location_id: ICommand.player.location_id)&.location_id
             @@bag << Item.find_by(location_id: ICommand.player.location_id)
-            puts "You've picked up the item"
+            puts "\nYou've picked up the item"
             puts "Please move on to the next location"
             sleep(1)
         else 
-            puts "There's nothing for you to pickup"
+            puts "\nThere's nothing for you to pickup"
             puts "Please move on to the next location"
             sleep(1)
         end
@@ -50,10 +50,10 @@ class Action
             # npc_id == item's location_id
             # check npc's location_id of the location of current player == 
             # if there is an item in your current location, that location_id = npc's location_id
-            Game.slow_puts("#{Npc.find_by(id: Location.find_by(npc_id: ICommand.player.location_id).npc_id).name}: There seems to be an gem here, let me guide you")
-            Game.slow_puts("#{Npc.find_by(id: Location.find_by(npc_id: ICommand.player.location_id).npc_id).name}: We found it! Press 'p' to pickup the gem.")
+            Game.slow_puts("\n#{Npc.find_by(id: Location.find_by(npc_id: ICommand.player.location_id).npc_id).name.colorize(:blue)}: There seems to be an gem here, let me guide you")
+            Game.slow_puts("\n#{Npc.find_by(id: Location.find_by(npc_id: ICommand.player.location_id).npc_id).name.colorize(:blue)}: We found it! Press 'p' to pickup the gem.")
         else 
-            Game.slow_puts("#{Npc.find_by(id: Location.find_by(npc_id: ICommand.player.location_id).npc_id).name}: There's nothing I can help you with. Move on to the next location.")
+            Game.slow_puts("\n#{Npc.find_by(id: Location.find_by(npc_id: ICommand.player.location_id).npc_id).name.colorize(:blue)}: There's nothing I can help you with. Move on to the next location.")
         end
         Game.clear_term
         #if yes = guide to location,pause, i think we found it, use 'p' to pickup the item, no = sorry I can't help

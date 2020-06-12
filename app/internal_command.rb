@@ -110,39 +110,42 @@ class ICommand
         east_row = Location.find_by(id: Location.find_by(id: self.player.location_id).east_location)
         west_row = Location.find_by(id: Location.find_by(id: self.player.location_id).west_location)
 
-        puts "North of here, is #{north_row.name}." if north_row
-        puts "South of here, is #{south_row.name}." if south_row
-        puts "East of here, is #{east_row.name}." if east_row
-        puts "West of here, is #{west_row.name}." if west_row
+        puts "North of here, is #{north_row.name.colorize(:light_blue)}." if north_row
+        puts "South of here, is #{south_row.name.colorize(:light_blue)}." if south_row
+        puts "East of here, is #{east_row.name.colorize(:light_blue)}." if east_row
+        puts "West of here, is #{west_row.name.colorize(:light_blue)}." if west_row
     end
 
     def self.move_and_display
+        self.move_info
         self.location_display
         self.move(self.key_funcs)
         Game.clear_term
         Game.end_game_message
         Game.bag_and_loc
-        sleep(1)
+        sleep(0.5)
     end
 
     def self.move_and_display_loop
-        self.move_and_display while(true)
+        self.move_and_display while (true)
     end
-
-    # def self.look
-    #     if self.player.location_id == Item.find_by(location_id: self.player.location_id).location_id
-    #         puts "I feel like something is here but I don't know where"
-    #     else
-    #         puts "I feel like something is not here but I don't know"
-    #     end
-    #     # #to look around the area
-    # end
 
     def self.look
         lc1 = self.player.location_id
         lc2 = Item.find_by(location_id: lc1)&.location_id
-        lc1 == lc2 ? (puts "I feel like something is here but I don't know where") : (puts "I feel like something is not here but I don't know")
+        lc1 == lc2 ? (puts "\nI feel like something is here but I don't know where") : (puts "\nI feel like something is not here but I don't know")
         sleep(2)
+    end
+
+    def self.move_info
+        puts <<-PARAGRAPH
+Hi, #{self.player.name.colorize(:red).bold}! To move between locations, use the arrow keys 
+on your keyboard. In each location, you'll run into another character,
+to talk to them press 't'. If you want to search the location for any 
+hidden gems, press 'l'. If you find a gem, and want to collect it use 
+the 'p' key to pickup. If you're ever unsure of what you've picked up
+you can always check your bag contents by pressing 'c'. Best of luck! \n\n
+        PARAGRAPH
     end
 
 end

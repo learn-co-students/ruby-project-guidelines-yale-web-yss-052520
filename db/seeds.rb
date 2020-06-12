@@ -182,7 +182,7 @@ i3= Item.find_or_create_by(
 i4= Item.find_or_create_by(
     name: "Taffy",
     description:"A gem that has the ability to control the sea.",
-    location_id: 1,
+    location_id: 2,
     player_id: nil
 )
 

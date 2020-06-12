@@ -1,7 +1,9 @@
 class Game
 
-    @@artii = Artii::Base.new :font => 'slant'
+    #Gems for added customizations 
+    @@artii = Artii::Base.new :font => 'speed'
     @@prompt = TTY::Prompt.new
+    # @@output = AudioPlayback::Device::Output.gets
 
     def self.start
         Game.clear_term
@@ -15,7 +17,7 @@ class Game
         self.clear_term
         puts "MAIN MENU"
 
-        select = @@prompt.select('','New Game', 'Help', 'Exit')
+        select = @@prompt.select('','New Game', 'Help', 'Exit'.colorize(:red))
 
         case select
         when "New Game"
@@ -40,8 +42,11 @@ class Game
     end
 
     def self.exit_game
+        @@t2 = Time.now
         Game.clear_term
-        puts "Thanks for playing"
+        puts "Thank you, #{@@player.name.colorize(:red).bold}, for playing."
+        total_time = @@t2 - @@t1
+        puts "Time: #{total_time}"
         exit
         #exits game and closes terminal
     end 
@@ -51,6 +56,7 @@ class Game
     end
 
     def self.player_prompt
+        @@t1 = Time.now
         puts 
         select_player_name = @@prompt.ask("What is your name?")
         @@player = Player.create(name: select_player_name, bag_count: 0, location_id: 1)
@@ -60,7 +66,7 @@ class Game
 
     def self.help_menu 
     # display help menu screen
-    puts "HELP MENU"
+    puts "HELP MENU" 
 
         h_menu = @@prompt.select(' ', 'Game Info', 'Key Functions', 'Main Menu')
 
@@ -76,7 +82,7 @@ class Game
     end
 
     def self.intro
-        Game.slow_puts("Our world is in need of rescue. In order to protect \nthe planet, you must help Queen Frostine restore the \nnatural balance by finding the five hidden gems \nscattered throughout the planet's remains. On your \njourney you may run into helpers, but remember to \nstay focused. Otherwise the Earth might just implode.")
+        Game.slow_puts("\n \nOur world is in need of rescue. In order to protect \nthe planet, you must help Queen Frostine restore the \nnatural balance by finding the five hidden gems \nscattered throughout the planet's remains. On your \njourney you may run into helpers, but remember to \nstay focused. Otherwise the Earth might just implode.")
             # "Our world is in need of rescue. In order to protect
             # the planet, you must help Queen Frostine restore the
             # natural balance by finding the five hidden gems 
@@ -93,8 +99,10 @@ class Game
         ICommand.display_key_funcs
         sleep(2)
         Game.gameplay_screen
+        
     end
 
+    # controls speed of text display
     def self.slow_puts(string)
         string.each_char {|char| sleep(0.05); print char}
         print "\n"
@@ -104,10 +112,11 @@ class Game
         Game.clear_term
         ICommand.move_and_display_loop
         ICommand.key_funcs
+        self.background_music
     end
 
     def self.title
-        puts @@artii.asciify("Candy Hunt")
+        puts @@artii.asciify("Candy Hunt").colorize(:red).bold
     end
 
     def self.end_game_message
@@ -125,13 +134,26 @@ class Game
     end
 
     def self.end_game
-        Game.slow_puts("Congratulations on saving the world!")
+        Game.slow_puts("\nCongratulations #{@@player.name.colorize(:red).bold}, you saved the world!")
         sleep(1)
         self.exit_game
     end
 
     def self.bag
         Action.class_variable_get(:@@bag)
+    end
+
+    def self.background_music
+        # options = {
+        #     :channels => [0,1],
+        #     :latency => 1,
+        #     :output_device => @@output
+        # }
+        # @playback = AudioPlayback.play("./SLOWER2019-01-02_-_8_Bit_Menu_-_David_Renda_-_FesliyanStudios.com.mp3", options)
+
+        # @playback.block
+
+        pid = fork{exec 'afplay', "app/SLOWER2019-01-02_-_8_Bit_Menu_-_David_Renda_-_FesliyanStudios.com.mp3"}
     end
 
 end
