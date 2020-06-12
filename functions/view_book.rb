@@ -7,12 +7,11 @@ def view_book(book, list)
   display_entry(book)
 
   $prompt.select("What do you want to do?") do |menu|
-    menu.choice "Edit this book record", -> {edit_book(book)}
+    menu.choice "Edit this book record", -> {edit_book(book, list)}
     menu.choice "Toggle read/unread", -> {toggle_read(book, list)}
     menu.choice "Delete this book record", -> {delete_entry(book, list)}
     menu.choice "Back to list", -> {view_list(list, "sort_by_author")}
     menu.choice "Exit Program", -> {exit}
-    # menu.choice "Hang out for a bit", -> {hang_out(0.5,5)}
   end
 
 end

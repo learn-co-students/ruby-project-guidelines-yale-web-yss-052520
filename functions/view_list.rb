@@ -26,7 +26,18 @@ end
 
 def select_book(list)
     title = $prompt.ask("Enter the title of the book you want to view.").to_s
-    book = Book.find_by_title(title)
-    view_book(book, list)
+    bookarray = list.find_in_list_by_title(title)
+    if bookarray.size == 1
+        book = bookarray.first
+        view_book(book, list)
+    elsif bookarray.size >=2
+        author = $prompt.ask("Two or more entries by that title. Please enter author name.").to_s
+        book = list.find_in_list_by_title_and_author(title, author).first
+        view_book(book, list)
+    else
+        puts "Sorry, I can't find a book with that title in this list."
+        view_list(list, "sort_by_author")
+    end
+
    # binding.pry
 end

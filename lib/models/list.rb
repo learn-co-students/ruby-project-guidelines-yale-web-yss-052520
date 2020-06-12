@@ -23,6 +23,18 @@ class List < ActiveRecord::Base
     entries.map{|e| e.book}.uniq.compact
   end
 
+  def find_in_list_by_title(title)
+    self.books.select{|b| b.title == title}
+  end
+
+  def find_in_list_by_author(author)
+    self.books.select{|b| b.author.full_name == author}
+  end
+
+  def find_in_list_by_title_and_author(title, author)
+    self.books.select{|b| b.title == title && b.author.full_name == author}
+  end
+
   def sort_by_title
     self.books.sort_by(&:title)
   end
@@ -55,9 +67,9 @@ class List < ActiveRecord::Base
     self.books.sort_by(&:read)
   end
 
-  def sort_by_id
-    self.books.sort_by(&:id)
-  end
+  # def sort_by_id
+  #   self.books.sort_by(&:id)
+  # end
 
   def mark_all_as_read
     self.books.each do |b| 
@@ -74,16 +86,16 @@ class List < ActiveRecord::Base
 
 
 
-  def display_table_by_title
-    rows = []
-    sort_by_title.each do |book|
-      row = []
-      row.push(book.title, book.author.full_name, book.year, book.genre)
-      rows << row
-    end
-    table = Terminal::Table.new :rows => rows, :headings => ['Title', 'Author', 'Year', 'Genre']
-    puts table
-  end
+  # def display_table_by_title
+  #   rows = []
+  #   sort_by_title.each do |book|
+  #     row = []
+  #     row.push(book.title, book.author.full_name, book.year, book.genre)
+  #     rows << row
+  #   end
+  #   table = Terminal::Table.new :rows => rows, :headings => ['Title', 'Author', 'Year', 'Genre']
+  #   puts table
+  # end
     
     
 

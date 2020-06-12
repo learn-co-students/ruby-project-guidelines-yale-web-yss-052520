@@ -34,15 +34,15 @@ end
 
 def edit_menu(book, list)
     $prompt.select("Options") do |menu|
-        menu.choice "Change read status", -> {mark_read(book, list)}
+        #menu.choice "Change read status", -> {mark_read(book, list)}
         menu.choice "Title", -> {edit(book, "title", list)}
         menu.choice "Author", -> {edit(book, "author", list)}
         menu.choice "Year", -> {edit(book, "year", list)}
         menu.choice "Genre", -> {edit(book, "genre", list)}
         menu.choice "Notes", -> {edit(book, "notes", list)}
         menu.choice "Link", -> {edit(book, "link", list)}
-        menu.choice "Delete this book record", -> {book.destroy}
-        menu.choice "Back to list", -> {view_list(list)}
+        menu.choice "Delete this book record", -> {delete_entry(book, list)}
+        menu.choice "Back to list", -> {view_list(list, "sort_by_author")}
     end
 end
 
@@ -63,17 +63,17 @@ def edit(book, item, list)
     if input != nil
         case item
         when "title"
-            book.title = input
+            book.update(title: input)
         when "author"
-            book.author = input
+            book.update(author_id: find_or_create_author_by_full_name(input).id)
         when "year"
-            book.year = input.to_i
+            book.update(year: input.to_i)
         when "genre"
-            book.set_genre(input)
+            book.update(genre: input)
         when "notes"
-            book.notes = input
+            book.update(notes: input)
         when "link"
-            book.link = input
+            book.update(link: input)
         end
     end
     edit_book_header(book)

@@ -8,7 +8,7 @@ def create_new_list
     sleep(0.5)
 
     title = $prompt.ask("Type in a title:", required: true)
-    description = $prompt.ask("Write a description:", required: true)
+    description = $prompt.ask("Write a description (optional):", required: false)
 
     puts "List title: #{title}"
     puts "Description: #{description}"
@@ -20,7 +20,7 @@ def create_new_list
         List.create(name: title, description: description)
         view_all
     else
-        view_all
+        main_menu
     end
 
 end

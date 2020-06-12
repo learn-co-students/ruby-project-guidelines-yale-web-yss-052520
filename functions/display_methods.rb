@@ -4,10 +4,15 @@ def display_table(selected, sortstring)
   rows = []
   sorted_array.each do |book|
     row = []
-    row.push(book.title, book.author.full_name, book.year, book.read)
+    row.push(book.title, book.author.full_name, book.year, book.genre, book.read)
     rows << row
   end
-  table = Terminal::Table.new :rows => rows, :headings => ['Title', 'Author', 'Year', 'Read?'], :title => selected.name + "\n" + selected.description
+  if selected.description
+    table_title = selected.name + "\n" + selected.description
+  else
+    table_title = selected.name
+  end
+  table = Terminal::Table.new :rows => rows, :headings => ['Title', 'Author', 'Year', 'Genre', 'Read?'], :title => table_title
  # puts "Press enter for options."
   puts table
 end
