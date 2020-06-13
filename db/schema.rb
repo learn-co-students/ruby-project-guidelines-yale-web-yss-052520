@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_08_220718) do
+ActiveRecord::Schema.define(version: 2020_06_09_215644) do
 
   create_table "authors", force: :cascade do |t|
     t.string "first_name"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2020_06_08_220718) do
     t.string "link"
     t.string "format"
     t.string "notes"
-    t.boolean "read?"
+    t.boolean "read", default: false
   end
 
   create_table "entries", force: :cascade do |t|
