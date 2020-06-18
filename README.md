@@ -1,1 +1,1 @@
-See https://github.com/MaoZiming/ruby-project-guidelines-yale-web-yss-052520 for Module 1 final project.
+This is a redirect to my Module 1 Final Project for the Yale x Flatiron School Web Development Bootcamp. Ziming and I made a CLI for querying information from the COVID-19 API. Click [here](https://github.com/MaoZiming/ruby-project-guidelines-yale-web-yss-052520) to check it out!
